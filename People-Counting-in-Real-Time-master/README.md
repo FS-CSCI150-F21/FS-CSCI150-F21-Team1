@@ -1,3 +1,6 @@
+# This open source software was modified and integrated as a feature of the main project. 
+Link to the original work: https://github.com/saimj7/People-Counting-in-Real-Time 
+
 # People-Counting-in-Real-Time
 People Counting in Real-Time using live video stream/IP camera in OpenCV.
 
