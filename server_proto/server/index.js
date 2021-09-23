@@ -29,6 +29,17 @@ app.get("/employees", async(req, res) => {
     }
 })
 
+app.delete("/employees", async(req,res)=> {
+    try {
+        const newEmployee = await pool.query(
+            "DELETE FROM employee_info"
+        );
+        
+    } catch (error) {
+        console.error(error.message)
+    }
+})
+
 app.listen(5000, () =>{
     
 })
