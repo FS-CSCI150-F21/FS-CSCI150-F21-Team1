@@ -1,4 +1,4 @@
-function huh() {
+function no_special() {
   $('input').on('keypress', function (event) {
     var regex = new RegExp("^[a-zA-Z0-9]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -21,7 +21,7 @@ function signup() {
         document.getElementById("test").innerHTML = j.responseText;
         if (good == "1") {
           document.getElementById("test").innerHTML = "Logging In";
-          location.replace("../html_pages/dash.html");
+          location.replace("../html_pages/userList.html");
         }
       }
     };
@@ -47,7 +47,7 @@ function login() {
         if (good == "1") {
           document.getElementById("test").innerHTML = "Logging In";
 
-          location.replace("../html_pages/dash.html");
+          location.replace("../html_pages/userList.html");
         }
       }
     };
@@ -64,7 +64,7 @@ function logout() {
   var j = new XMLHttpRequest();
   j.onreadystatechange = function () {
     if (j.readyState == 4 && j.status == 200) {
-      location.replace("../html_pages/index.html");
+      location.replace("../html_pages/login.html");
     }
   };
   j.open('GET', '../php_pages/logout.php');

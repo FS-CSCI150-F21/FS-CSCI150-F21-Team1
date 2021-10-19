@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    background-color: #658a6e;
+}
+  
+.table {
+    width: 100%;
+    max-width: 100vh;
+    margin: auto;   
+    border-spacing:0 20px;
+}
