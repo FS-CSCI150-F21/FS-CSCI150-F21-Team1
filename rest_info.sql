@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2021 at 12:26 AM
+-- Generation Time: Oct 22, 2021 at 12:27 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `rest_info`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_test`
+--
+
+CREATE TABLE `employee_test` (
+  `id` int(6) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -54,6 +66,44 @@ INSERT INTO `people_count` (`num_people_inside`, `date_time`) VALUES
 (2, '2021-10-21 15:24:00'),
 (3, '2021-10-21 15:24:01'),
 (4, '2021-10-21 15:24:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_test`
+--
+
+CREATE TABLE `user_test` (
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_test`
+--
+
+INSERT INTO `user_test` (`username`, `password`) VALUES
+('fgh', 'ghjfghj'),
+('fghfdghdfg', 'ghjjjjjjj'),
+('fghj', 'hjkghj'),
+('ghghjkk', 'hjkghj'),
+('ghjghjghj', 'yyyyy'),
+('iksdhf', 'sdkljfh'),
+('jjjjjjjjj', 'jhgjghjghj'),
+('kjhdfgkjsd', 'kdjsfhgksjdfg'),
+('sddfgsdf', 'fghfgdhdfgh'),
+('sdfs', 'dfgdfg'),
+('test', 'asdasd');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `user_test`
+--
+ALTER TABLE `user_test`
+  ADD PRIMARY KEY (`username`,`password`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
