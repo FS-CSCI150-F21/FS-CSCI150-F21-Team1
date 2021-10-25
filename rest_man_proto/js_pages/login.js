@@ -60,6 +60,35 @@ function login() {
   }
 }
 
+function add_customer() {
+
+  var f_name = document.getElementById("c_fname").value;
+  var l_name = document.getElementById("c_lname").value;
+  var user = document.getElementById("c_username").value;
+  var pass = document.getElementById("c_password").value;
+  
+  if (user != "" && pass != "" && f_name != "" && l_name != "") {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+      if (j.readyState == 4 && j.status == 200) {
+        console.log(j.responseText)  
+        if(j.responseText == 1){
+          document.getElementById("test").innerHTML = "Successfully Added";
+        }
+        else {
+          document.getElementById("test").innerHTML = "Username already exists";
+        }
+      }
+    };
+    j.open('POST', '../php_pages/add_customer.php');
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send("fn=" + f_name + "&" + "ln=" + l_name + "&" + "u=" + user + "&" + "p=" + pass + "&");
+  }
+  else {
+    document.getElementById("test").innerHTML = "ERROR: EMPTY FIELDS";
+  }
+}
+
 function logout() {
   var j = new XMLHttpRequest();
   j.onreadystatechange = function () {
@@ -69,6 +98,10 @@ function logout() {
   };
   j.open('GET', '../php_pages/logout.php');
   j.send();
+}
+
+function hide(){
+  document.getElementById('customer_modal').style.display='none';
 }
 
 function get_level() {
