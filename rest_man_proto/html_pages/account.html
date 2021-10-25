@@ -30,7 +30,11 @@
 
     <button type="button" onclick="document.getElementById('customer_modal').style.display='block'">New Customer? Click Here to Create Account</button>
   </div>
-  <button type="button" onclick="logout()">Log Out</button>
+  <div id="btn_logout">
+    <button type="button" onclick="to_dashboard()">Dashboard</button>
+    <button type="button" onclick="logout()" >Log Out</button>
+  </div>
+  
   <div id="response"></div>
 
   
@@ -51,31 +55,8 @@
     </div>
   </div>
 
-  <script>
-    var isLoggedIn = false;
-    function check() {
-    var j = new XMLHttpRequest();
-    j.onreadystatechange = function () {
-        if (j.readyState == 4 && j.status == 200) {
-            var check = j.responseText;
-            if (check == 0) {
-              isLoggedIn = false;
-              document.getElementById("login_form").style.display = "block";
-            }
-            else{
-              isLoggedIn = true;
-              document.getElementById("login_form").style.display = "none";
-            }
-        }
-    };
-    j.open('POST', '../php_pages/check.php', true);
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
-  }
-  </script>
-
-
-  
+  <p id="user_info">
+  </p>
 </body>
 </html>
 
