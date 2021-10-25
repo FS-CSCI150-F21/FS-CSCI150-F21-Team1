@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <script src="../js_pages/login.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link href="../css_pages/login.css" rel="stylesheet">
+</head>
+
+<body onload="check();">    
+<h1>Account</h1>
+  <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="account.html">Account</a>
+      </nav>
+  </header>
+  
+  <div id="login_form">
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="username" required>
+    <label for="passowrd">Password</label>
+    <input type="password" id="password" placeholder="password" required>
+    <button type="button" onclick="login()">Log In</button>
+
+    <input type="radio" name="level" value="0">Manager
+    <input type="radio" name="level" value="1">Employee
+    <input type="radio" name="level" value="2">Customer
+  </div>
+  <button type="button" onclick="logout()">Log Out</button>
+  <div id="response"></div>
+
+
+  <script>
+    var isLoggedIn = false;
+    function check() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            var check = j.responseText;
+            if (check == 0) {
+              isLoggedIn = false;
+              document.getElementById("login_form").style.display = "block";
+            }
+            else{
+              isLoggedIn = true;
+              document.getElementById("login_form").style.display = "none";
+            }
+        }
+    };
+    j.open('POST', '../php_pages/check.php', true);
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send();
+  }
+  </script>
+
+
+  
+</body>
+</html>
+

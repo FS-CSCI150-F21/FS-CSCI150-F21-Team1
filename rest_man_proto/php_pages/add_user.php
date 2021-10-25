@@ -5,6 +5,8 @@ $dbusername = "rest_manager";
 $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
+$firstname = $_POST['fn'];
+$lastname = $_POST['ln'];
 $playerusername = $_POST['u'];
 $playerpassword = $_POST['p'];
 $userlevel = $_POST['l'];
@@ -17,8 +19,7 @@ if ($conn->connect_error) {
 
 
 
-$sql = "SELECT username, password, level FROM employee_test where username='$playerusername' AND password='$playerpassword' AND level='$userlevel'";
-
+$sql = "SELECT username FROM employee_test where username='$playerusername'";
 
 $results = $conn->query($sql);
 
@@ -26,11 +27,13 @@ $exists = $results->num_rows;
 
 if ($exists > 0)
 {
-    echo "1";
+    echo "0";
 }
 else
 {
-  echo "Incorrect username, password, or user level";
+    $sql = "INSERT INTO employee_test (first_name, last_name, username, password, level) 
+    VALUES ('$firstname','$lastname','$playerusername','$playerpassword','$userlevel');";
+    echo "1";
 }
 
 if ($conn->query($sql) !== FALSE) {
@@ -39,15 +42,6 @@ else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   
-if($exists==1)
-{
-    session_start();
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $playerusername;
-    $_SESSION['level'] = $userlevel;
-
-}
-
 $conn->close();
 
 

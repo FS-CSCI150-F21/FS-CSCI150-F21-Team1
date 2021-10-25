@@ -1,20 +1,41 @@
 var user_array;
 var length;
+var i;
 
 window.onload = function () {
     get_users();
 }
 function create_user_rows(){
     var users = document.getElementById("user_list");
-    for(var i = 0; i < length; i++){
+    for(i = 0; i < length; i++){
         var row = users.insertRow(-1);
         var f_name = row.insertCell(-1);
         var l_name = row.insertCell(-1);
-        f_name.innerHTML = user_array[i]['username'];
-        l_name.innerHTML = user_array[i]['password'];
+        var username = row.insertCell(-1);
+        var password = row.insertCell(-1);
+        var level = row.insertCell(-1);
+        var edit = row.insertCell(-1);
+        
+        var element = document.createElement("button");
+        element.type = "button";
+        element.innerText = "Delete"
+
+        element.onclick = function() {
+            delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
+        }
+
+
+        f_name.innerHTML = user_array[i]['first_name'];
+        l_name.innerHTML = user_array[i]['last_name'];
+        username.innerHTML = user_array[i]['username'];
+        password.innerHTML = user_array[i]['password'];
+        level.innerHTML = user_array[i]['level'];
+        
+        edit.appendChild(element);
+        
+        //edit.innerHTML = "<button type='button' id=i onclick='delete_user(this.id)'>Delete</button>";
     }
 }
-
 
 function get_users(){
     document.getElementById("user_list").innerHTML = "";
@@ -30,4 +51,20 @@ function get_users(){
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send();
 
+}
+
+function delete_user(data){
+    user = data['username'];
+   
+    var j = new XMLHttpRequest();
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                console.log(j.responseText);
+                get_users();
+            }
+    };
+    j.open('POST', '../php_pages/delete_user.php');
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send("u=" + user);
+    // j.send("fn=" + f_name + "&" + "ln=" + l_name + "&" + "u=" + user + "&" + "p=" + pass + "&" + "l=" + level);
 }
