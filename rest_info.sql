@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2021 at 12:27 AM
+-- Generation Time: Oct 26, 2021 at 07:17 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -41,31 +41,28 @@ CREATE TABLE `employee_test` (
 
 CREATE TABLE `people_count` (
   `num_people_inside` int(11) NOT NULL,
-  `date_time` datetime NOT NULL DEFAULT current_timestamp()
+  `date_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `people_count`
 --
 
-INSERT INTO `people_count` (`num_people_inside`, `date_time`) VALUES
-(2, '2021-10-20 11:56:45'),
-(0, '2021-10-20 11:58:04'),
-(0, '2021-10-20 11:58:26'),
-(1, '2021-10-20 11:58:27'),
-(2, '2021-10-20 11:58:28'),
-(3, '2021-10-20 11:58:29'),
-(4, '2021-10-20 11:58:30'),
-(5, '2021-10-20 11:58:31'),
-(6, '2021-10-20 11:58:32'),
-(7, '2021-10-20 11:58:33'),
-(8, '2021-10-20 11:58:34'),
-(9, '2021-10-20 11:58:35'),
-(0, '2021-10-21 15:23:58'),
-(1, '2021-10-21 15:23:59'),
-(2, '2021-10-21 15:24:00'),
-(3, '2021-10-21 15:24:01'),
-(4, '2021-10-21 15:24:02');
+INSERT INTO `people_count` (`num_people_inside`, `date_time`, `id`) VALUES
+(1, '2021-10-26 10:12:45', 1),
+(2, '2021-10-26 10:12:45', 2),
+(3, '2021-10-26 10:12:46', 3),
+(2, '2021-10-26 10:12:49', 4),
+(3, '2021-10-26 10:12:51', 5),
+(2, '2021-10-26 10:12:52', 6),
+(3, '2021-10-26 10:12:53', 7),
+(1, '2021-10-26 10:16:38', 8),
+(2, '2021-10-26 10:16:38', 9),
+(1, '2021-10-26 10:16:41', 10),
+(2, '2021-10-26 10:16:42', 11),
+(3, '2021-10-26 10:16:42', 12),
+(4, '2021-10-26 10:16:45', 13);
 
 -- --------------------------------------------------------
 
@@ -100,10 +97,26 @@ INSERT INTO `user_test` (`username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `people_count`
+--
+ALTER TABLE `people_count`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_test`
 --
 ALTER TABLE `user_test`
   ADD PRIMARY KEY (`username`,`password`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `people_count`
+--
+ALTER TABLE `people_count`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
