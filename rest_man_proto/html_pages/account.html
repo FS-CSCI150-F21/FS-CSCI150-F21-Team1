@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <script src="../js_pages/login.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link href="../css_pages/account.css" rel="stylesheet">
+</head>
+
+<body onload="check();">    
+<h1>Account</h1>
+  <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="account.html">Account</a>
+      </nav>
+  </header>
+  
+  <div id="login_form" style="display:none">
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="username" required>
+    <label for="passowrd">Password</label>
+    <input type="password" id="password" placeholder="password" required>
+    <button type="button" onclick="login()">Log In</button>
+
+    <input type="radio" name="level" value="0">Manager
+    <input type="radio" name="level" value="1">Employee
+    <input type="radio" name="level" value="2">Customer
+
+    <button type="button" onclick="document.getElementById('customer_modal').style.display='block'">New Customer? Click Here to Create Account</button>
+  </div>
+  <div id="btn_logout">
+    <button type="button" onclick="to_dashboard()">Dashboard</button>
+    <button type="button" onclick="logout()" >Log Out</button>
+  </div>
+  
+  <div id="response"></div>
+
+  
+
+  <div id="customer_modal" class="modal">
+    <div class="modal-content">
+      <div>
+        <input type="text" placeholder="First Name" id="c_fname" required>
+        <input type="text" placeholder="Last Name" id="c_lname" required>
+        <input type="text" placeholder="Username" id="c_username" required>
+        <input type="password" placeholder="Password" id="c_password" required>
+        <button type="button" onclick="add_customer()">Add</button>
+      </div>
+      <div class="container">
+        <button type="button" onclick="hide()">Close</button>
+        <div id="test" style="color: white;"></div>
+      </div>
+    </div>
+  </div>
+
+  <p id="user_info">
+  </p>
+</body>
+</html>
+

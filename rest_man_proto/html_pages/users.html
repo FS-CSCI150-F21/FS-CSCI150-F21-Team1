@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css_pages/users.css" rel="stylesheet">    
+    <script src="../js_pages/add_user.js"></script>
+    <script src="../js_pages/users.js"></script>
+  </head>
+<header>
+  
+</header>
+<body>
+  <!--Nav bar-->
+  <nav class="nav">
+    <a href="index.html">Home</a></li>
+    <a href="account.html">Account</a>
+    <a href="#Menu">Menu</a></li>
+    <a href="#Contact">Contact</a></li>
+    <a href="#About">About</a></li>
+    <div class="navlog">
+        <a id= "login" href="login.html">Login</a></li>
+        <a href="signup.html">Signup</a></li>
+    </div>
+  </nav>
+
+  <button type="button" onclick="get_users()" >Refresh Data</button>
+  <button type="button" onclick="document.getElementById('add_modal').style.display='block'">Add User</button>
+  <table>
+    <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Level</th>
+          <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="user_list">
+    </tbody>
+  </table>
+
+  <div id="add_modal" class="modal">
+    <div class="modal-content">
+      <div>
+        <input type="text" placeholder="First Name" id="modal_fname" required>
+        <input type="text" placeholder="Last Name" id="modal_lname" required>
+        <input type="text" placeholder="Username" id="modal_username" required>
+        <input type="password" placeholder="Password" id="modal_password" required>
+        <select name="level" id="modal_level">
+          <option value="0">Manager</option>
+          <option value="1">Employee</option>
+          <option value="2">Customer</option>
+        </select>
+
+        <button type="button" onclick="add_user()">Add</button>
+      </div>
+      <div class="container">
+        <button type="button" onclick="hide()">Close</button>
+        <div id="test" style="color: white;"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<script>
+
+</script>
+</body>
+</html>
+
+<!-- <div id="edit_modal" class="modal">
+  <div class="modal-content">
+    <div>
+      <input type="text" placeholder="First Name" id="edit_fname" required>
+      <input type="text" placeholder="Last Name" id="edit_lname" required>
+      <input type="text" placeholder="Username" id="edit_username" required>
+      <input type="password" placeholder="Password" id="edit_password" required>
+      <select name="level" id="edit_level">
+        <option value="0">Manager</option>
+        <option value="1">Employee</option>
+        <option value="2">Customer</option>
+      </select>
+
+      <button type="button" onclick="edit_user()">Update</button>
+    </div>
+    <div class="container">
+      <button type="button" onclick="hide_edit()">Close</button>
+      <div id="test" style="color: white;"></div>
+    </div>
+  </div>
+</div> -->
