@@ -10,7 +10,7 @@ url = 0
 # ON/OFF for mail feature. Enter True to turn on the email alert feature.
 ALERT = False
 # Set max. people inside limit. Optimise number below: 10, 50, 100, etc.
-Threshold = 10
+Threshold = 50
 # Threading ON/OFF
 Thread = False
 # Simple log to log the counting data
