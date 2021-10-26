@@ -19,7 +19,7 @@ body{
 .nav a:hover{
     color:rgb(165, 91, 0);
 }
-.navlog
+.rightnav
 {
     float: right;
 }
@@ -56,13 +56,14 @@ button:hover{
     margin-top: 2%;
     width: 65%;
     height: 10%;
-    margin-left: 1%;
+    margin-left: 2%;
     display: block;
     float: left;
     border: 2px solid black;
     text-align: center;
     padding: 20px;
     color: black;
+    margin-bottom: 1%;
 }
 .menu label
 {   
