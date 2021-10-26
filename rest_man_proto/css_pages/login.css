@@ -1,3 +1,33 @@
-body{
-    background-color: gray;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  background-color: #658a6e;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 35vh;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
 }
