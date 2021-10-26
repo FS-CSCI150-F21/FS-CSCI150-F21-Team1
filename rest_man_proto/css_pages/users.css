@@ -1,4 +1,5 @@
 body{
+  background-color: rgba(87, 87, 87, 0.774);
   width: 100%;
   height:100%;
   margin: 0;
@@ -19,28 +20,59 @@ body{
 .nav a:hover{
   color:rgb(165, 91, 0);
 }
-.navlog
+.rightnav
 {
   float: right;
 }
 .modal {
   display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed; /*Stay in place*/
+  z-index: 1; /*Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100%; 
+  height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
+  padding-top: 60px; 
 }
   
 .modal-content {
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   width: 80%; /* Could be more or less, depending on screen size */
-}
+} 
 #refreshBtn{
   margin-bottom: 60px;
+}
+h1
+{
+    padding-top: 100px;
+    text-align: center;
+    font-size: 30px;
+    color: rgb(255, 191, 112);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+table{
+  margin-top: 60px;
+  background-color: rgba(0, 0, 0, 0.836);
+  color: white;
+  padding: 15px;
+  font-size: 17px;
+}
+table th,
+table td {
+  width: 1%;
+  padding: .5rem;
+  vertical-align: top;
+}
+#hi{
+  width: 100%;
+  text-align: center;
+}
+select{
+  text-align: center;
+  height: 50px;
+  width: 200px;
+  border-radius: 30px;
 }

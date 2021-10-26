@@ -11,12 +11,18 @@
   
 </header>
 <body>
-  <header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="m_dash.html">Dashboard</a>
-    </nav>
-  </header>
+  <!--Nav bar-->
+  <nav class="nav">
+    <a href="index.html">Home</a></li>
+    <a href="account.html">Account</a>
+    <a href="#Menu">Menu</a></li>
+    <a href="#Contact">Contact</a></li>
+    <a href="#About">About</a></li>
+    <div class="rightnav">
+        <a id= "login" href="login.html">Login</a></li>
+        <a href="signup.html">Signup</a></li>
+    </div>
+  </nav>
 
   <button type="button" onclick="get_users()" >Refresh Data</button>
   <button type="button" onclick="document.getElementById('add_modal').style.display='block'">Add User</button>
