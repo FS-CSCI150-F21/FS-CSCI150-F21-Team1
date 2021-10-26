@@ -6,9 +6,7 @@ HOST = "localhost"
 DATABASE = "rest_info"
 USER = "rest_manager"
 PASSWORD = "iF2ONNbmcCTcdjrd"
-
-db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD)
-
+db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD
 print("Connected to:", db_connection.get_server_info())
 
 cursor = db_connection.cursor()

@@ -9,6 +9,7 @@ import numpy as np
 import argparse, imutils
 import time, dlib, cv2, datetime
 from itertools import zip_longest
+import mysql.connector as mysql
 
 t0 = time.time()
 
@@ -30,6 +31,16 @@ def run():
 	ap.add_argument("-s", "--skip-frames", type=int, default=30,
 		help="# of skip frames between detections")
 	args = vars(ap.parse_args())
+
+	# DB setup
+	HOST = "localhost"
+	DATABASE = "rest_info"
+	USER = "rest_manager"
+	PASSWORD = "iF2ONNbmcCTcdjrd"
+	db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD)
+	print("Connected to:" , db_connection.get_server_info())
+	cursor = db_connection.cursor()
+
 
 	# initialize the list of class labels MobileNet SSD was trained to
 	# detect
@@ -245,11 +256,20 @@ def run():
 								print("[INFO] Alert sent")
 
 						to.counted = True
-						
+
+
+					# this is where num people inside changes	
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
 					#print("Total people inside:", x)
+
+					noww = datetime.datetime.now()
+					noww.strftime('%Y-%m-%d %H:%M:%S')
+					valz = [x, noww]
+					print(valz)
+					cursor.execute(sql_insert, valz)
+					db_connection.commit()
 
 
 			# store the trackable object in our dictionary

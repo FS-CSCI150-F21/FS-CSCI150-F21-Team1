@@ -1,7 +1,9 @@
 schedule
 numpy
+mysql-connector
 argparse
 imutils
+cmake
 dlib
 opencv-python
 scipy
