@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 
 
 
-$sql = "SELECT username FROM employee_test where username='$playerusername'";
+$sql = "SELECT username FROM user_info where username='$playerusername'";
 
 $results = $conn->query($sql);
 
@@ -30,7 +30,7 @@ if ($exists < 1)
 }
 else
 {
-    $sql = "DELETE FROM employee_test WHERE username='$playerusername'";
+    $sql = "DELETE FROM user_info WHERE username='$playerusername'";
     echo "Successfully deleted " . $playerusername;
 }
 

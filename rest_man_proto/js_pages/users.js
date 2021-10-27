@@ -15,11 +15,9 @@ function create_user_rows(){
         var password = row.insertCell(-1);
         var level = row.insertCell(-1);
         var edit = row.insertCell(-1);
-        
         var element = document.createElement("button");
         element.type = "button";
         element.innerText = "Delete"
-
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
@@ -55,7 +53,6 @@ function get_users(){
 
 function delete_user(data){
     user = data['username'];
-   
     var j = new XMLHttpRequest();
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {

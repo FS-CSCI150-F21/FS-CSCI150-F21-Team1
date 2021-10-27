@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 
 
 
-$sql = "SELECT username FROM employee_test where username='$playerusername'";
+$sql = "SELECT username FROM user_info where username='$playerusername'";
 
 $results = $conn->query($sql);
 
@@ -31,7 +31,7 @@ if ($exists > 0)
 }
 else
 {
-    $sql = "INSERT INTO employee_test (first_name, last_name, username, password, level) 
+    $sql = "INSERT INTO user_info (first_name, last_name, username, password, level) 
     VALUES ('$firstname','$lastname','$playerusername','$playerpassword','$userlevel');";
     echo "1";
 }

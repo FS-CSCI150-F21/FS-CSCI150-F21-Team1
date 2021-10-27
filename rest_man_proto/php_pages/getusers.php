@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "SELECT first_name,last_name,username,password, level FROM employee_test ORDER BY level";
+$sql = "SELECT first_name,last_name,username,password, level FROM user_info ORDER BY level";
 
 $results = $conn->query($sql);
 
