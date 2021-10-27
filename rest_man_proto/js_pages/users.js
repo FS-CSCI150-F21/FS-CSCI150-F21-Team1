@@ -26,8 +26,20 @@ function create_user_rows(){
         l_name.innerHTML = user_array[i]['last_name'];
         username.innerHTML = user_array[i]['username'];
         password.innerHTML = user_array[i]['password'];
-        level.innerHTML = user_array[i]['level'];
+        level.innerHTML = level_to_name(user_array[i]['level']);
         edit.appendChild(element);
+    }
+}
+
+function level_to_name(level){
+    if(level == 0){
+        return "Manager";
+    }
+    else if(level == 1){
+        return "Employee";
+    }
+    else{
+        return "Customer";
     }
 }
 
@@ -59,5 +71,4 @@ function delete_user(data){
     j.open('POST', '../php_pages/delete_user.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("u=" + user);
-    // j.send("fn=" + f_name + "&" + "ln=" + l_name + "&" + "u=" + user + "&" + "p=" + pass + "&" + "l=" + level);
 }

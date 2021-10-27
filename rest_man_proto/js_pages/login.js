@@ -14,7 +14,6 @@ j.onreadystatechange = function () {
           isLoggedIn = true;
           document.getElementById("login_form").style.display = "none";
           document.getElementById("btn_logout").style.display = "block";
-          document.getElementById("user_info").innerText = "Logged in as " + j.responseText;
         }
     }
 };

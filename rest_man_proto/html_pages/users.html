@@ -6,6 +6,8 @@
     <link href="../css_pages/users.css" rel="stylesheet">    
     <script src="../js_pages/add_user.js"></script>
     <script src="../js_pages/users.js"></script>
+    <script src="../tests/randomdata.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   </head>
 <header>
   
@@ -21,6 +23,7 @@
       <a href="account.html">Account</a>
   </div>
   </nav>
+  <button type="button" onclick="fill()">FILL DATABASE WITH RANDOM DATA</button>
   <button type="button" onclick="get_users()">Refresh Data</button>
   <button type="button" onclick="document.getElementById('add_modal').style.display='block'">Add User</button>
   <table>
