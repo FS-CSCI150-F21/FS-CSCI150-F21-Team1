@@ -5,6 +5,7 @@ var i;
 window.onload = function () {
     get_users();
 }
+
 function create_user_rows(){
     var users = document.getElementById("user_list");
     for(i = 0; i < length; i++){
@@ -21,17 +22,12 @@ function create_user_rows(){
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
-
-
         f_name.innerHTML = user_array[i]['first_name'];
         l_name.innerHTML = user_array[i]['last_name'];
         username.innerHTML = user_array[i]['username'];
         password.innerHTML = user_array[i]['password'];
         level.innerHTML = user_array[i]['level'];
-        
         edit.appendChild(element);
-        
-        //edit.innerHTML = "<button type='button' id=i onclick='delete_user(this.id)'>Delete</button>";
     }
 }
 
