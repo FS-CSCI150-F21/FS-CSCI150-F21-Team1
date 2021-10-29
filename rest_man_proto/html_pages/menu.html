@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+
+<head>
+    <!-- create css page for when you export internal css to external
+            and update this link.
+            <link rel="stylesheet" type="text/css" href="../css_pages/">-->
+    <title>
+        Menu
+    </title>
+    <style>
+        /*
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        */
+        html {
+            background-color: #000a0b;
+            color: #055f60;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        table caption,
+        table thead {
+            display: none;
+        }
+
+        table {
+            /*margin: auto auto;*/
+            border-collapse: collapse;
+            display: grid;
+            text-align: center;
+        }
+
+        td.catName {
+            background-color: white;
+            text-align: center;
+        }
+
+        td.odd {
+            background-color: white;
+        }
+
+        td {
+            padding: 0 0;
+            margin: 0 0;
+            width: 11vw;
+        }
+
+        tr {
+            margin: 0 auto;
+            display: inline;
+        }
+
+        img {
+            margin: 0;
+            padding: 0;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+    <script>
+        function fillCats() {
+            let httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let responseObj = JSON.parse(httpRequest.responseText);
+                    let catBod = document.getElementById('catBod');
+                    for (let i = 0; i < responseObj.length; i++) {
+                        let tr = document.createElement('tr');
+                        tr.onclick = function () { myAlert(i) };
+                        let td = document.createElement('td');
+                        if (responseObj[i][2] == true) {
+                            td.innerText = responseObj[i][0];
+                            td.className = 'catName';
+                            colorClass = (i % 2) ? "odd" : "even";
+                            td.className = 'catName + ' + colorClass;
+                        }
+                        tr.appendChild(td);
+                        td = document.createElement('td');
+                        let img = document.createElement('img');
+                        img.src = "../images/menu/" + responseObj[i][3];
+                        img.width = "350";
+                        img.height = "300";
+                        td.appendChild(img);
+                        tr.appendChild(td);
+                        catBod.appendChild(tr);
+                    }
+                }
+            }
+            httpRequest.open("GET", "../php_pages/menu.php", true);
+            httpRequest.send();
+        }
+        function myAlert(i) {
+            alertMessage = 'This function will be replaced with an AJAX method to dynamically'
+                + ' change the webpage based on the category (' + i + ') chosen.';
+            alert(alertMessage);
+        }
+    </script>
+</head>
+
+<body onload='fillCats()'>
+    <h1>Menu</h1>
+    <!-- This page should load categories of the menu, which would be acquired
+        from the database. Examples are drinks, appetizers, soups & salads,
+        kid's meals, entrees, and desserts.
+    -->
+    <p>
+        Once a category is chosen, a side bar will appear on the left with all
+        these category choices.
+    </p>
+    <h2>
+        Categories
+    </h2>
+    <table>
+        <caption>Categories</caption>
+        <thead>
+            <th>Category</th>
+            <th>Image</th>
+        </thead>
+        <tbody id='catBod'></tbody>
+    </table>
+
+    <div></div>
+</body>
+
+</html>
