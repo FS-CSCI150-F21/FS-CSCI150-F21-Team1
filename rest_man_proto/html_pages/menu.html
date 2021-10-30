@@ -6,8 +6,8 @@
     <!-- create css page for when you export internal css to external
             and update this link.
             <link rel="stylesheet" type="text/css" href="../css_pages/">-->
-    <title>
-        Menu
+    <title id='title'>
+        Menu: Categories
     </title>
     <style>
         /*
@@ -16,14 +16,28 @@
             padding: 0;
         }
         */
+
         html {
-            background-color: #000a0b;
+            /*background-color: #000a0b;*/
             color: #055f60;
         }
 
+        body {
+            margin: 0 0;
+        }
+
+        /*
         h1,
         h2 {
-            text-align: center;
+            text-align: left;
+        }
+        */
+        #h1Title {
+            display: none;
+        }
+
+        h1 {
+            margin: 1vh 0 1vh 5vw;
         }
 
         table caption,
@@ -35,13 +49,19 @@
             /*margin: auto auto;*/
             border-collapse: collapse;
             display: grid;
-            text-align: center;
+            text-align: left;
         }
 
         td.catName {
             background-color: white;
             text-align: center;
         }
+
+        /*
+        td.catName:hover{
+            background-color: black;
+        }
+        */
 
         td.odd {
             background-color: white;
@@ -54,8 +74,14 @@
         }
 
         tr {
-            margin: 0 auto;
-            display: inline;
+            margin: 0 0;
+            padding: 0 0;
+            display: inline-block;
+            opacity: 1;
+        }
+
+        tr:active {
+            opacity: .5;
         }
 
         img {
@@ -64,70 +90,184 @@
             object-fit: cover;
             display: block;
         }
+
+        /*After category is chosen*/
+        #gridBody{
+            display: grid;
+        }
+
+        /*nav menu on left, after a category is chosen.*/
+
+        nav ul {
+            list-style-type: none;
+            margin: 0 0 0 0;
+            padding: 0;
+            color: white;
+            text-align: center;
+            float: left;
+        }
+
+        nav ul li {
+            padding: 1vh 1vw;
+            background-color: #055f60;
+        }
+
+        nav ul li:hover {
+            opacity: .5;
+        }
+
+        #selectedNavItem {
+            color: black;
+        }
+
+        #selectedNavItem:hover {
+            opacity: 1;
+        }
     </style>
     <script>
-        function fillCats() {
+        //used on load to show the main categories of the menu.
+        //this data is grabbed from the mysql database.  see menu.php file.
+        function categories() {
             let httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let responseObj = JSON.parse(httpRequest.responseText);
-                    let catBod = document.getElementById('catBod');
+                    let catBod = document.getElementById('catTblBod');
                     for (let i = 0; i < responseObj.length; i++) {
-                        let tr = document.createElement('tr');
-                        tr.onclick = function () { myAlert(i) };
-                        let td = document.createElement('td');
+                        //only populate category if marked as "available"
                         if (responseObj[i][2] == true) {
+
+                            //table row
+                            let tr = document.createElement('tr');
+                            tr.onclick = function () { firstCategoryChange(i) };
+
+                            //table row cell
+                            let td = document.createElement('td');
                             td.innerText = responseObj[i][0];
                             td.className = 'catName';
+
+                            /*
+                            //may not odd vs even anymore.  was for css.
                             colorClass = (i % 2) ? "odd" : "even";
                             td.className = 'catName + ' + colorClass;
+                            */
+
+                            //add category name table cell to table row element
+                            tr.appendChild(td);
+
+                            //new table cell element to house image.
+                            td = document.createElement('td');
+                            td.className = 'imgCell';
+                            let img = document.createElement('img');
+                            img.src = "../images/menu/" + responseObj[i][3];
+                            img.width = "350";
+                            img.height = "300";
+                            //img.width = "50";
+                            //img.height = "50";
+
+                            //append image to table cell, table cell to table row,
+                            //and table row to table body.
+                            td.appendChild(img);
+                            tr.appendChild(td);
+                            catBod.appendChild(tr);
                         }
-                        tr.appendChild(td);
-                        td = document.createElement('td');
-                        let img = document.createElement('img');
-                        img.src = "../images/menu/" + responseObj[i][3];
-                        img.width = "350";
-                        img.height = "300";
-                        td.appendChild(img);
-                        tr.appendChild(td);
-                        catBod.appendChild(tr);
                     }
                 }
             }
-            httpRequest.open("GET", "../php_pages/menu.php", true);
+            httpRequest.open("GET", "../php_pages/menu.php?request=cats", true);
             httpRequest.send();
         }
-        function myAlert(i) {
+        function firstCategoryChange(i) {
             alertMessage = 'This function will be replaced with an AJAX method to dynamically'
                 + ' change the webpage based on the category (' + i + ') chosen.';
-            alert(alertMessage);
+            //alert(alertMessage);
+
+            /*
+            //remove all the images
+            let imgCells = document.getElementsByClassName('imgCell');
+            while(imgCells[0]!=undefined){
+                imgCells[0].remove();
+            }
+            */
+            let nav = document.createElement('nav');
+            let catNames = document.getElementsByClassName('catName');
+
+            let ul = document.createElement('ul');
+            for (let i = 0; i < catNames.length; i++) {
+                let li = document.createElement('li');
+                li.innerText = catNames[i].innerText;
+                li.onclick = function () { catChange(i) };
+                ul.appendChild(li);
+            }
+
+            //alert(ul.children[i].innerText);
+            ul.children[i].id = 'selectedNavItem';
+            let selectedCategoryText = ul.children[i].innerText;
+            document.getElementById('h1Title').innerText = selectedCategoryText;
+            document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
+
+            //append unordered list to navigation bar, and nav bar to document body
+            nav.appendChild(ul)
+            document.body.appendChild(nav);
+
+            //remove categories table
+            document.getElementById('catTbl').remove();
+
+            //access database through php page to get selected category's information
+            let httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function () {
+                if (this.readyState = 4 && this.status == 200) {
+                    //populate main window with category's items/details
+                    console.log(httpRequest.responseType);
+                    console.log(httpRequest.responseText);
+                    let responseObj = JSON.parse(httpRequest.responseText);
+                    console.log(responseObj);
+                    categoryDisplay(httpRequest.responseText);
+                }
+            }
+            httpRequest.open("GET", "../php_pages/menu.php?request="+i, true);
+            httpRequest.send();
+
+            //use css grid view on all tables.  one table per sub category.
+            //need to change body's id and address in css.  no dom grid option.
+            document.body.id = 'gridBody';
+        }
+        function catChange(i) {
+            alert(i);
+        }
+
+        function categoryDisplay(jsonStr, catIndex) {
+            let respObj = JSON.parse(jsonStr);
+            console.log(respObj);
+            let tbl = document.createElement('table');
+            
+
         }
     </script>
 </head>
 
-<body onload='fillCats()'>
-    <h1>Menu</h1>
+<body onload='categories()'>
+    <h1 id='h1Title'>Menu</h1>
     <!-- This page should load categories of the menu, which would be acquired
         from the database. Examples are drinks, appetizers, soups & salads,
         kid's meals, entrees, and desserts.
     -->
+    <!--
     <p>
-        Once a category is chosen, a side bar will appear on the left with all
-        these category choices.
+        Once a category is chosen, a side bar will appear on the left with a
+        smaller version of all these category choices.  "Menu" above will change to
+        category name.
     </p>
-    <h2>
-        Categories
-    </h2>
-    <table>
+-->
+
+    <table id='catTbl'>
         <caption>Categories</caption>
         <thead>
             <th>Category</th>
             <th>Image</th>
         </thead>
-        <tbody id='catBod'></tbody>
+        <tbody id='catTblBod'></tbody>
     </table>
-
-    <div></div>
 </body>
 
 </html>
