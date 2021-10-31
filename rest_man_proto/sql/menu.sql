@@ -1,9 +1,11 @@
-CREATE DATABASE rest_info;
+--create rest_info database if not already present
+CREATE DATABASE IF NOT EXISTS rest_info;
 
--- need to add user creation and privileges assignment
--- $dbusername = "rest_manager";
--- $dbpassword = "iF2ONNbmcCTcdjrd";
--- $dbname = "rest_info";
+CREATE USER IF NOT EXISTS 'rest_manager'@'localhost' IDENTIFIED BY 'iF2ONNbmcCTcdjrd';
+GRANT ALL ON rest_info.* to 'rest_manager'@'localhost';
+
+-- swap to this database
+USE rest_info;
 
 
 -- MySQL dump 10.13  Distrib 8.0.27, for Linux (x86_64)
