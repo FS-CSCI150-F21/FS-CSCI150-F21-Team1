@@ -1,0 +1,145 @@
+/*
+*{
+    margin: 0;
+    padding: 0;
+}
+*/
+
+html {
+    /*background-color: #000a0b;*/
+    color: #055f60;
+}
+
+body {
+    margin: 0 0;
+}
+
+/*
+h1,
+h2 {
+    text-align: left;
+}
+*/
+#h1Title {
+    display: none;
+}
+
+h1 {
+    margin: 1vh 0 1vh 5vw;
+}
+
+#catTbl caption,
+table thead {
+    display: none;
+}
+
+#catTbl {
+    /*margin: auto auto;*/
+    border-collapse: collapse;
+    /*display: grid;*/
+    text-align: left;
+}
+
+td.catName {
+    background-color: white;
+    text-align: center;
+}
+
+/*
+td.catName:hover{
+    background-color: black;
+}
+*/
+
+td.odd {
+    background-color: white;
+}
+
+#catTbl td {
+    padding: 0 0;
+    margin: 0 0;
+    width: 11vw;
+}
+
+#catTbl tr {
+    margin: 0 0;
+    padding: 0 0;
+    display: inline-block;
+    opacity: 1;
+}
+
+#catTbl tr:active {
+    opacity: .5;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+    display: block;
+}
+
+/*After category is chosen*/
+
+/*nav menu on left, after a category is chosen.*/
+nav {
+    margin: 0 0 1vh 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0 0 0 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+
+nav ul li {
+    padding: 1vh 1vw;
+    background-color: #055f60;
+    display: inline-block;
+}
+
+nav ul li:hover {
+    opacity: .5;
+}
+
+#selectedNavItem {
+    color: black;
+}
+
+#selectedNavItem:hover {
+    opacity: 1;
+}
+
+/*subcategories*/
+table.subcategory {
+
+    text-align: left;
+    border-collapse: collapse;
+    margin: 3vh auto;
+}
+
+.subcategory td {
+    padding: 0 1vw;
+    vertical-align: top;
+}
+
+table.subcategory caption {
+    font-size: 150%;
+}
+
+td.itemName {
+    font-weight: bold;
+    vertical-align: top;
+    text-align: left;
+    width: 25%;
+}
+
+td.itemDescription {
+    text-align: center;
+}
+
+td.itemPrice {
+    text-align: right;
+}
