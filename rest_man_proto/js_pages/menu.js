@@ -115,8 +115,10 @@ function mainToSingleCategory(i) {
         ul.appendChild(li);
     }
     //set selected category item so css can highlight
-    ul.children[i + 1].id = 'selectedNavItem';
-    //page titles.  currently hidden through css
+    let selectedNavItem = ul.children[i + 1]
+    selectedNavItem.id = 'selectedNavItem';
+    selectedNavItem.onclick = '';
+    //page titles.
     let selectedCategoryText = ul.children[i + 1].innerText;
     document.getElementById('h1Title').innerText = selectedCategoryText;
     document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
@@ -141,8 +143,11 @@ function catChange(i) {
     //let selectedNavItem;
     while (navCats[j].id != 'selectedNavItem') { j++; }
     navCats[j].id = '';
+    navCats[i].onclick='';
     navCats[i].id = 'selectedNavItem';
     navCats[j].onclick = function () { catChange(j); }
+    document.getElementById('h1Title').innerText = navCats[i].innerText;
+    document.getElementById('title').innerText = 'Menu: ' + navCats[i].innerText;
 
     //remove previous subcategories and their items
     let subcatTbls = document.getElementsByClassName('subcategory');
