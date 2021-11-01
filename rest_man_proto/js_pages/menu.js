@@ -160,7 +160,7 @@ function catChange(i) {
 }
 
 function fetchCategory(i) {
-    //access database through php page to get selected category's information
+    //access database through php file to get selected category's information
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
         alert('Cannot create an XMLHTTP instance');
