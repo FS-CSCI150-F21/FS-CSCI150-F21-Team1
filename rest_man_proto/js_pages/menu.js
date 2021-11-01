@@ -3,10 +3,15 @@ menu.js requests information from menu.php in order to present appropriate
 food items on menu.html
 */
 
+/*
+changed logic from deletion of main categories menu to hide and show.
+*/
+
 
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
 function categories() {
+
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -59,25 +64,44 @@ function categories() {
     httpRequest.send();
 }
 
+function menu(){
+
+    //delete nav bar and subcategory tables if exist
+    if(nav = document.getElementById('navBar')){
+        nav.remove();
+        let subcatTbls = document.getElementsByClassName("subcategory");
+        while(subcatTbls[0]) subcatTbls[0].remove();
+    }
+
+    document.getElementById('catTbl').style.display = "";
+
+}
+
+
 //called by any category (a table row) of the initial page layout.
 //never used afterwards
 //loads items of clicked category
 function firstCategoryChange(i) {
 
     let nav = document.createElement('nav');
+    nav.id = 'navBar';
     let catNames = document.getElementsByClassName('catName');
 
     let ul = document.createElement('ul');
+    let li = document.createElement('li');
+    li.innerText = "Menu";
+    li.onclick = function(){menu()};
+    ul.appendChild(li);
     for (let i = 0; i < catNames.length; i++) {
-        let li = document.createElement('li');
+        li = document.createElement('li');
         li.innerText = catNames[i].innerText;
         li.onclick = function () { catChange(i) };
         ul.appendChild(li);
     }
 
     //alert(ul.children[i].innerText);
-    ul.children[i].id = 'selectedNavItem';
-    let selectedCategoryText = ul.children[i].innerText;
+    ul.children[i+1].id = 'selectedNavItem';
+    let selectedCategoryText = ul.children[i+1].innerText;
     document.getElementById('h1Title').innerText = selectedCategoryText;
     document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
 
@@ -86,7 +110,8 @@ function firstCategoryChange(i) {
     document.body.appendChild(nav);
 
     //remove categories table
-    document.getElementById('catTbl').remove();
+    document.getElementById('catTbl').style.display = "none";
+    //document.getElementById('catTbl').remove();
 
     //access database through php page to get selected category's information
     let httpRequest = new XMLHttpRequest();
