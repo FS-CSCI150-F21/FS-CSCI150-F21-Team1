@@ -1,3 +1,7 @@
+-- Need to turn off "Enable foreign key checks" on import because tables
+-- are imported in the wrong order.
+
+
 -- MySQL dump 10.13  Distrib 8.0.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: rest_info
