@@ -3,22 +3,39 @@ menu.js requests information from menu.php in order to present appropriate
 food items on menu.html
 */
 
-
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
-function categories() {
+function mainMenu() {
+
+    if (navBar = document.getElementById('navBar')) {
+        //this is not first load of page.  came from single category view.
+        //remove navbar, and single category's information.
+        if (nav = document.getElementById('navBar')) {
+            nav.remove();
+            let subcatTbls = document.getElementsByClassName("subcategory");
+            while (subcatTbls[0]) subcatTbls[0].remove();
+        }
+    }
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let responseObj = JSON.parse(httpRequest.responseText);
-            let catBod = document.getElementById('catTblBod');
+            let catTblBod = document.getElementById('catTblBod');
+            if(catTblBod==null){
+                //create category table's body element
+                //and append to table
+                catTblBod = document.createElement('tbody');
+                catTblBod.id = 'catTblBod';
+                let catTbl = document.getElementById('catTbl');
+                catTbl.appendChild(catTblBod);
+            } 
             for (let i = 0; i < responseObj.length; i++) {
                 //only populate category if marked as "available"
                 if (responseObj[i][2] == true) {
 
                     //table row
                     let tr = document.createElement('tr');
-                    tr.onclick = function () { firstCategoryChange(i) };
+                    tr.onclick = function () { mainToSingleCategory(i) };
 
                     //table row cell
                     let td = document.createElement('td');
@@ -50,7 +67,7 @@ function categories() {
                     //and table row to table body.
                     td.appendChild(img);
                     tr.appendChild(td);
-                    catBod.appendChild(tr);
+                    catTblBod.appendChild(tr);
                 }
             }
         }
@@ -59,25 +76,50 @@ function categories() {
     httpRequest.send();
 }
 
+/*not used.  delete.
+function singleCategoryToMain() {
+
+    //delete nav bar and subcategory tables if exist... or hide?
+    //nav bar should always exit at this point.  no need to check for it.
+    if (nav = document.getElementById('navBar')) {
+        nav.remove();
+        let subcatTbls = document.getElementsByClassName("subcategory");
+        while (subcatTbls[0]) subcatTbls[0].remove();
+    }
+
+    document.getElementById('catTbl').style.display = "";
+
+}
+*/
+
+
 //called by any category (a table row) of the initial page layout.
 //never used afterwards
 //loads items of clicked category
-function firstCategoryChange(i) {
+function mainToSingleCategory(i) {
 
-    let nav = document.createElement('nav');
+    //build nav bar
+    nav = document.createElement('nav');
+    nav.id = 'navBar';
     let catNames = document.getElementsByClassName('catName');
-
     let ul = document.createElement('ul');
+    let li = document.createElement('li');
+    li.innerText = "Menu";
+    li.onclick = function () { mainMenu() };
+    ul.appendChild(li);
     for (let i = 0; i < catNames.length; i++) {
-        let li = document.createElement('li');
+        li = document.createElement('li');
         li.innerText = catNames[i].innerText;
         li.onclick = function () { catChange(i) };
+        li.className = 'navCats';
         ul.appendChild(li);
     }
-
-    //alert(ul.children[i].innerText);
-    ul.children[i].id = 'selectedNavItem';
-    let selectedCategoryText = ul.children[i].innerText;
+    //set selected category item so css can highlight
+    let selectedNavItem = ul.children[i + 1]
+    selectedNavItem.id = 'selectedNavItem';
+    selectedNavItem.onclick = '';
+    //page titles.
+    let selectedCategoryText = ul.children[i + 1].innerText;
     document.getElementById('h1Title').innerText = selectedCategoryText;
     document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
 
@@ -85,10 +127,40 @@ function firstCategoryChange(i) {
     nav.appendChild(ul)
     document.body.appendChild(nav);
 
-    //remove categories table
-    document.getElementById('catTbl').remove();
+    //remove categories table body.  table is hidden otherwise.
+    //document.getElementById('catTbl').style.display = "none";
+    document.getElementById('catTblBod').remove();
 
-    //access database through php page to get selected category's information
+    //request category records from database
+    fetchCategory(i);
+}
+function catChange(i) {
+
+    //switch nav bar's selected element through id change
+    //need to know which category this represents
+    let navCats = document.getElementsByClassName('navCats');
+    let j = 0;
+    //let selectedNavItem;
+    while (navCats[j].id != 'selectedNavItem') { j++; }
+    navCats[j].id = '';
+    navCats[i].onclick='';
+    navCats[i].id = 'selectedNavItem';
+    navCats[j].onclick = function () { catChange(j); }
+    document.getElementById('h1Title').innerText = navCats[i].innerText;
+    document.getElementById('title').innerText = 'Menu: ' + navCats[i].innerText;
+
+    //remove previous subcategories and their items
+    let subcatTbls = document.getElementsByClassName('subcategory');
+    while (subcatTbls[0]) {
+        subcatTbls[0].remove();
+    }
+
+    //request category records from database
+    fetchCategory(i);
+}
+
+function fetchCategory(i) {
+    //access database through php file to get selected category's information
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
         alert('Cannot create an XMLHTTP instance');
@@ -97,7 +169,7 @@ function firstCategoryChange(i) {
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (httpRequest.responseText) {
-                categoryDisplay(httpRequest.responseText, i);
+                categoryDisplay(httpRequest.responseText);
             }
 
         }
@@ -105,43 +177,17 @@ function firstCategoryChange(i) {
     httpRequest.open("GET", "../php_pages/menu.php?request=" + i, true);
     httpRequest.send();
 }
-function catChange(i) {
-    let subcatTbls = document.getElementsByClassName('subcategory');
-    while (subcatTbls[0]) {
-        subcatTbls[0].remove();
-    }
 
-    //might package this in another function.  redundant.
-    let httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        alert('Cannot create XMLHttpRequest instance');
-        return false;
-    }
-    httpRequest.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            categoryDisplay(httpRequest.responseText, i);
-        }
-    }
-    httpRequest.open("GET", "../php_pages/menu.php?request=" + i);
-    httpRequest.send();
-}
+//build items tables
+function categoryDisplay(jsonStr) {
 
-function categoryDisplay(jsonStr, catIndex) {
-
-    //remove previous category's information, if it exists.
-    let subcatTbls = document.getElementsByClassName('subcategory');
-    while (subcatTbls[0]) {
-        subcatTbls[0].remove();
-    }
-
-    //array of 2-element objects: "name":"<subcategory>" and "items":<array>
+    //array of 2-element objects: [{"name":"<subcategory>", "items":<array>}]
     let subcatsArr = JSON.parse(jsonStr);
 
     //go through each subcategory
     for (let i = 0; i < subcatsArr.length; i++) {
 
-        //object of array
-        //"subcategory" and "items"
+        //object of array: {"name":"<subcategory>", "items":<array of items>}
         let subcat = subcatsArr[i];
 
         //use table's caption element as title
