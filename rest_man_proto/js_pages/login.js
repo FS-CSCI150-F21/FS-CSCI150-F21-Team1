@@ -152,10 +152,9 @@ function hide(){
 }
 
 function get_level() {
-  var ele = document.getElementsByName('level');
-  for(i = 0; i < ele.length; i++) {
-      if(ele[i].checked){
-        return ele[i].value;
-      }
-  }
+  var ele = document.getElementById('user_level');
+  
+  return ele.value;
+      
+  
 }
