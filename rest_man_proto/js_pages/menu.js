@@ -3,6 +3,11 @@ menu.js requests information from menu.php in order to present appropriate
 food items on menu.html
 */
 
+//privilege level.  0: manager; 1: employee; 2: customer; 3: guest (default)
+var privLevel = 3;
+
+var orderInstance;
+
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
 function mainMenu() {
@@ -21,14 +26,14 @@ function mainMenu() {
         if (this.readyState == 4 && this.status == 200) {
             let responseObj = JSON.parse(httpRequest.responseText);
             let catTblBod = document.getElementById('catTblBod');
-            if(catTblBod==null){
+            if (catTblBod == null) {
                 //create category table's body element
                 //and append to table
                 catTblBod = document.createElement('tbody');
                 catTblBod.id = 'catTblBod';
                 let catTbl = document.getElementById('catTbl');
                 catTbl.appendChild(catTblBod);
-            } 
+            }
             for (let i = 0; i < responseObj.length; i++) {
                 //only populate category if marked as "available"
                 if (responseObj[i][2] == true) {
@@ -74,6 +79,8 @@ function mainMenu() {
     }
     httpRequest.open("GET", "../php_pages/menu.php?request=cats", true);
     httpRequest.send();
+
+    //orderInstance = new order();
 }
 
 /*not used.  delete.
@@ -143,7 +150,7 @@ function catChange(i) {
     //let selectedNavItem;
     while (navCats[j].id != 'selectedNavItem') { j++; }
     navCats[j].id = '';
-    navCats[i].onclick='';
+    navCats[i].onclick = '';
     navCats[i].id = 'selectedNavItem';
     navCats[j].onclick = function () { catChange(j); }
     document.getElementById('h1Title').innerText = navCats[i].innerText;
@@ -222,6 +229,12 @@ function categoryDisplay(jsonStr) {
         for (let j = 0; j < items.length; j++) {
             //let itemTbl = document.createElement('table');
             tr = document.createElement('tr');
+            //click or tap an item to add it to an order
+            tr.onclick = function () {
+                addToOrder(items[j]['id'],
+                    items[j]['name'],
+                    items[j]['price']);
+            };
 
             //item name
             let td = document.createElement('td');
@@ -251,3 +264,187 @@ function categoryDisplay(jsonStr) {
         //rinse & repeat
     }
 }
+
+function load() {
+    checkUser();
+    mainMenu();
+}
+function checkUser() {
+    //get username just to test php session()
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        alert('Cannot create XMLHTTP instance');
+        return false;
+    }
+    else {
+        httpRequest.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //if a user is logged in, create an order
+                let username = httpRequest.responseText;
+                if (username != 0) {
+                    console.log(username);
+                    orderInstance = new order(username);
+                }
+            }
+        }
+        httpRequest.open("GET", "../php_pages/check.php", true);
+        httpRequest.send();
+    }
+}
+
+function addToOrder(id, name, price) {
+
+    if (orderInstance) {
+        //moved to class order
+        //document.getElementById('orderTbl').className = 'active';
+
+
+        //add item to order instance
+        orderInstance.addItem(id, name, price)
+        //update order display
+        //updateOrderDisplay();
+
+        //console.log(orderInstance);
+
+        //store order in session variable
+
+        updateOrderConsole(id);
+
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function () {
+            if (this.readyState == 4 & this.status == 200) {
+                console.log(httpRequest.responseText);
+            }
+        }
+        httpRequest.open("POST","../php_pages/menuOrder.php");
+        httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        httpRequest.send('order='+JSON.stringify(orderInstance));
+
+    }
+    else {
+        console.log('no user logged in.  no order instance.');
+    }
+
+}
+
+/*
+//rebuild orderDisplay table with newest data
+function updateOrderDisplay() {
+
+
+    
+
+    let orderTblBod = document.getElementById('orderTblBod');
+
+    //remove previous items
+    let items = orderTblBod.children;
+    while (items[0]) {
+        items[0].remove();
+    }
+
+    //sum price of all elements to get subtotal;
+    let subtotal = 0;
+
+    //add as many tr's to #order table as orderInstance.items.length
+    for (let itemId in orderInstance.items) {
+        //build table row and cell
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+
+        //how many of item ordered.  used for price calculation
+        let quantity = orderInstance.items[itemId].quantity;
+        //quantity * price of individual order
+        let price = (orderInstance.items[itemId].price * quantity);
+
+        //sum of all order item prices so far
+        subtotal += price;
+
+        //display name
+        td.innerHTML = orderInstance.items[itemId].name;
+        tr.appendChild(td);
+
+        //display quantity
+        td = document.createElement('td');
+        td.innerText = quantity;
+        tr.appendChild(td);
+
+        //display price, from calculation above
+        td = document.createElement('td');
+        td.innerText = price;
+        tr.appendChild(td);
+
+        //append table row
+        orderTblBod.appendChild(tr);
+        //console.log(itemId);
+    }
+
+    document.getElementById('orderTotal').innerText = subtotal;
+
+}
+*/
+
+function updateOrderConsole(id) {
+    //'Added 1 ' + orderInstance.items[itemId].name + 
+    // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
+
+    document.getElementById('orderItemAdded').innerText =
+        orderInstance.items[id].name;
+    document.getElementById('orderItemQuantity').innerText =
+        orderInstance.items[id].quantity;
+
+
+}
+
+class order {
+    items = {};
+    //items = new Array();
+    constructor(username) {
+        this.user = username;
+        this.displayTblRef = document.getElementById('orderTbl');
+        this.displayTblRef.className = 'active';
+    }
+    addItem(id, name, price) {
+        if (this.items[id]) {
+            //item quantity update, not new item
+            this.items[id].quantity++;
+            /*
+            //tell caller function this was an item quantity update, not new item
+            return true;
+            */
+        }
+        else {
+            //new item
+            this.items[id] = { "name": name, "price": price, "quantity": 1 };
+
+            //price is for a single item, is unaffected by quantity
+            /*
+            //tell caller function this was a new item
+            return true;
+            */
+        }
+    }
+}
+
+/*
+class item{
+    constructor(id, name, price){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = 1;
+    }
+    combine(){
+
+    }
+}
+*/
+
+//a submitted order is sent to a staging area where only an employee or manager
+// can submit to kitchen.  This is to verify payment or take responsibility
+// for eventual payment as in case of dine-in with server.
+
+
+
+//manager will use his portal to access menuEditor.
+//this will set a variable in session() that changes this file to editor mode.
+

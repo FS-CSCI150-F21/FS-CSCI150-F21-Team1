@@ -11,8 +11,38 @@
 
 </head>
 
-<body onload='mainMenu()'>
+<body onload='load()'>
     <h1 id='h1Title'>Menu</h1>
+    <table id='orderTbl' class='inactive'>
+        <caption>
+            Order
+        </caption>
+        <thead>
+            <th>Item Added</th>
+            <th>Current Quantity</th>
+            <!--<th>Price</th>-->
+        </thead>
+        <tbody id='orderTblBod'>
+            <tr>
+               <td id='orderItemAdded'></td> 
+               <td id='orderItemQuantity'></td>
+            </tr>
+            <!--items will be put here-->
+        </tbody>
+        <!--
+        <tfoot>
+            <tr>
+                <td colspan='2'>Total</td>
+                <td id='orderTotal'></td>
+            </tr>
+            <tr>
+                <td>Remove All</td>
+                <td>Submit Order</td>
+            </tr>
+
+        </tfoot>
+    -->
+    </table>
     <table id='catTbl'>
         <caption>Categories</caption>
         <thead>

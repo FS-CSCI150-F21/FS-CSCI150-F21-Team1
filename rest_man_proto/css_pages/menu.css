@@ -28,15 +28,17 @@ h1 {
     margin: 1vh 0 1vh 5vw;
 }
 
+
+
+
 #catTbl caption,
-table thead {
+#catTbl thead {
     display: none;
 }
 
 #catTbl {
     /*margin: auto auto;*/
     border-collapse: collapse;
-    /*display: grid;*/
     text-align: left;
 	
 	/*prevent text highlights*/
@@ -128,7 +130,17 @@ table.subcategory {
     text-align: left;
     border-collapse: collapse;
     margin: 3vh auto;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
+
+
+.subcategory tr:hover{
+    opacity: .5;
+}
+
 
 .subcategory td {
     padding: 0 1vw;
@@ -153,3 +165,38 @@ td.itemDescription {
 td.itemPrice {
     text-align: right;
 }
+
+/*order table*/
+/*order table's initial state*/
+.inactive{
+    display: none;
+}
+
+
+#orderTbl{
+    margin: 1vh auto;
+    text-align: center;
+    border: 1px solid #055f60;
+    width: 50vw;
+}
+
+/*
+
+#orderTbl thead{
+    display: block;
+    width: 400px;
+}
+
+#orderTbl tbody{
+    display: block;
+    overflow: auto;
+    height: 30vh;
+}
+#orderTbl tr{
+    display: block;
+}
+
+#orderTbl td{
+    overflow: hidden;
+}
+*/
