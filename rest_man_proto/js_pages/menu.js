@@ -265,11 +265,11 @@ function categoryDisplay(jsonStr) {
 }
 
 function load() {
-    checkUser();
+    checkUserAndCurOrder();
     mainMenu();
 }
 
-function checkUser() {
+function checkUserAndCurOrder() {
     //get username just to test php session()
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -285,9 +285,8 @@ function checkUser() {
                 let openOrder = httpRequest.responseText;
                 //console.log(order);
                 //console.log(JSON.parse(order));
-
                 if (openOrder) {
-                    //console.log(openOrder);
+                    console.log(openOrder);
                     orderInstance = new order(JSON.parse(openOrder));
                 }
 
@@ -319,12 +318,13 @@ function addToOrder(id, name, price) {
         let httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function () {
             if (this.readyState == 4 & this.status == 200) {
-                //console.log(httpRequest.responseText);
+                console.log(httpRequest.responseText);
             }
         }
         httpRequest.open("POST", "../php_pages/menuOrder.php");
         httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         httpRequest.send('order=' + JSON.stringify(orderInstance.getItems()));
+        console.log(JSON.stringify(orderInstance.getItems()));
 
     }
     else {
@@ -333,12 +333,96 @@ function addToOrder(id, name, price) {
 
 }
 
+function updateOrderConsole(id, name) {
+    console.log(orderInstance);
+    //'Added 1 ' + orderInstance.items[itemId].name + 
+    // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
+
+    /*
+    document.getElementById('orderItemAdded').innerText =
+        orderInstance.items[id].name;
+    document.getElementById('orderItemQuantity').innerText =
+        orderInstance.items[id].quantity;
+    */
+    document.getElementById('orderItemAdded').innerText = name;
+    document.getElementById('orderItemQuantity').innerText =
+        orderInstance.items[id];
+
+
+
+}
+
+class order {
+    items = {};
+    //items = new Array();
+    constructor(orderObj) {
+        //this.user = username;
+        this.displayTblRef = document.getElementById('orderTbl');
+        this.displayTblRef.className = 'active';
+
+        //set items
+        this.items = (orderObj.items == null)?{}:orderObj.items;
+    }
+    addItem(id, name, price) {
+        if (this.items[id]) {
+            //item quantity update, not new item
+            //this.items[id].quantity++;
+            this.items[id]++;
+            /*
+            //tell caller function this was an item quantity update, not new item
+            return true;
+            */
+        }
+        else {
+            //new item
+            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
+            this.items[id] = 1;
+
+            //price is for a single item, is unaffected by quantity
+            /*
+            //tell caller function this was a new item
+            return true;
+            */
+        }
+    }
+    getItems() {
+        return this.items;
+    }
+}
+
+function orderView(){
+    location.assign("orderPage.html");
+}
+/*
+class item{
+    constructor(id, name, price){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = 1;
+    }
+    combine(){
+
+    }
+}
+*/
+
+//a submitted order is sent to a staging area where only an employee or manager
+// can submit to kitchen.  This is to verify payment or take responsibility
+// for eventual payment as in case of dine-in with server.
+
+
+
+//manager will use his portal to access menuEditor.
+//this will set a variable in session() that changes this file to editor mode.
+
+
 /*
 //rebuild orderDisplay table with newest data
 function updateOrderDisplay() {
 
 
-    
+
 
     let orderTblBod = document.getElementById('orderTblBod');
 
@@ -388,84 +472,3 @@ function updateOrderDisplay() {
 
 }
 */
-
-function updateOrderConsole(id, name) {
-    console.log(orderInstance);
-    //'Added 1 ' + orderInstance.items[itemId].name + 
-    // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
-
-    /*
-    document.getElementById('orderItemAdded').innerText =
-        orderInstance.items[id].name;
-    document.getElementById('orderItemQuantity').innerText =
-        orderInstance.items[id].quantity;
-    */
-    document.getElementById('orderItemAdded').innerText = name;
-    document.getElementById('orderItemQuantity').innerText =
-        orderInstance.items[id];
-
-
-
-}
-
-class order {
-    items = {};
-    //items = new Array();
-    constructor(orderObj) {
-        //this.user = username;
-        this.displayTblRef = document.getElementById('orderTbl');
-        this.displayTblRef.className = 'active';
-        this.items = orderObj.items;
-        //console.log(orderObj);
-
-    }
-    addItem(id, name, price) {
-        if (this.items[id]) {
-            //item quantity update, not new item
-            //this.items[id].quantity++;
-            this.items[id]++;
-            /*
-            //tell caller function this was an item quantity update, not new item
-            return true;
-            */
-        }
-        else {
-            //new item
-            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
-            this.items[id] = 1;
-
-            //price is for a single item, is unaffected by quantity
-            /*
-            //tell caller function this was a new item
-            return true;
-            */
-        }
-    }
-    getItems() {
-        return this.items;
-    }
-}
-
-/*
-class item{
-    constructor(id, name, price){
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.quantity = 1;
-    }
-    combine(){
-
-    }
-}
-*/
-
-//a submitted order is sent to a staging area where only an employee or manager
-// can submit to kitchen.  This is to verify payment or take responsibility
-// for eventual payment as in case of dine-in with server.
-
-
-
-//manager will use his portal to access menuEditor.
-//this will set a variable in session() that changes this file to editor mode.
-

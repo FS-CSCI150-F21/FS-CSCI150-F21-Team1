@@ -15,88 +15,118 @@ if ($conn->connect_error) {
     exit('Could not connect');
 }
 
-//establish php session to check user's order status
+//establish php session to: 
+//1) check if user is logged in 
+//2) check user's current order status
 session_start();
 
-$curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : 0;
-if ($curOrder) {
-    //user has an order open.  
+//is client logged in as a user
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
-    //item addition or initial retrieval of order items
-    if (isset($_POST['order'])) {
-        //item addition;
+    //does client have a current order
+    $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : 0;
+    if ($curOrder) {
+        //user has a current order open.  
 
-        //get order information
-        $orderStr = isset($_POST['order']) ? $_POST['order'] : '{"items":{"0":{"name":"Smashing Pumpkin","price":"10.00","quantity":2},"1":{"name":"From Mexico with Love","price":"13.00","quantity":1}},"user":"angryduck462","displayTblRef":{}}';
+        //item addition or initial retrieval of order items
+        if (isset($_POST['order'])) {
+            //item addition;
 
-        echo $orderStr;
-    } else {
-        //initial order items retrieval
-        //check username just as another layer of security
-        $query = "SELECT items FROM order_info 
+            //get order information
+            $orderItemsStr = isset($_POST['order']) ? $_POST['order'] : '{"1":5,"26":1,"86":2,"99":1}';
+
+            //query string to change order record's items field
+            $query = "UPDATE order_info SET items = '" . $orderItemsStr . 
+                "' WHERE number = " . $curOrder . ";";
+
+            //execute query on mysql database
+            $conn->query($query);
+
+            //return any errors
+            //echo $conn->error . '<br>' . $query;
+        } else {
+            //initial order items retrieval
+            //check username as another layer of security
+            $query = "SELECT items FROM order_info 
             WHERE username='" . $_SESSION['username'] . "'
             AND number=" . $curOrder . ";";
 
-        //debug
-        //echo $query;
+            //debug
+            //echo $query;
 
-        $result = $conn->query($query);
+            //query database and store result
+            $result = $conn->query($query);
 
-        if($result->num_rows){
+            //get order items field
             $items = $result->fetch_object()->items;
-            //echo gettype($items) . ': ' . $items . '<br>';
-
-            //echo json_decode($items) . '<br>';
+            //turn order items string into object
             $itemsArr = json_decode($items);
+
+            //combine order id number with order items array into return array
+            $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
+
+            //return order id and order items to client
+            echo json_encode($returnArr);
+
             /*
+            if ($result->num_rows) {
+                $items = $result->fetch_object()->items;
+                //echo gettype($items) . ': ' . $items . '<br>';
+
+                //echo json_decode($items) . '<br>';
+                $itemsArr = json_decode($items);
+                
             $itemsDecode = json_decode($items, true);
             echo $itemsDecode;
+            
+
+                //$myArray = array(1=>4,26=>1,86=>2,99=>1);
+                //echo $myArray . '<br>';
+                //echo json_encode($myArray) . '<br>';
+
+                $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
+                //echo json_encode($returnArr);
+            } else {
+                // 'No order found.'; return empty associative array as items
+                $emptyAssArr = json_decode("{}");
+                //$returnArr = ["orderID" => $curOrder, "items" => $emptyAssArr ];
+                $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
+
+            }
             */
 
-            //$myArray = array(1=>4,26=>1,86=>2,99=>1);
-            //echo $myArray . '<br>';
-            //echo json_encode($myArray) . '<br>';
 
-            $returnArr = ["orderID"=>$curOrder,"items"=>$itemsArr];
-            echo json_encode($returnArr);
         }
-        else{
-            echo 'No order found.';
-        }
-        
-    }
+    } else {
+        //user needs a new order to be opened.
 
-    /*
-    echo 'set';
-    echo $curOrder;
-    */
-} else {
-    //user needs a new order to be opened.
+        //for test purposes
+        //$_SESSION['username']='angryduck462';
 
-    //for test purposes
-    //$_SESSION['username']='angryduck462';
-
-    //create insert query for mysql database
-    $query = "INSERT INTO order_info (username) VALUES
+        //create insert query for mysql database
+        $query = "INSERT INTO order_info (username) VALUES
          ('" . $_SESSION['username'] . "');";
 
-    //debug to verify query
-    //echo $query . '<br>';
+        //debug to verify query
+        //echo $query . '<br>';
 
-    //ask query of mysql database
-    $queryResult = $conn->query($query);
+        //ask query of mysql database
+        $queryResult = $conn->query($query);
 
-    //debug query
-    //echo $conn->error . "<br>";
+        //debug query
+        //echo $conn->error . "<br>";
 
-    //retrieve automatically-incremented value of order number upon record creation.
-    $orderNumber = $conn->insert_id;
+        //retrieve automatically-incremented value of order number upon record creation.
+        $orderNumber = $conn->insert_id;
 
-    //store order number in session
-    $_SESSION['order'] = $orderNumber;
+        //store order number in session
+        $_SESSION['order'] = $orderNumber;
 
-    //let client know which new order was created
-    echo $orderNumber;
+        //let client know which new order was created
+        echo $orderNumber;
+    }
+} else {
+    echo false;
 }
 
 

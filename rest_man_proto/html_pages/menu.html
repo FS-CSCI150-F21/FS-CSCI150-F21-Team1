@@ -18,14 +18,20 @@
             Order
         </caption>
         <thead>
-            <th>Item Added</th>
-            <th>Current Quantity</th>
+            <tr>
+                <th>Item Added</th>
+                <th>Current Quantity</th>
+                <th id='viewOrder' onclick="orderView()">
+                    View Order
+                </th>
+            </tr>
             <!--<th>Price</th>-->
         </thead>
         <tbody id='orderTblBod'>
             <tr>
-               <td id='orderItemAdded'></td> 
-               <td id='orderItemQuantity'></td>
+                <td id='orderItemAdded'></td>
+                <td id='orderItemQuantity'></td>
+                <td id='orderItemRemove'></td>
             </tr>
             <!--items will be put here-->
         </tbody>

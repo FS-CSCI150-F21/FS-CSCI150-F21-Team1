@@ -178,6 +178,10 @@ td.itemPrice {
     text-align: center;
     border: 1px solid #055f60;
     width: 50vw;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 /*
@@ -200,3 +204,8 @@ td.itemPrice {
     overflow: hidden;
 }
 */
+
+th#viewOrder{
+    background-color: #055f60;
+    color: white;
+}
