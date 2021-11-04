@@ -101,7 +101,6 @@ function singleCategoryToMain() {
 
 
 //called by any category (a table row) of the initial page layout.
-//never used afterwards
 //loads items of clicked category
 function mainToSingleCategory(i) {
 
@@ -269,6 +268,7 @@ function load() {
     checkUser();
     mainMenu();
 }
+
 function checkUser() {
     //get username just to test php session()
     let httpRequest = new XMLHttpRequest();
@@ -279,15 +279,21 @@ function checkUser() {
     else {
         httpRequest.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                //if a user is logged in, create an order
-                let username = httpRequest.responseText;
-                if (username != 0) {
-                    console.log(username);
-                    orderInstance = new order(username);
+                //if a user is logged in, retrieve order status
+                // and populate this.order object with database
+                // information, or create new order
+                let openOrder = httpRequest.responseText;
+                //console.log(order);
+                //console.log(JSON.parse(order));
+
+                if (openOrder) {
+                    //console.log(openOrder);
+                    orderInstance = new order(JSON.parse(openOrder));
                 }
+
             }
         }
-        httpRequest.open("GET", "../php_pages/check.php", true);
+        httpRequest.open("GET", "../php_pages/menuOrder.php", true);
         httpRequest.send();
     }
 }
@@ -308,17 +314,17 @@ function addToOrder(id, name, price) {
 
         //store order in session variable
 
-        updateOrderConsole(id);
+        updateOrderConsole(id, name);
 
         let httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function () {
             if (this.readyState == 4 & this.status == 200) {
-                console.log(httpRequest.responseText);
+                //console.log(httpRequest.responseText);
             }
         }
-        httpRequest.open("POST","../php_pages/menuOrder.php");
+        httpRequest.open("POST", "../php_pages/menuOrder.php");
         httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-        httpRequest.send('order='+JSON.stringify(orderInstance));
+        httpRequest.send('order=' + JSON.stringify(orderInstance.getItems()));
 
     }
     else {
@@ -383,14 +389,21 @@ function updateOrderDisplay() {
 }
 */
 
-function updateOrderConsole(id) {
+function updateOrderConsole(id, name) {
+    console.log(orderInstance);
     //'Added 1 ' + orderInstance.items[itemId].name + 
     // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
 
+    /*
     document.getElementById('orderItemAdded').innerText =
         orderInstance.items[id].name;
     document.getElementById('orderItemQuantity').innerText =
         orderInstance.items[id].quantity;
+    */
+    document.getElementById('orderItemAdded').innerText = name;
+    document.getElementById('orderItemQuantity').innerText =
+        orderInstance.items[id];
+
 
 
 }
@@ -398,15 +411,19 @@ function updateOrderConsole(id) {
 class order {
     items = {};
     //items = new Array();
-    constructor(username) {
-        this.user = username;
+    constructor(orderObj) {
+        //this.user = username;
         this.displayTblRef = document.getElementById('orderTbl');
         this.displayTblRef.className = 'active';
+        this.items = orderObj.items;
+        //console.log(orderObj);
+
     }
     addItem(id, name, price) {
         if (this.items[id]) {
             //item quantity update, not new item
-            this.items[id].quantity++;
+            //this.items[id].quantity++;
+            this.items[id]++;
             /*
             //tell caller function this was an item quantity update, not new item
             return true;
@@ -414,7 +431,8 @@ class order {
         }
         else {
             //new item
-            this.items[id] = { "name": name, "price": price, "quantity": 1 };
+            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
+            this.items[id] = 1;
 
             //price is for a single item, is unaffected by quantity
             /*
@@ -422,6 +440,9 @@ class order {
             return true;
             */
         }
+    }
+    getItems() {
+        return this.items;
     }
 }
 
