@@ -93,6 +93,7 @@ h3{
     margin: auto;
     width: 90vw;
     border: 1px solid black;
+
 }
 #itemsTable tfoot{
     text-align: center;
@@ -103,4 +104,13 @@ h3{
 #itemsNameHeader{
     text-align: left;
     padding: 0 5vw;
+}
+.actionButton{
+    padding: 0 1vw;
+    background-color:rgb(255, 191, 112);
+        	/*prevent text highlights*/
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
