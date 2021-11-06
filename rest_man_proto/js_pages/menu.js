@@ -286,10 +286,9 @@ function checkUserAndCurOrder() {
                 //console.log(order);
                 //console.log(JSON.parse(order));
                 if (openOrder) {
-                    console.log(openOrder);
+                    //console.log(openOrder);
                     orderInstance = new order(JSON.parse(openOrder));
                 }
-
             }
         }
         httpRequest.open("GET", "../php_pages/menuOrder.php", true);
@@ -324,7 +323,7 @@ function addToOrder(id, name, price) {
         httpRequest.open("POST", "../php_pages/menuOrder.php");
         httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         httpRequest.send('order=' + JSON.stringify(orderInstance.getItems()));
-        console.log(JSON.stringify(orderInstance.getItems()));
+        //console.log(JSON.stringify(orderInstance.getItems()));
 
     }
     else {
@@ -334,7 +333,7 @@ function addToOrder(id, name, price) {
 }
 
 function updateOrderConsole(id, name) {
-    console.log(orderInstance);
+    //console.log(orderInstance);
     //'Added 1 ' + orderInstance.items[itemId].name + 
     // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
 

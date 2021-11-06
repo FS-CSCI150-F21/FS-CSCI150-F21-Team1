@@ -82,7 +82,25 @@ h3{
 #span{
     padding-left: 9%;
 }
-#Body table{
+#statsTable {
+    text-align: center;
     margin: auto;
     border: 1px solid black;
+    width: 90vw;
+}
+#itemsTable{
+    text-align: center;
+    margin: auto;
+    width: 90vw;
+    border: 1px solid black;
+}
+#itemsTable tfoot{
+    text-align: center;
+}
+.itemName{
+    text-align: left;
+}
+#itemsNameHeader{
+    text-align: left;
+    padding: 0 5vw;
 }
