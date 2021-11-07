@@ -1,7 +1,9 @@
-/*
-menu.js requests information from menu.php in order to present appropriate
-food items on menu.html
-*/
+//manager will use his portal to access menuEditor.
+//this will set a variable in session() that changes this file to editor mode.
+
+
+//privilege level.  0: manager; 1: employee; 2: customer; 3: guest (default)
+var privLevel = 3;
 
 var orderInstance;
 
@@ -44,6 +46,12 @@ function mainMenu() {
                     td.innerText = responseObj[i][0];
                     td.className = 'catName';
 
+                    /*
+                    //may not need "odd vs even" anymore.  was for css.
+                    colorClass = (i % 2) ? "odd" : "even";
+                    td.className = 'catName + ' + colorClass;
+                    */
+
                     //add category name table cell to table row element
                     tr.appendChild(td);
 
@@ -54,6 +62,10 @@ function mainMenu() {
                     img.src = "../images/menu/" + responseObj[i][3];
                     img.width = "350";
                     img.height = "300";
+
+                    //smaller sizes like these could be used for menuEditor
+                    //img.width = "50";
+                    //img.height = "50";
 
                     //append image to table cell, table cell to table row,
                     //and table row to table body.
@@ -69,6 +81,23 @@ function mainMenu() {
 
     //orderInstance = new order();
 }
+
+/*not used.  delete.
+function singleCategoryToMain() {
+
+    //delete nav bar and subcategory tables if exist... or hide?
+    //nav bar should always exit at this point.  no need to check for it.
+    if (nav = document.getElementById('navBar')) {
+        nav.remove();
+        let subcatTbls = document.getElementsByClassName("subcategory");
+        while (subcatTbls[0]) subcatTbls[0].remove();
+    }
+
+    document.getElementById('catTbl').style.display = "";
+
+}
+*/
+
 
 //called by any category (a table row) of the initial page layout.
 //loads items of clicked category
@@ -269,15 +298,21 @@ function checkUserAndCurOrder() {
 function addToOrder(id, name, price) {
 
     if (orderInstance) {
+        //moved to class order
+        //document.getElementById('orderTbl').className = 'active';
+
 
         //add item to order instance
         orderInstance.addItem(id, name, price)
+        //update order display
+        //updateOrderDisplay();
+
+        //console.log(orderInstance);
 
         //store order in session variable
 
         updateOrderConsole(id, name);
 
-        //update MySQL database
         let httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function () {
             if (this.readyState == 4 & this.status == 200) {
@@ -287,6 +322,7 @@ function addToOrder(id, name, price) {
         httpRequest.open("POST", "../php_pages/menuOrder.php");
         httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         httpRequest.send('order=' + JSON.stringify(orderInstance.getItems()));
+        //console.log(JSON.stringify(orderInstance.getItems()));
 
     }
     else {
@@ -295,13 +331,23 @@ function addToOrder(id, name, price) {
 
 }
 
-//expresses selection through table at top of page.
-// doesn't use data from DB, but from client.  Not 
-// guaranteed that item selection went through like if internet went out.
 function updateOrderConsole(id, name) {
+    //console.log(orderInstance);
+    //'Added 1 ' + orderInstance.items[itemId].name + 
+    // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
+
+    /*
+    document.getElementById('orderItemAdded').innerText =
+        orderInstance.items[id].name;
+    document.getElementById('orderItemQuantity').innerText =
+        orderInstance.items[id].quantity;
+    */
     document.getElementById('orderItemAdded').innerText = name;
     document.getElementById('orderItemQuantity').innerText =
         orderInstance.items[id];
+
+
+
 }
 
 class order {
@@ -318,12 +364,23 @@ class order {
     addItem(id, name, price) {
         if (this.items[id]) {
             //item quantity update, not new item
+            //this.items[id].quantity++;
             this.items[id]++;
+            /*
+            //tell caller function this was an item quantity update, not new item
+            return true;
+            */
         }
         else {
             //new item
             //this.items[id] = { "name": name, "price": price, "quantity": 1 };
             this.items[id] = 1;
+
+            //price is for a single item, is unaffected by quantity
+            /*
+            //tell caller function this was a new item
+            return true;
+            */
         }
     }
     getItems() {
@@ -334,63 +391,3 @@ class order {
 function orderView(){
     location.assign("orderPage.html");
 }
-
-//a submitted order is sent to a staging area (current order) where only an 
-// employee or manager can submit to kitchen.  This is to verify payment or 
-// take responsibility for eventual payment as in case of dine-in with server.
-// customer should be able to pay if he uses credit card.
-
-/* Display table that didn't work out.  Table wouldn't stay still, and
-// general concept of split page between current order and menu was
-// ineffective
-//rebuild orderDisplay table with newest data
-function updateOrderDisplay() {
-
-    let orderTblBod = document.getElementById('orderTblBod');
-
-    //remove previous items
-    let items = orderTblBod.children;
-    while (items[0]) {
-        items[0].remove();
-    }
-
-    //sum price of all elements to get subtotal;
-    let subtotal = 0;
-
-    //add as many tr's to #order table as orderInstance.items.length
-    for (let itemId in orderInstance.items) {
-        //build table row and cell
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-
-        //how many of item ordered.  used for price calculation
-        let quantity = orderInstance.items[itemId].quantity;
-        //quantity * price of individual order
-        let price = (orderInstance.items[itemId].price * quantity);
-
-        //sum of all order item prices so far
-        subtotal += price;
-
-        //display name
-        td.innerHTML = orderInstance.items[itemId].name;
-        tr.appendChild(td);
-
-        //display quantity
-        td = document.createElement('td');
-        td.innerText = quantity;
-        tr.appendChild(td);
-
-        //display price, from calculation above
-        td = document.createElement('td');
-        td.innerText = price;
-        tr.appendChild(td);
-
-        //append table row
-        orderTblBod.appendChild(tr);
-        //console.log(itemId);
-    }
-
-    document.getElementById('orderTotal').innerText = subtotal;
-
-}
-*/
