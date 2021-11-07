@@ -126,7 +126,6 @@ nav ul li:hover {
 
 /*subcategories*/
 table.subcategory {
-
     text-align: left;
     border-collapse: collapse;
     margin: 3vh auto;
@@ -136,11 +135,13 @@ table.subcategory {
 	user-select: none; /* Standard */
 }
 
-
 .subcategory tr:hover{
     opacity: .5;
 }
 
+.subcategory th{
+    display: none;
+}
 
 .subcategory td {
     padding: 0 1vw;
@@ -183,27 +184,6 @@ td.itemPrice {
 	-ms-user-select: none; /* IE10+/Edge */
 	user-select: none; /* Standard */
 }
-
-/*
-
-#orderTbl thead{
-    display: block;
-    width: 400px;
-}
-
-#orderTbl tbody{
-    display: block;
-    overflow: auto;
-    height: 30vh;
-}
-#orderTbl tr{
-    display: block;
-}
-
-#orderTbl td{
-    overflow: hidden;
-}
-*/
 
 th#viewOrder{
     background-color: #055f60;
