@@ -4,11 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/page_transition.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/account.css" rel="stylesheet">
+  <link href="../css_pages/page_transition.css" rel="stylesheet">
+  
 </head>
 
 <body onload="check();">
+  <svg id="fader"></svg>
+  <script>
+      fadeInPage();
+  </script>
+
   <header>
       <nav>
         <nav class="nav">
@@ -62,6 +70,7 @@
 
   <!-- <p id="user_info">
   </p> -->
+
 </body>
 </html>
 
