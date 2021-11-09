@@ -66,8 +66,6 @@ function mainMenu() {
     }
     httpRequest.open("GET", "../php_pages/menu.php?request=cats", true);
     httpRequest.send();
-
-    //orderInstance = new order();
 }
 
 //called by any category (a table row) of the initial page layout.

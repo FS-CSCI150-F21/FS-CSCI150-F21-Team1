@@ -1,11 +1,19 @@
 //manager will use his portal to access menuEditor.
 //this will set a variable in session() that changes this file to editor mode.
 
+//implement drag and drop of items to change their appearance order.
+//https://www.w3schools.com/html/html5_draganddrop.asp
+
+//implement change of text and background colors.  <input type='color'>
 
 //privilege level.  0: manager; 1: employee; 2: customer; 3: guest (default)
 var privLevel = 3;
 
-var orderInstance;
+
+function load() {
+    //checkUser();
+    mainMenu();
+}
 
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
@@ -24,80 +32,155 @@ function mainMenu() {
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let responseObj = JSON.parse(httpRequest.responseText);
+
+
             let catTblBod = document.getElementById('catTblBod');
-            if (catTblBod == null) {
-                //create category table's body element
-                //and append to table
-                catTblBod = document.createElement('tbody');
-                catTblBod.id = 'catTblBod';
-                let catTbl = document.getElementById('catTbl');
-                catTbl.appendChild(catTblBod);
+
+            //remove previous menu if it exists, in order to rebuild it
+            if (catTblBod != null) {
+                document.getElementById('catTblBod').remove();
             }
-            for (let i = 0; i < responseObj.length; i++) {
-                //only populate category if marked as "available"
-                if (responseObj[i][2] == true) {
+
+            //create category table's body element
+            //and append to table
+            catTblBod = document.createElement('tbody');
+            catTblBod.id = 'catTblBod';
+            let catTbl = document.getElementById('catTbl');
+            catTbl.appendChild(catTblBod);
+
+            if (editorInstance.getState()) {
+                //edit mode
+                for (let i = 0; i < responseObj.length; i++) {
+                    //insert save button, and make category name cell a
+                    // text input
+                    // file upload for image.  on save, new image replaces old
+                    //checkbox for available or not
 
                     //table row
                     let tr = document.createElement('tr');
-                    tr.onclick = function () { mainToSingleCategory(i) };
+                    tr.className = 'tableRow'; //make edit specific class?
 
-                    //table row cell
                     let td = document.createElement('td');
-                    td.innerText = responseObj[i][0];
-                    td.className = 'catName';
 
-                    /*
-                    //may not need "odd vs even" anymore.  was for css.
-                    colorClass = (i % 2) ? "odd" : "even";
-                    td.className = 'catName + ' + colorClass;
-                    */
+                    //category name as text-input
+                    let labelCategoryName = document.createElement('label');
+                    labelCategoryName.htmlFor = 'nameInput' + i;
+                    labelCategoryName.innerText = 'Category Name';
+                    labelCategoryName.className = 'editField';
+                    td.appendChild(labelCategoryName);
+                    let nameInput = document.createElement('input');
+                    nameInput.type = 'text';
+                    nameInput.size = 10;
+                    nameInput.placeholder = responseObj[i][0];
+                    nameInput.value = responseObj[i][0];
+                    nameInput.className = 'editField';
+                    nameInput.id = 'nameInput' + i;
+                    td.appendChild(nameInput);
 
-                    //add category name table cell to table row element
+                    //image input
+                    let labelFileUpload = document.createElement('label');
+                    labelFileUpload.htmlFor = 'imgInput' + i;
+                    labelFileUpload.innerText = 'Upload Image File';
+                    labelFileUpload.className = 'editField';
+                    td.appendChild(labelFileUpload);
+
+                    let imgInput = document.createElement('input');
+                    imgInput.type = 'file';
+                    imgInput.id = 'imgInput' + i;
+                    imgInput.accept = 'image/*';
+                    imgInput.className = 'editField';
+                    //imgInput.value = "ted.png"; //responseObj[i][3];
+
+                    td.appendChild(imgInput);
+
+                    //availability check box
+                    let availableLabel = document.createElement('label');
+                    availableLabel.htmlFor = 'availableCheckBox' + i;
+                    availableLabel.innerText = 'Available';
+                    availableLabel.className = 'editField';
+                    let availableCheckBox = document.createElement('input');
+                    availableCheckBox.type = 'checkbox';
+                    availableCheckBox.id = 'availableCheckBox' + i;
+                    availableCheckBox.checked = (responseObj[i][2]) ? true : false;
+                    availableCheckBox.className = 'editField';
+                    td.appendChild(availableLabel);
+                    td.appendChild(availableCheckBox);
+
+                    //save cell (revert, too?)
+                    let saveButton = document.createElement('input');
+                    saveButton.type = 'button';
+                    saveButton.value = 'Save';
+                    saveButton.onclick = function () {
+                        saveCategory(i, responseObj[i][1]);
+                    };
+                    saveButton.className = 'editField';
+                    td.appendChild(saveButton);
+                    td.className = 'editFieldCell';
+
+
                     tr.appendChild(td);
 
-                    //new table cell element to house image.
+                    //image display
                     td = document.createElement('td');
-                    td.className = 'imgCell';
                     let img = document.createElement('img');
                     img.src = "../images/menu/" + responseObj[i][3];
                     img.width = "350";
                     img.height = "300";
-
-                    //smaller sizes like these could be used for menuEditor
-                    //img.width = "50";
-                    //img.height = "50";
-
-                    //append image to table cell, table cell to table row,
-                    //and table row to table body.
                     td.appendChild(img);
                     tr.appendChild(td);
+
+
+
+                    //tr.className = 'tableRow';
+
+                    //append row (category) to table
                     catTblBod.appendChild(tr);
+                }
+            }
+            else {
+
+                // view/functional mode
+                for (let i = 0; i < responseObj.length; i++) {
+                    //only populate category if marked as "available"
+                    if (responseObj[i][2] == true) {
+
+                        //table row
+                        let tr = document.createElement('tr');
+                        tr.onclick = function () { mainToSingleCategory(i); };
+                        tr.className = 'tableRow';
+
+                        //table row cell
+                        let td = document.createElement('td');
+                        //category name
+                        td.innerText = responseObj[i][0];
+                        td.className = 'catName';
+                        td.id = 'catName' + i;
+                        //td.onclick = function (){ makeEditable('catName'+i, responseObj[i][1]);};
+
+                        //add category name table cell to table row element
+                        tr.appendChild(td);
+
+                        //new table cell element to house image.
+                        td = document.createElement('td');
+                        td.className = 'imgCell';
+                        let img = document.createElement('img');
+                        img.src = "../images/menu/" + responseObj[i][3];
+                        img.width = "350";
+                        img.height = "300";
+
+                        //append image to table cell, table cell to table row,
+                        //and table row to table body.
+                        td.appendChild(img);
+                        tr.appendChild(td);
+                        catTblBod.appendChild(tr);
+                    }
                 }
             }
         }
     }
     httpRequest.open("GET", "../php_pages/menu.php?request=cats", true);
     httpRequest.send();
-
-    //orderInstance = new order();
 }
-
-/*not used.  delete.
-function singleCategoryToMain() {
-
-    //delete nav bar and subcategory tables if exist... or hide?
-    //nav bar should always exit at this point.  no need to check for it.
-    if (nav = document.getElementById('navBar')) {
-        nav.remove();
-        let subcatTbls = document.getElementsByClassName("subcategory");
-        while (subcatTbls[0]) subcatTbls[0].remove();
-    }
-
-    document.getElementById('catTbl').style.display = "";
-
-}
-*/
-
 
 //called by any category (a table row) of the initial page layout.
 //loads items of clicked category
@@ -125,8 +208,8 @@ function mainToSingleCategory(i) {
     selectedNavItem.onclick = '';
     //page titles.
     let selectedCategoryText = ul.children[i + 1].innerText;
-    document.getElementById('h1Title').innerText = selectedCategoryText;
-    document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
+    //document.getElementById('h1Title').innerText = selectedCategoryText;
+    //document.getElementById('title').innerText = 'Menu: ' + selectedCategoryText;
 
     //append unordered list to navigation bar, and nav bar to document body
     nav.appendChild(ul)
@@ -151,8 +234,8 @@ function catChange(i) {
     navCats[i].onclick = '';
     navCats[i].id = 'selectedNavItem';
     navCats[j].onclick = function () { catChange(j); }
-    document.getElementById('h1Title').innerText = navCats[i].innerText;
-    document.getElementById('title').innerText = 'Menu: ' + navCats[i].innerText;
+    //document.getElementById('h1Title').innerText = navCats[i].innerText;
+    //document.getElementById('title').innerText = 'Menu: ' + navCats[i].innerText;
 
     //remove previous subcategories and their items
     let subcatTbls = document.getElementsByClassName('subcategory');
@@ -263,131 +346,103 @@ function categoryDisplay(jsonStr) {
     }
 }
 
-function load() {
-    checkUserAndCurOrder();
+/*
+//itemID is found in MySQL database.  itemType identifies which table to use:
+// category, subcategory, item.
+function makeEditable(elementID, itemID, itemType) {
+    console.log('makeEditable');
+    let ele = document.getElementById(elementID);
+    ele.onclick = '';
+    if (ele.className == 'catName') {
+        //replace inner text with a text input field, a cancel button, and a
+        // save button.
+        let text = ele.innerText;
+        ele.innerText = '';
+        let textInput = document.createElement('input');
+        textInput.type = 'text';
+        textInput.value = text;
+        //textInput.placeholder = text;
+        textInput.size = 5;
+        ele.appendChild(textInput);
+        let cancelButton = document.createElement('input');
+        cancelButton.type = 'button';
+        cancelButton.value = 'Cancel';
+        cancelButton.onclick = function () { cancel(elementID, text, itemID, itemType); };
+        ele.appendChild(cancelButton);
+        let saveButton = document.createElement('input');
+        saveButton.type = 'button';
+        saveButton.value = 'Save';
+        saveButton.onclick = function () { alert('save'); };
+        ele.appendChild(saveButton);
+    }
+}
+*/
+
+/*
+function cancel(elementID, originalText, itemID, itemType) {
+    console.log('test');
+    let ele = document.getElementById(elementID);
+    ele.innerText = originalText;
+    //ele.onclick = function(){makeEditable(elementID,itemID,itemType);};
+    ele.onclick = function () { alert('hey'); };
+
+}
+*/
+
+function editMode() {
+    editorInstance.changeState();
+    let button = document.getElementById('editModeButton');
+    button.value = (editorInstance.getState()) ? 'Switch to View Mode' : 'Switch to Edit Mode';
+    //either recreate table with edit, cancel, and save buttons, or dynamically 
+    // add them to current table.
     mainMenu();
 }
 
-function checkUserAndCurOrder() {
-    //get username just to test php session()
+class editor {
+    state = 0;//2 states: off and on; 0 and 1, respectively.
+    constructor() {
+
+    }
+    getState() {
+        return this.state;
+    }
+    changeState() {
+        this.state = 1 - this.state;
+    }
+}
+
+editorInstance = new editor();
+
+function saveCategory(index, categoryId) {
+    //alert('Saved (still need to implement)'); 
+    console.log(index + '; ' + categoryId);
+
+    //get values
+    let name = document.getElementById('nameInput' + index).value;
+    let img = document.getElementById('imgInput' + index).value;
+    let available = document.getElementById('availableCheckBox' + index).checked;
+
+    let updateObj = { "id": categoryId, "name": name, "img": img, "available": available };
+    console.log(updateObj);
+    let updateStr = JSON.stringify(updateObj);
+    console.log(updateStr);
+
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
-        alert('Cannot create XMLHTTP instance');
+        console.log('Failed to create instance of XMLHttpRequest');
         return false;
     }
-    else {
-        httpRequest.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                //if a user is logged in, retrieve order status
-                // and populate this.order object with database
-                // information, or create new order
-                let openOrder = httpRequest.responseText;
-                //console.log(order);
-                //console.log(JSON.parse(order));
-                if (openOrder) {
-                    //console.log(openOrder);
-                    orderInstance = new order(JSON.parse(openOrder));
-                }
-            }
-        }
-        httpRequest.open("GET", "../php_pages/menuOrder.php", true);
-        httpRequest.send();
-    }
-}
-
-function addToOrder(id, name, price) {
-
-    if (orderInstance) {
-        //moved to class order
-        //document.getElementById('orderTbl').className = 'active';
-
-
-        //add item to order instance
-        orderInstance.addItem(id, name, price)
-        //update order display
-        //updateOrderDisplay();
-
-        //console.log(orderInstance);
-
-        //store order in session variable
-
-        updateOrderConsole(id, name);
-
-        let httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function () {
-            if (this.readyState == 4 & this.status == 200) {
-                console.log(httpRequest.responseText);
-            }
-        }
-        httpRequest.open("POST", "../php_pages/menuOrder.php");
-        httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-        httpRequest.send('order=' + JSON.stringify(orderInstance.getItems()));
-        //console.log(JSON.stringify(orderInstance.getItems()));
-
-    }
-    else {
-        console.log('no user logged in.  no order instance.');
-    }
-
-}
-
-function updateOrderConsole(id, name) {
-    //console.log(orderInstance);
-    //'Added 1 ' + orderInstance.items[itemId].name + 
-    // '.  Current Quantity: ' + orderInstance.items[itemId].quantity
-
-    /*
-    document.getElementById('orderItemAdded').innerText =
-        orderInstance.items[id].name;
-    document.getElementById('orderItemQuantity').innerText =
-        orderInstance.items[id].quantity;
-    */
-    document.getElementById('orderItemAdded').innerText = name;
-    document.getElementById('orderItemQuantity').innerText =
-        orderInstance.items[id];
-
-
-
-}
-
-class order {
-    items = {};
-    //items = new Array();
-    constructor(orderObj) {
-        //this.user = username;
-        this.displayTblRef = document.getElementById('orderTbl');
-        this.displayTblRef.className = 'active';
-
-        //set items
-        this.items = (orderObj.items == null)?{}:orderObj.items;
-    }
-    addItem(id, name, price) {
-        if (this.items[id]) {
-            //item quantity update, not new item
-            //this.items[id].quantity++;
-            this.items[id]++;
-            /*
-            //tell caller function this was an item quantity update, not new item
-            return true;
-            */
-        }
-        else {
-            //new item
-            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
-            this.items[id] = 1;
-
-            //price is for a single item, is unaffected by quantity
-            /*
-            //tell caller function this was a new item
-            return true;
-            */
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            //redisplay menu.  this acts as a confirmation of the database save
+            // because the values will be taken from there again to rebuild the page.
+            mainMenu();
         }
     }
-    getItems() {
-        return this.items;
-    }
-}
+    httpRequest.open("POST","../php_pages/menuEditor.php");
+    httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+    httpRequest.send("categoryUpdate=" + updateStr);
 
-function orderView(){
-    location.assign("orderPage.html");
+
 }
