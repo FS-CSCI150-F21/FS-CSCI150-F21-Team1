@@ -1,10 +1,14 @@
 body{
-  background-color: gray;
+  background-image: url(../images/background.png);
+  color: rgb(205,205,205);
+  text-align: center;
   margin: 0;
 }
+
 .nav
 {
-  background-color: rgb(255, 191, 112);
+  text-align: initial;
+  background-color: rgba(255, 255, 255, 0);
   padding: 20px;
 }
 .nav a
@@ -12,7 +16,7 @@ body{
   padding: 20px;
   font-size: 20px;
   font-weight: 500;
-  color:black;
+  color:rgb(159,159,159);
   text-decoration: none;
 }
 .nav a:hover{
@@ -124,7 +128,7 @@ span.psw {
   justify-content: space-evenly;
   align-items: stretch;
   margin: auto;
-  margin-top: 25vh;
+  margin-top: 50px; 
 }
 
 input {
