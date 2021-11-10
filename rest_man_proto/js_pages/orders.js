@@ -37,7 +37,7 @@ class order {
         td = document.createElement('td');
         tfoot.appendChild(td);
         td = document.createElement('td');
-        td.innerText = this.calculateSubtotal();
+        td.innerText = formatter.format(this.calculateSubtotal());
         tfoot.appendChild(td);
         return tfoot;
     }
@@ -71,7 +71,7 @@ class order {
         for (let i = 0; i < this.items.length; i++) {
             subtotal += this.items[i].getCost();
         }
-        return formatter.format(subtotal);
+        return subtotal;
     }
 }
 
@@ -101,12 +101,19 @@ class item {
         td = document.createElement('td');
         td.innerText = '-';
         let id = this.id;
-        td.onclick = function () { orderInstance.decrementItem(id); }
+        td.onclick = function () { 
+            orderInstance.decrementItem(id); 
+            paymentInstance.updateChange();
+        }
+        
         td.className = 'actionButton';
         tr.appendChild(td);
         td = document.createElement('td');
         td.innerText = '+';
-        td.onclick = function () { orderInstance.incrementItem(id); };
+        td.onclick = function () {
+            orderInstance.incrementItem(id); 
+            paymentInstance.updateChange();
+        };
         td.className = 'actionButton';
         tr.appendChild(td);
         return tr;
@@ -140,22 +147,29 @@ function load() {
             if (!responseObj.privilegeLevel) {
                 //client is not logged-in.  redirect to login.
                 location.replace('account.html');
+                return;
             }
-            else if (responseObj.privilegeLevel >= 0
-                && responseObj.privilegeLevel <= 2) {
-                //treat all logged-in users as the same privilege level: customer.
+            else {
 
+                if (responseObj.privilegeLevel == 0
+                    || responseObj.privilegeLevel == 1) {
+                    //employee+.  reveal privileged features
+                    let empPrivElmts = document.getElementsByClassName('employeePrivilege');
+                    for (let i = 0; i < empPrivElmts.length; i++) {
+                        empPrivElmts[i].style.visibility = 'visible';
+                        console.log(empPrivElmts[i]);
+                    }
+                }
+                else if (responseObj.privilegeLevel != 2) {
+                    //database has an error in a user's privlege level field
+                    console.log('Check database for correct privilege level format on '
+                        + 'this user');
+                }
                 //create order object
                 orderInstance = new order(responseObj.order.items);
 
                 //build table body of items and table footer of subtotal 
                 presentCurrentOrder(responseObj.order);
-            }
-
-            else {
-                //database has an error in a user's privlege level field
-                console.log('Check database for correct privilege level format on '
-                    + 'this user');
             }
         }
     }
@@ -184,7 +198,7 @@ function presentCurrentOrder(dbOrderObj) {
     console.log(dbOrderObj);
     //update order stats
     document.getElementById('orderNumber').innerText = dbOrderObj.orderID;
-    document.getElementById('orderType').innerText = (dbOrderObj.togo)?'To Go':'Dine In';
+    document.getElementById('orderType').innerText = (dbOrderObj.togo) ? 'To Go' : 'Dine In';
     document.getElementById('orderStatus').innerText = dbOrderObj.status;
     document.getElementById('creationTime').innerText = dbOrderObj.created;
     document.getElementById('lastModified').innerText = dbOrderObj.last_modified;
@@ -199,3 +213,188 @@ function presentCurrentOrder(dbOrderObj) {
     //display subtotal
     itemsTable.appendChild(orderInstance.createTableFooter());
 }
+
+function kitchen() {
+    alert('kitchen');
+}
+
+function newOrder() {
+    alert('newOrder');
+}
+
+class payment {
+    state = null;
+    cC() {
+        if (this.state == 'cc') return;
+        this.state = 'cc';
+
+        //clear out paymentTableBody
+        let pTB = document.getElementById('paymentTableBody');
+        while (pTB.children[0]) {
+            pTB.children[0].remove();
+        }
+
+
+        //make paymentTableBody a CC form
+        //let pTB = document.getElementById('paymentTableBody');
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        let label = document.createElement('label');
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'ccName';
+        input.placeholder = 'Name on Card';
+        td.colSpan = 2;
+        td.appendChild(input);
+        tr.appendChild(td);
+        pTB.appendChild(tr);
+
+        td = document.createElement('td');
+        tr = document.createElement('tr');
+        input = document.createElement('input');
+        input.type = 'tel';
+        input.id = 'ccNum';
+        input.placeholder = 'Card Number';
+        td.colSpan = 2;
+        td.appendChild(input);
+        tr.appendChild(td);
+        //tr.appendChild(input);
+        pTB.appendChild(tr);
+
+        //input = document.createElement('input');
+        //input.type = 'date';
+        td = document.createElement('td');
+        tr = document.createElement('tr');
+        input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'MM/YY'
+        input.id = 'ccExpM';
+        input.size = 3;
+        td.appendChild(input);
+        td.colSpan = 2;
+        //tr.appendChild(td);
+
+        //td = document.createElement('td');
+        input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'ccCSV';
+        input.placeholder = 'CSV';
+        input.size = 3;
+        td.appendChild(input);
+        tr.appendChild(td);
+        pTB.appendChild(tr);
+
+        let submitOrder = document.getElementById('submitOrder');
+        //submitOrder.style.visibility = 'visible';
+        submitOrder.hidden = false;
+    }
+
+    cash() {
+        if (this.state == 'cash') return;
+        this.state = 'cash';
+
+        //clear out paymentTableBody
+        let pTB = document.getElementById('paymentTableBody');
+        while (pTB.children[0]) {
+            pTB.children[0].remove();
+        }
+
+        //tendered input
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'cashTendered';
+        input.placeholder = 'Tendered';
+        td.colSpan = 2;
+        input.oninput = function() {paymentInstance.updateChange(this.value);};
+        this.TenderedDisplay = input;
+        input.style.textAlign = 'right';
+        td.appendChild(input);
+        tr.appendChild(td);
+        pTB.appendChild(tr);
+
+        //change
+        tr = document.createElement('tr');
+        td = document.createElement('td');
+        input = document.createElement('input');
+        input.type = 'text';
+        input.disabled = true;
+        input.placeholder = 'Change';
+        input.style.textAlign = 'right';
+        this.changeDisplay = input;
+        td.colSpan = 2;
+        td.appendChild(input);
+        tr.appendChild(td);
+        pTB.appendChild(tr);
+
+        document.getElementById('submitOrder').hidden = false;
+    }
+
+    updateChange(){
+        if(this.state!='cash') return;
+        this.changeDisplay.value = this.TenderedDisplay.value - orderInstance.calculateSubtotal();
+    }
+
+    completeTransaction(){
+        //communicate with database.  change order status to 'Kitchen'.
+        // return estimated wait time.
+    }
+}
+
+var paymentInstance = new payment();
+
+
+/*
+let monthInput = document.createElement('select');
+monthInput.id = 'ccMonth';
+let monthOption = document.createElement('option');
+monthOption.value = '01';
+monthOption.innerText='January';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '02';
+monthOption.innerText='Febuary';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '03';
+monthOption.innerText='March';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '04';
+monthOption.innerText='April';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '05';
+monthOption.innerText='May';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '06';
+monthOption.innerText='June';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '07';
+monthOption.innerText='July';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '08';
+monthOption.innerText='August';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '09';
+monthOption.innerText='September';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '10';
+monthOption.innerText='October';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '11';
+monthOption.innerText='November';
+monthInput.appendChild(monthOption);
+monthOption = document.createElement('option');
+monthOption.value = '12';
+monthOption.innerText='December';
+monthInput.appendChild(monthOption);
+td.appendChild(monthInput);
+*/

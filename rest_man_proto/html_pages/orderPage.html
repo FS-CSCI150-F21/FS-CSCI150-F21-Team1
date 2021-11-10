@@ -21,6 +21,13 @@
         </nav>
     </header>
 
+    <table id='employeeFunctions' class='employeePrivilege'>
+        <tr>
+            <td id='newOrder' onclick='newOrder()'>New Order</td>
+            <td id='kitchen' onclick='kitchen()'>Send to Kitchen</td>
+        </tr>
+    </table>
+
     <h1 id="Welcome">Order</h1>
     <table id='statsTable'>
         <thead class="tableHead">
@@ -62,12 +69,25 @@
                 <!-- Move "Action" to beneath items table.
                      Submit to kitchen, pay bill-->
 
-    <table>
-        <tbody>
-            <tr>
-                <td>Submit Order</td>
-            </tr>
+    <table id='paymentTable'>
+        <caption>Payment</caption>
+        <thead>
+            <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
+                Credit Card
+            </th>
+            <th id ='paymentOptionCash' class='employeePrivilege' 
+                onclick='paymentInstance.cash()'>Cash</th>
+        </thead>
+        <tbody id='paymentTableBody'>
         </tbody>
+        <tfoot>
+            <tr>
+                <td id='completeTransaction' colspan=3 hidden 
+                    onclick='paymentInstance.completeTransaction()'>
+                    Complete Transaction
+                </td>
+            </tr>
+        </tfoot>
     </table>
 
 </body>

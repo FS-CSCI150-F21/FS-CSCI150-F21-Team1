@@ -114,3 +114,42 @@ h3{
 	-ms-user-select: none; /* IE10+/Edge */
 	user-select: none; /* Standard */
 }
+
+#paymentTable{
+    margin: 2vh auto;
+    /*width: 65vw;*/
+    text-align: center;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+#paymentTable th{
+    width: 50%;
+}
+
+#employeeFunctions{
+    margin: auto;
+    width: 100%;
+}
+#employeeFunctions #newOrder{
+    text-align: left;
+    padding: 1vh 1vw;
+}
+#employeeFunctions #kitchen{
+    text-align: right;
+    padding: 1vh 1vw;
+}
+.employeePrivilege{
+    visibility: collapse;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+/*
+#paymentTableBody{
+    text-align: left;
+}
+*/
