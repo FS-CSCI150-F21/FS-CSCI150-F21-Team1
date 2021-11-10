@@ -1,10 +1,10 @@
 body{
-    background-color: gray;
+    background-image: url(../images/background.png);
     margin: 0;
 }
 .nav
 {
-    background-color: rgb(255, 191, 112);
+    background-color: rgba(255, 255, 255, 0);
     padding: 20px;
 }
 .nav a
@@ -12,11 +12,11 @@ body{
     padding: 20px;
     font-size: 20px;
     font-weight: 500;
-    color:black;
+    color:rgb(159, 159, 159);
     text-decoration: none;
 }
 .nav a:hover{
-    color:rgb(165, 91, 0);
+    color:rgb(255, 149, 0);
 }
 .rightnav
 {
@@ -41,9 +41,11 @@ button a:hover{
 #Welcome
 {
     padding-top: 15%;
+    padding-bottom: 25%;
 }
 #Body
 {
+    color: white;
     text-align: center;
 }
 
