@@ -111,13 +111,22 @@ if (!$orderNumber) {
 
 //query database for order stats
 //create query string
-$query = 'SELECT togo, status, created, items, table_num, last_modified, eRTime ' .
+$query = 'SELECT status, created, items, dinerTable, last_modified, eRTime, paid ' .
     'FROM open_order_info ' .
     'WHERE order_id=' . $orderNumber .
     ' AND username="' . $_SESSION['username'] . '";';
 
 //query MySQL database
 $result = $conn->query($query);
+if(!$result->num_rows){
+    //order was closed.  search respective table
+    $query = 'SELECT status, created, items, dinerTable, last_modified, eRTime, paid ' .
+    'FROM closed_order_info ' .
+    'WHERE order_id=' . $orderNumber .';';
+    
+    //query MySQL database
+    $result = $conn->query($query);
+}
 
 //fetch result from MySQL database and store into PHP object
 $orderInfo = $result->fetch_object();

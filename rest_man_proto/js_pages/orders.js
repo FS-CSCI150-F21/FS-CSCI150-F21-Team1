@@ -19,14 +19,15 @@ class order {
                 this.items.push(new item(orderObj.items[i]));
             }
         }
-        //responseObj.order.items
+
         //build table body of items and table footer of subtotal 
         this.status = orderObj.status;
         this.orderID = orderObj.orderID;
-        this.toGo = orderObj.togo;
+        this.dinerTable = orderObj.dinerTable;
         this.creationTime = orderObj.created;
         this.lastModified = orderObj.last_modified;
         this.eRTime = orderObj.eRTime;
+        this.paid = orderObj.paid;
         this.presentCurrentOrder();
 
     }
@@ -89,7 +90,8 @@ class order {
 
         //update order stats
         document.getElementById('orderNumber').innerText = this.orderID;
-        document.getElementById('orderType').innerText = (this.toGo) ? 'To Go' : 'Dine In';
+        let table = (this.dinerTable) ? this.dinerTable : 'To Go';
+        document.getElementById('table').innerText = table;
         document.getElementById('orderStatus').innerText = this.status;
         document.getElementById('creationTime').innerText = this.creationTime;
         document.getElementById('lastModified').innerText = this.lastModified;
@@ -103,19 +105,18 @@ class order {
         itemsTable.appendChild(this.createTableBody());
         //display subtotal
         itemsTable.appendChild(this.createTableFooter());
-        
+
         //different presentation based on order status.
         // Opened = payment, item increment and decrement.
         // !Opened = only estimated wait time.
         if (this.status != 'Opened') {
-            let paymentTable = document.getElementById('paymentTable');
-            if (paymentTable) paymentTable.remove();
+
 
             //remove action buttons
             let actionButtons = document.getElementsByClassName('actionButton');
             console.log(actionButtons);
             console.log(actionButtons[0]);
-            while(actionButtons[0]) {
+            while (actionButtons[0]) {
                 actionButtons[0].remove();
                 console.log(actionButtons);
             }
@@ -135,11 +136,11 @@ class order {
                 ul.appendChild(li);
                 li.innerText = 'Countdown';
                 li = document.createElement('li');
-                let minutes = (((new Date(this.eRTime)) - (new Date()))/60000).toFixed(0);
+                let minutes = (((new Date(this.eRTime)) - (new Date())) / 60000).toFixed(0);
                 li.innerText = minutes + ' minutes';
 
-                setInterval(function(){
-                    let minutes = (((new Date(orderInstance.eRTime)) - (new Date()))/60000).toFixed(0);
+                setInterval(function () {
+                    let minutes = (((new Date(orderInstance.eRTime)) - (new Date())) / 60000).toFixed(0);
                     li.innerText = minutes + ' minutes';
                 }, 15000);
 
@@ -151,6 +152,11 @@ class order {
         else {
 
         }
+        if (Number(this.paid)) {
+            let paymentTable = document.getElementById('paymentTable');
+            if (paymentTable) paymentTable.remove();
+        }
+
 
     }
 }
@@ -333,7 +339,6 @@ class payment {
         //update 'paid' field to true
         // remove action buttons to increment or decrement items.
         // update status display to kitchen, or closed
-        console.log('hello');
         let httpRequest = new XMLHttpRequest();
         if (!httpRequest) {
             console.log('httpRequest instance failed');

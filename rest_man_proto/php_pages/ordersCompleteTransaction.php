@@ -52,8 +52,6 @@ if ($conn->connect_error) {
     exit('Could not connect');
 }
 
-//echo time() . '<br>';
-
 session_start();
 
 $userStatus = isset($_SESSION['loggedin']) ? $_SESSION['loggedin'] : false;
@@ -62,6 +60,7 @@ if (!$userStatus) {
     echo 'no user logged-in';
     return;
 }
+
 
 //possible statuses: Opened, Kitchen, Prepared, Served, Closed
 
@@ -83,6 +82,7 @@ if ($conn->query($query)) {
     $userLevel = isset($_SESSION['loggedin']) ? $_SESSION['level'] : -1;
     //echo $userLevel;
     //echo $status;
+
     if ($userLevel == 2 && $status == 'Opened') {
         //update MySQL record status to 'Kitchen'
         $query = 'UPDATE open_order_info SET status="Kitchen" WHERE order_id='
@@ -137,14 +137,17 @@ if ($conn->query($query)) {
         // completed the payment transaction.  Set order status to 'Closed' and move
         // to completed orders.
         $multiquery = 'UPDATE open_order_info SET status="Closed" WHERE order_id='
-            . $ordeNumber . '; ';
+            . $orderNumber . '; ';
         $multiquery .= 'INSERT INTO closed_order_info SELECT * 
                         FROM open_order_info 
                         WHERE order_id=' .$orderNumber .'; ';
         $multiquery .= 'DELETE FROM open_order_info WHERE order_id=' .$orderNumber .';';
 
-        if ($conn->multi_query($query)) {
+        echo $multiquery;
+
+        if ($conn->multi_query($multiquery)) {
             //return wait time of 0
+            //unset($_SESSION['order']);
             echo 0;
         } else {
             //query failure
@@ -155,6 +158,7 @@ if ($conn->query($query)) {
 } else {
     //database error
     echo $conn->error;
+    echo 'connection error';
 }
 
 $conn->close();

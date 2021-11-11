@@ -27,6 +27,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     if ($curOrder >= 0) {
         //user has a current order open.  
 
+
+
         //item addition or initial retrieval of order items
         if (isset($_POST['order'])) {
             //item addition;
@@ -43,7 +45,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
             //debug. return any errors
             echo $conn->error . '<br>' . $query;
-            
         } else {
             //initial order items retrieval
             //check username as another layer of security
@@ -54,16 +55,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             //query database and store result
             $result = $conn->query($query);
 
-            //get order items field
-            $items = $result->fetch_object()->items;
-            //turn order items string into object
-            $itemsArr = json_decode($items);
+            if (!$result->num_rows) {
+                //associated order was closed.  return false.
+                echo false;
+            } else {
+                //get order items field
+                $items = $result->fetch_object()->items;
+                //turn order items string into object
+                $itemsArr = json_decode($items);
 
-            //combine order id number with order items array into return array
-            $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
+                //combine order id number with order items array into return array
+                $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
 
-            //return order id and order items to client
-            echo json_encode($returnArr);
+                //return order id and order items to client
+                echo json_encode($returnArr);
+            }
         }
     } else {
         //user needs a new order to be opened or the most recent open order under
