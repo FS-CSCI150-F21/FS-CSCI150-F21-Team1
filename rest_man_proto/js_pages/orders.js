@@ -12,12 +12,23 @@ class order {
     items = [];
     //itemsAss = {};
     //itemsAss2 = {};
-    constructor(itemsArr) {
-        if (itemsArr != null) {
-            for (let i = 0; i < itemsArr.length; i++) {
-                this.items.push(new item(itemsArr[i]));
+    status;
+    constructor(orderObj) {
+        if (orderObj.items != null) {
+            for (let i = 0; i < orderObj.items.length; i++) {
+                this.items.push(new item(orderObj.items[i]));
             }
         }
+        //responseObj.order.items
+        //build table body of items and table footer of subtotal 
+        this.status = orderObj.status;
+        this.orderID = orderObj.orderID;
+        this.toGo = orderObj.togo;
+        this.creationTime = orderObj.created;
+        this.lastModified = orderObj.last_modified;
+        this.eRTime = orderObj.eRTime;
+        this.presentCurrentOrder();
+
     }
     createTableBody() {
         let tableBody = document.createElement('tbody');
@@ -73,6 +84,75 @@ class order {
         }
         return subtotal;
     }
+    presentCurrentOrder() {
+
+
+        //update order stats
+        document.getElementById('orderNumber').innerText = this.orderID;
+        document.getElementById('orderType').innerText = (this.toGo) ? 'To Go' : 'Dine In';
+        document.getElementById('orderStatus').innerText = this.status;
+        document.getElementById('creationTime').innerText = this.creationTime;
+        document.getElementById('lastModified').innerText = this.lastModified;
+
+        //delete leftover items table elements if they exist.  
+        document.getElementById('itemsTableBody').remove();
+        document.getElementById('itemsTableFooter').remove();
+
+        //display list of ordered items (name, quantity, and price)
+        let itemsTable = document.getElementById('itemsTable');
+        itemsTable.appendChild(this.createTableBody());
+        //display subtotal
+        itemsTable.appendChild(this.createTableFooter());
+        
+        //different presentation based on order status.
+        // Opened = payment, item increment and decrement.
+        // !Opened = only estimated wait time.
+        if (this.status != 'Opened') {
+            let paymentTable = document.getElementById('paymentTable');
+            if (paymentTable) paymentTable.remove();
+
+            //remove action buttons
+            let actionButtons = document.getElementsByClassName('actionButton');
+            console.log(actionButtons);
+            console.log(actionButtons[0]);
+            while(actionButtons[0]) {
+                actionButtons[0].remove();
+                console.log(actionButtons);
+            }
+
+            if (this.status == 'Kitchen') {
+                //build estimated wait time table: 'Estimated Order Ready Time',
+                // 'Countdown to Estimated Order Ready Time in Minutes'
+                let ul = document.createElement('ul');
+                document.body.appendChild(ul);
+                let li = document.createElement('li');
+                ul.appendChild(li);
+                li.innerText = 'Estimated Ready Time';
+                li = document.createElement('li');
+                li.innerText = new Date(this.eRTime).toLocaleTimeString();
+                ul.appendChild(li);
+                li = document.createElement('li');
+                ul.appendChild(li);
+                li.innerText = 'Countdown';
+                li = document.createElement('li');
+                let minutes = (((new Date(this.eRTime)) - (new Date()))/60000).toFixed(0);
+                li.innerText = minutes + ' minutes';
+
+                setInterval(function(){
+                    let minutes = (((new Date(orderInstance.eRTime)) - (new Date()))/60000).toFixed(0);
+                    li.innerText = minutes + ' minutes';
+                }, 15000);
+
+
+                ul.appendChild(li);
+            }
+
+        }
+        else {
+
+        }
+
+    }
 }
 
 class item {
@@ -101,21 +181,24 @@ class item {
         td = document.createElement('td');
         td.innerText = '-';
         let id = this.id;
-        td.onclick = function () { 
-            orderInstance.decrementItem(id); 
+        td.onclick = function () {
+            orderInstance.decrementItem(id);
             paymentInstance.updateChange();
         }
-        
+
+        //action buttons.
         td.className = 'actionButton';
         tr.appendChild(td);
         td = document.createElement('td');
         td.innerText = '+';
         td.onclick = function () {
-            orderInstance.incrementItem(id); 
+            orderInstance.incrementItem(id);
             paymentInstance.updateChange();
         };
         td.className = 'actionButton';
         tr.appendChild(td);
+
+
         return tr;
     }
     getCost() {
@@ -129,98 +212,6 @@ class item {
     }
 }
 
-var orderInstance;
-
-function load() {
-    //console.log('worked');
-    let httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        console.log('Failed to create XMLHttpRequest Instance');
-        return false;
-    }
-    httpRequest.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            //response will be privilege level (number), or boolean false
-            // for 'guest' (not logged-in client)
-            let responseObj = JSON.parse(this.responseText);
-            console.log(responseObj);
-            if (!responseObj.privilegeLevel) {
-                //client is not logged-in.  redirect to login.
-                location.replace('account.html');
-                return;
-            }
-            else {
-
-                if (responseObj.privilegeLevel == 0
-                    || responseObj.privilegeLevel == 1) {
-                    //employee+.  reveal privileged features
-                    let empPrivElmts = document.getElementsByClassName('employeePrivilege');
-                    for (let i = 0; i < empPrivElmts.length; i++) {
-                        empPrivElmts[i].style.visibility = 'visible';
-                        console.log(empPrivElmts[i]);
-                    }
-                }
-                else if (responseObj.privilegeLevel != 2) {
-                    //database has an error in a user's privlege level field
-                    console.log('Check database for correct privilege level format on '
-                        + 'this user');
-                }
-                //create order object
-                orderInstance = new order(responseObj.order.items);
-
-                //build table body of items and table footer of subtotal 
-                presentCurrentOrder(responseObj.order);
-            }
-        }
-    }
-    httpRequest.open("GET", "../php_pages/orders.php");
-    httpRequest.send();
-}
-
-function updateDB(itemsObj) {
-    let httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        console.log("Failed to make httpRequest instance");
-        return false;
-    }
-    httpRequest.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            load();
-        }
-    }
-    httpRequest.open("POST", "../php_pages/menuOrder.php");
-    httpRequest.setRequestHeader("content-type",
-        "application/x-www-form-urlencoded");
-    httpRequest.send("order=" + JSON.stringify(itemsObj));
-}
-
-function presentCurrentOrder(dbOrderObj) {
-    console.log(dbOrderObj);
-    //update order stats
-    document.getElementById('orderNumber').innerText = dbOrderObj.orderID;
-    document.getElementById('orderType').innerText = (dbOrderObj.togo) ? 'To Go' : 'Dine In';
-    document.getElementById('orderStatus').innerText = dbOrderObj.status;
-    document.getElementById('creationTime').innerText = dbOrderObj.created;
-    document.getElementById('lastModified').innerText = dbOrderObj.last_modified;
-
-    //delete leftover items table elements if they exist.  
-    document.getElementById('itemsTableBody').remove();
-    document.getElementById('itemsTableFooter').remove();
-
-    //display list of ordered items (name, quantity, and price)
-    let itemsTable = document.getElementById('itemsTable');
-    itemsTable.appendChild(orderInstance.createTableBody());
-    //display subtotal
-    itemsTable.appendChild(orderInstance.createTableFooter());
-}
-
-function kitchen() {
-    alert('kitchen');
-}
-
-function newOrder() {
-    alert('newOrder');
-}
 
 class payment {
     state = null;
@@ -284,9 +275,7 @@ class payment {
         tr.appendChild(td);
         pTB.appendChild(tr);
 
-        let submitOrder = document.getElementById('submitOrder');
-        //submitOrder.style.visibility = 'visible';
-        submitOrder.hidden = false;
+        document.getElementById('completeTransaction').hidden = false;
     }
 
     cash() {
@@ -307,7 +296,7 @@ class payment {
         input.id = 'cashTendered';
         input.placeholder = 'Tendered';
         td.colSpan = 2;
-        input.oninput = function() {paymentInstance.updateChange(this.value);};
+        input.oninput = function () { paymentInstance.updateChange(this.value); };
         this.TenderedDisplay = input;
         input.style.textAlign = 'right';
         td.appendChild(input);
@@ -328,73 +317,121 @@ class payment {
         tr.appendChild(td);
         pTB.appendChild(tr);
 
-        document.getElementById('submitOrder').hidden = false;
+        document.getElementById('completeTransaction').hidden = false;
     }
 
-    updateChange(){
-        if(this.state!='cash') return;
+    updateChange() {
+        if (this.state != 'cash') return;
         this.changeDisplay.value = this.TenderedDisplay.value - orderInstance.calculateSubtotal();
     }
 
-    completeTransaction(){
-        //communicate with database.  change order status to 'Kitchen'.
-        // return estimated wait time.
+    completeTransaction() {
+        //if customer uses this function, automatically send order to kitchen
+        //if employee uses it, check to see that order has not already been sent
+        // to kitchen.  send if not.  if(status==Opened) sendKitchen()
+        //return estimated wait time if sent to kitchen
+        //update 'paid' field to true
+        // remove action buttons to increment or decrement items.
+        // update status display to kitchen, or closed
+        console.log('hello');
+        let httpRequest = new XMLHttpRequest();
+        if (!httpRequest) {
+            console.log('httpRequest instance failed');
+            return;
+        }
+        httpRequest.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //estimated wait time
+                if (this.responseText) {
+                    console.log(this.responseText);
+                    console.log(JSON.parse(this.responseText));
+                    //alert(this.responseText + ' minutes');
+                    load();
+                }
+                else {
+                    console.log('Problem with completeTransaction() httpRequest response.');
+                }
+            }
+        }
+        httpRequest.open('POST', '../php_pages/ordersCompleteTransaction.php');
+        httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        httpRequest.send('paid=true');
     }
 }
+
+var orderInstance;
 
 var paymentInstance = new payment();
 
 
-/*
-let monthInput = document.createElement('select');
-monthInput.id = 'ccMonth';
-let monthOption = document.createElement('option');
-monthOption.value = '01';
-monthOption.innerText='January';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '02';
-monthOption.innerText='Febuary';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '03';
-monthOption.innerText='March';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '04';
-monthOption.innerText='April';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '05';
-monthOption.innerText='May';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '06';
-monthOption.innerText='June';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '07';
-monthOption.innerText='July';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '08';
-monthOption.innerText='August';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '09';
-monthOption.innerText='September';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '10';
-monthOption.innerText='October';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '11';
-monthOption.innerText='November';
-monthInput.appendChild(monthOption);
-monthOption = document.createElement('option');
-monthOption.value = '12';
-monthOption.innerText='December';
-monthInput.appendChild(monthOption);
-td.appendChild(monthInput);
-*/
+function load() {
+    //console.log('worked');
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log('Failed to create XMLHttpRequest Instance');
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            //response will be privilege level (number), or boolean false
+            // for 'guest' (not logged-in client)
+            let responseObj = JSON.parse(this.responseText);
+            console.log(responseObj);
+            if (!responseObj.privilegeLevel) {
+                //client is not logged-in.  redirect to login.
+                location.replace('account.html');
+                return;
+            }
+            else {
+
+                if (responseObj.privilegeLevel == 0
+                    || responseObj.privilegeLevel == 1) {
+                    //employee+.  reveal privileged features
+                    let empPrivElmts = document.getElementsByClassName('employeePrivilege');
+                    for (let i = 0; i < empPrivElmts.length; i++) {
+                        empPrivElmts[i].style.visibility = 'visible';
+                        console.log(empPrivElmts[i]);
+                    }
+                }
+                else if (responseObj.privilegeLevel != 2) {
+                    //database has an error in a user's privlege level field
+                    console.log('Check database for correct privilege level format on '
+                        + 'this user');
+                }
+                //create order object
+                orderInstance = new order(responseObj.order);
+
+            }
+        }
+    }
+    httpRequest.open("GET", "../php_pages/orders.php");
+    httpRequest.send();
+}
+
+function updateDB(itemsObj) {
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            load();
+        }
+    }
+    httpRequest.open("POST", "../php_pages/menuOrder.php");
+    httpRequest.setRequestHeader("content-type",
+        "application/x-www-form-urlencoded");
+    httpRequest.send("order=" + JSON.stringify(itemsObj));
+}
+
+
+
+function kitchen() {
+    alert('This will send order to kitchen.  To be used by servers+ only.');
+}
+
+function newOrder() {
+    alert('This will create a new order');
+}
+

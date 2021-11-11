@@ -99,7 +99,7 @@ if (!$orderNumber) {
 
 //query database for order stats
 //create query string
-$query = 'SELECT togo, status, created, items, table_num, last_modified ' .
+$query = 'SELECT togo, status, created, items, table_num, last_modified, eRTime ' .
     'FROM order_info ' .
     'WHERE number=' . $orderNumber . 
     ' AND username="' . $_SESSION['username'] . '";';
@@ -165,85 +165,3 @@ echo json_encode($return);
 
 //close connection to MySQL
 $conn->close();
-
-
-//$return = array("privilegeLevel" => $privilegeLevel, "order" => $orderInfo);
-
-    //debug
-    /*
-    $itemIDs = array_keys($items);
-    foreach($itemIDs as $itemID){
-        echo $itemID;
-    }
-
-
-    foreach($items as $item){
-        echo $item;
-    }
-    */
-
-    //create multiquery to get all order item prices
-    //test new query to see if result needs to be freed
-    /*
-    $query2 = 'SELECT togo, status, created, items, table_num FROM order_info ' .
-         'WHERE status="closed" AND username="' . $_SESSION['username'] . '";';
-    
-    $result2 = $conn->query($query2);
-    if($result2->num_rows) echo 'yes';
-    $result2Obj = $result2->fetch_object();
-
-    echo $result2Obj->togo;
-    */
-
-    /*
-    class helloWorld{
-        function __construct(){
-            echo 'hello world';
-        }
-    }
-    $myHelloW = new helloWorld();
-    */
-
-    //echo current($itemsArr)->get_id();
-    /*
-    $testItem = new item(7,2);
-    echo $testItem->get_id();
-    */
-
-
-    /*
-    //find number of item IDs in order
-    $itemIDsCount = count($items);
-    //echo $itemIDsCount;
-    //$firstItemsKey = array_key_first($items);
-    //echo $items[1];
-
-    $itemsKeys = array_keys($items);
-    //echo $itemsKeys[0];
-
-    $itemsQuery = 'Select name, id, price, category FROM menuItems 
-        WHERE id=' . $itemsKeys[0];
-    for($i=1;$i<$itemIDsCount;$i++){
-        $itemsQuery .= ' OR id=' . $itemsKeys[$i];
-    }
-    $itemsQuery .= ' ORDER BY id ASC;';
-    echo $itemsQuery;
-
-    foreach($items as $item){
-
-    }
-*/
-
-//echo $return['privilegeLevel'];
-//echo $return['orderID'];
-//echo $return->orderID;
-
-//var_dump(isset($return->{'privilegeLevel'}));
-//var_dump(key($return));
-/*
-$keys_arr = array_keys($_SESSION);
-
-foreach($keys_arr as $key){
-    echo $key . ': '. $_SESSION[$key] . '<br>';
-}
-*/

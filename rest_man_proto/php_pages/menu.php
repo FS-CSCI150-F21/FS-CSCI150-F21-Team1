@@ -93,6 +93,7 @@ if ($_GET['request'] == 'cats') {
     //adds all items to appropriate subcategory objects through record fetches
     $i = 0;
     while ($itemsRec = $itemsResult->fetch_object()) {
+
         if (!$subcategoryObjs[$i]->addItem($itemsRec)) {
             $i++;
             $subcategoryObjs[$i]->addItem($itemsRec);

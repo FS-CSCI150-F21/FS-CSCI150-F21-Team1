@@ -23,7 +23,7 @@ session_start();
 //is client logged in as a user
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     //does client have a current order
-    $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : 0;
+    $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : false;
     if ($curOrder) {
         //user has a current order open.  
 

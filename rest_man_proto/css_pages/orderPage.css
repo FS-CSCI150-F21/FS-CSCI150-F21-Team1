@@ -153,3 +153,13 @@ h3{
     text-align: left;
 }
 */
+
+ul{
+    margin: auto;
+    list-style: none;
+    display: block;
+}
+li{
+    float: left;
+    margin: 1vh 3vw;
+}
