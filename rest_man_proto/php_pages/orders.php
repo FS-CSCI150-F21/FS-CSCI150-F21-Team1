@@ -84,15 +84,15 @@ $orderNumber = isset($_SESSION['order']) ? $_SESSION['order'] : false;
 if (!$orderNumber) {
     //create new order or check for recent open orders
 
-    $query = 'SELECT number FROM open_order_info WHERE username="'
-        . $_SESSION['username'] . '" AND status="Opened" ORDER BY number DESC;';
-
+    $query = 'SELECT order_id FROM open_order_info WHERE username="'
+        . $_SESSION['username'] . '" AND status="Opened" ORDER BY order_id DESC;';
     $result = $conn->query($query);
+
     if ($result->num_rows) {
         //user has open orders.  assign most recent.
         $order = $result->fetch_object();
-        $_SESSION['order'] = $order->number;
-        $orderNumber =  $order->number;
+        $_SESSION['order'] = $order->order_id;
+        $orderNumber =  $order->order_id;
     } else {
         //create insert query for MySQL database
         $query = "INSERT INTO open_order_info (username) VALUES

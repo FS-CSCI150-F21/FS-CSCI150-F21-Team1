@@ -3,7 +3,66 @@ menu.js requests information from menu.php in order to present appropriate
 food items on menu.html
 */
 
+class order {
+    items = {};
+    //items = new Array();
+    constructor(orderObj) {
+        //this.user = username;
+        this.displayTblRef = document.getElementById('orderTbl');
+        this.displayTblRef.className = 'active';
+
+        //set items
+        this.items = (orderObj.items == null)?{}:orderObj.items;
+    }
+    addItem(id, name, price) {
+        if (this.items[id]) {
+            //item quantity update, not new item
+            this.items[id]++;
+        }
+        else {
+            //new item
+            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
+            this.items[id] = 1;
+        }
+    }
+    getItems() {
+        return this.items;
+    }
+}
+
 var orderInstance;
+
+function load() {
+    checkUserAndCurOrder();
+    mainMenu();
+}
+
+function checkUserAndCurOrder() {
+    //get username just to test php session()
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        alert('Cannot create XMLHTTP instance');
+        return false;
+    }
+    else {
+        httpRequest.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //if a user is logged in, retrieve order status
+                // and populate this.order object with database
+                // information, or create new order
+                let openOrder = httpRequest.responseText;
+                //console.log(order);
+                //console.log(JSON.parse(order));
+                if (openOrder) {
+                    //console.log(openOrder);
+                    orderInstance = new order(JSON.parse(openOrder));
+                }
+            }
+        }
+        httpRequest.open("GET", "../php_pages/menuOrder.php", true);
+        httpRequest.send();
+    }
+}
 
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
@@ -108,13 +167,14 @@ function mainToSingleCategory(i) {
     //request category records from database
     fetchCategory(i);
 }
+
 function catChange(i) {
 
     //switch nav bar's selected element through id change
     //need to know which category this represents
     let navCats = document.getElementsByClassName('navCats');
     let j = 0;
-    //let selectedNavItem;
+
     while (navCats[j].id != 'selectedNavItem') { j++; }
     navCats[j].id = '';
     navCats[i].onclick = '';
@@ -232,38 +292,6 @@ function categoryDisplay(jsonStr) {
     }
 }
 
-function load() {
-    checkUserAndCurOrder();
-    mainMenu();
-}
-
-function checkUserAndCurOrder() {
-    //get username just to test php session()
-    let httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-        alert('Cannot create XMLHTTP instance');
-        return false;
-    }
-    else {
-        httpRequest.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                //if a user is logged in, retrieve order status
-                // and populate this.order object with database
-                // information, or create new order
-                let openOrder = httpRequest.responseText;
-                //console.log(order);
-                //console.log(JSON.parse(order));
-                if (openOrder) {
-                    //console.log(openOrder);
-                    orderInstance = new order(JSON.parse(openOrder));
-                }
-            }
-        }
-        httpRequest.open("GET", "../php_pages/menuOrder.php", true);
-        httpRequest.send();
-    }
-}
-
 function addToOrder(id, name, price) {
 
     if (orderInstance) {
@@ -303,32 +331,7 @@ function updateOrderConsole(id, name) {
         orderInstance.items[id];
 }
 
-class order {
-    items = {};
-    //items = new Array();
-    constructor(orderObj) {
-        //this.user = username;
-        this.displayTblRef = document.getElementById('orderTbl');
-        this.displayTblRef.className = 'active';
 
-        //set items
-        this.items = (orderObj.items == null)?{}:orderObj.items;
-    }
-    addItem(id, name, price) {
-        if (this.items[id]) {
-            //item quantity update, not new item
-            this.items[id]++;
-        }
-        else {
-            //new item
-            //this.items[id] = { "name": name, "price": price, "quantity": 1 };
-            this.items[id] = 1;
-        }
-    }
-    getItems() {
-        return this.items;
-    }
-}
 
 function orderView(){
     location.assign("orderPage.html");

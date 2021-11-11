@@ -347,15 +347,9 @@ class payment {
         httpRequest.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 //estimated wait time
-                if (this.responseText) {
-                    console.log(this.responseText);
-                    console.log(JSON.parse(this.responseText));
-                    //alert(this.responseText + ' minutes');
-                    load();
-                }
-                else {
-                    console.log('Problem with completeTransaction() httpRequest response.');
-                }
+                console.log('completeTransaction() response text and JSON parse');
+                console.log(this.responseText);
+                load();
             }
         }
         httpRequest.open('POST', '../php_pages/ordersCompleteTransaction.php');

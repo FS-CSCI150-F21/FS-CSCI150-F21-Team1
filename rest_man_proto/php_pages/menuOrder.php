@@ -27,8 +27,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     if ($curOrder >= 0) {
         //user has a current order open.  
 
-
-
         //item addition or initial retrieval of order items
         if (isset($_POST['order'])) {
             //item addition;
@@ -46,23 +44,45 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             //debug. return any errors
             echo $conn->error . '<br>' . $query;
         } else {
-            //initial order items retrieval
+            //3 cases: 
+            // -- 1 no order is found which means it must be closed
+            // -- 2 order is found, but it has already been paid, which means
+            //      no more items should be added
+            // -- 3 order is found and unpaid.  retrieve items for menu.js to add
+            //      more items
+
+
             //check username as another layer of security
-            $query = "SELECT items FROM open_order_info 
+            $query = "SELECT paid, items FROM open_order_info 
             WHERE username='" . $_SESSION['username'] . "'
             AND order_id=" . $curOrder . ";";
 
             //query database and store result
             $result = $conn->query($query);
 
-            if (!$result->num_rows) {
-                //associated order was closed.  return false.
-                echo false;
-            } else {
-                //get order items field
-                $items = $result->fetch_object()->items;
+            /*
+            if ($status = $result->fetch_object()->status) {
+                echo $status;
+                $status = $result->fetch_object()->status;
+                echo $status;
+                if (!$status) echo 'hello';
+            }
+            */
+
+            //make object from result
+            if (!$resultObj = $result->fetch_object()) {
+                //1: no order is found
+                //echo 'no order found';
+            }
+            else if($resultObj->paid){
+                //2: order already paid
+                //echo 'order paid';
+            }
+            else {
+                //3: order is found and upaid.  initial order items retrieval
+
                 //turn order items string into object
-                $itemsArr = json_decode($items);
+                $itemsArr = json_decode($resultObj->items);
 
                 //combine order id number with order items array into return array
                 $returnArr = ["orderID" => $curOrder, "items" => $itemsArr];
@@ -70,6 +90,25 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 //return order id and order items to client
                 echo json_encode($returnArr);
             }
+
+            //if($resultObj->status=='C') echo 'yes';
+
+            if (!$status = $result->fetch_object()->status) {
+                //no order found.  it must be in closed_orders_info.
+                echo false;
+            }
+
+
+            /*
+            if (!$result->num_rows) {
+                //associated order was closed.  return false.
+                echo false;
+            }
+            */
+            /*else if($result){
+
+            }
+            */ 
         }
     } else {
         //user needs a new order to be opened or the most recent open order under
