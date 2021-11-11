@@ -23,8 +23,8 @@ session_start();
 //is client logged in as a user
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     //does client have a current order
-    $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : false;
-    if ($curOrder) {
+    $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : -1;
+    if ($curOrder >= 0) {
         //user has a current order open.  
 
         //item addition or initial retrieval of order items
@@ -35,7 +35,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $orderItemsStr = isset($_POST['order']) ? $_POST['order'] : '{"1":5,"26":1,"86":2,"99":1}';
 
             //query string to change order record's items field
-            $query = "UPDATE order_info SET items = '" . $orderItemsStr . 
+            $query = "UPDATE order_info SET items = '" . $orderItemsStr .
                 "' WHERE number = " . $curOrder . ";";
 
             //execute query on mysql database
@@ -63,26 +63,37 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
             //return order id and order items to client
             echo json_encode($returnArr);
-
         }
     } else {
-        //user needs a new order to be opened.
+        //user needs a new order to be opened or the most recent open order under
+        // his username
+        $query = 'SELECT number FROM order_info WHERE username="'
+            . $_SESSION['username'] . '" AND status="Opened" ORDER BY number DESC;';
 
-        //create insert query for mysql database
-        $query = "INSERT INTO order_info (username) VALUES
-         ('" . $_SESSION['username'] . "');";
+        $result = $conn->query($query);
+        if ($result->num_rows) {
+            //user has open orders.  assign most recent.
+            $order = $result->fetch_object();
+            $_SESSION['order'] = $order->number;
+            echo $order->number;
+        } else {
+            //user needs new order
+            //create insert query for mysql database
+            $query = "INSERT INTO order_info (username) VALUES
+                        ('" . $_SESSION['username'] . "');";
 
-        //ask query of mysql database
-        $queryResult = $conn->query($query);
+            //ask query of mysql database
+            $queryResult = $conn->query($query);
 
-        //retrieve automatically-incremented value of order number upon record creation.
-        $orderNumber = $conn->insert_id;
+            //retrieve automatically-incremented value of order number upon record creation.
+            $orderNumber = $conn->insert_id;
 
-        //store order number in session
-        $_SESSION['order'] = $orderNumber;
+            //store order number in session
+            $_SESSION['order'] = $orderNumber;
 
-        //let client know which new order was created
-        echo $orderNumber;
+            //let client know which new order was created
+            echo $orderNumber;
+        }
     }
 } else {
     echo false;

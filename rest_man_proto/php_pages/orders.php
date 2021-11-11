@@ -71,9 +71,10 @@ session_start();
 //client's logged-in status
 $privilegeLevel = isset($_SESSION['loggedin']) ? $_SESSION['level'] : -1;
 
-if($privilegeLevel==-1){
+if ($privilegeLevel == -1) {
     //if client isn't logged in, he should not be on this page
-    echo json_encode(array("privilegeLevel"=>false));
+    echo json_encode(array("privilegeLevel" => false));
+    $conn->close();
     return;
 }
 
@@ -81,27 +82,38 @@ if($privilegeLevel==-1){
 $orderNumber = isset($_SESSION['order']) ? $_SESSION['order'] : false;
 
 if (!$orderNumber) {
-    //create new order
+    //create new order or check for recent open orders
 
-    //create insert query for MySQL database
-    $query = "INSERT INTO order_info (username) VALUES
-    ('" . $_SESSION['username'] . "');";
+    $query = 'SELECT number FROM order_info WHERE username="'
+        . $_SESSION['username'] . '" AND status="Opened" ORDER BY number DESC;';
 
-    //ask query of MySQL database
-    $queryResult = $conn->query($query);
+    $result = $conn->query($query);
+    if ($result->num_rows) {
+        //user has open orders.  assign most recent.
+        $order = $result->fetch_object();
+        $_SESSION['order'] = $order->number;
+        $orderNumber =  $order->number;
+    } else {
+        //create insert query for MySQL database
+        $query = "INSERT INTO order_info (username) VALUES
+                ('" . $_SESSION['username'] . "');";
 
-    //retrieve automatically-incremented value of order number upon record creation.
-    $orderNumber = $conn->insert_id;
+        //ask query of MySQL database
+        $queryResult = $conn->query($query);
 
-    //store order number in session
-    $_SESSION['order'] = $orderNumber;
+        //retrieve automatically-incremented value of order number upon record creation.
+        $orderNumber = $conn->insert_id;
+
+        //store order number in session
+        $_SESSION['order'] = $orderNumber;
+    }
 }
 
 //query database for order stats
 //create query string
 $query = 'SELECT togo, status, created, items, table_num, last_modified, eRTime ' .
     'FROM order_info ' .
-    'WHERE number=' . $orderNumber . 
+    'WHERE number=' . $orderNumber .
     ' AND username="' . $_SESSION['username'] . '";';
 
 //query MySQL database
