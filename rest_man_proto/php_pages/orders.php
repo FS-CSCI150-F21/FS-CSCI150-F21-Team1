@@ -84,7 +84,7 @@ $orderNumber = isset($_SESSION['order']) ? $_SESSION['order'] : false;
 if (!$orderNumber) {
     //create new order or check for recent open orders
 
-    $query = 'SELECT number FROM order_info WHERE username="'
+    $query = 'SELECT number FROM open_order_info WHERE username="'
         . $_SESSION['username'] . '" AND status="Opened" ORDER BY number DESC;';
 
     $result = $conn->query($query);
@@ -95,7 +95,7 @@ if (!$orderNumber) {
         $orderNumber =  $order->number;
     } else {
         //create insert query for MySQL database
-        $query = "INSERT INTO order_info (username) VALUES
+        $query = "INSERT INTO open_order_info (username) VALUES
                 ('" . $_SESSION['username'] . "');";
 
         //ask query of MySQL database
@@ -112,8 +112,8 @@ if (!$orderNumber) {
 //query database for order stats
 //create query string
 $query = 'SELECT togo, status, created, items, table_num, last_modified, eRTime ' .
-    'FROM order_info ' .
-    'WHERE number=' . $orderNumber .
+    'FROM open_order_info ' .
+    'WHERE order_id=' . $orderNumber .
     ' AND username="' . $_SESSION['username'] . '";';
 
 //query MySQL database

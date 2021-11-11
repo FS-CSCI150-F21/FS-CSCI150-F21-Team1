@@ -63,11 +63,6 @@ if (!$userStatus) {
     return;
 }
 
-
-/*
-$test = isset($_POST['paid'])?'true':'false';
-echo $test;
-*/
 //possible statuses: Opened, Kitchen, Prepared, Served, Closed
 
 //in order to reach this point, user should have a session order assigned already
@@ -75,12 +70,12 @@ echo $test;
 $orderNumber = isset($_SESSION['order']) ? $_SESSION['order'] : 11;
 
 //build query to modify paid field of order
-$query = 'UPDATE order_info SET paid=1 WHERE number=' . $orderNumber . ';';
+$query = 'UPDATE open_order_info SET paid=1 WHERE order_id=' . $orderNumber . ';';
 
 if ($conn->query($query)) {
-    //echo $orderNumber;
+
     //check status and this user's privilege level to determine next status
-    $query = 'SELECT status, items FROM order_info WHERE number=' . $orderNumber . ';';
+    $query = 'SELECT status, items FROM open_order_info WHERE order_id=' . $orderNumber . ';';
     $result = $conn->query($query);
     $resultObj = $result->fetch_object();
     $status = $resultObj->status;
@@ -90,7 +85,7 @@ if ($conn->query($query)) {
     //echo $status;
     if ($userLevel == 2 && $status == 'Opened') {
         //update MySQL record status to 'Kitchen'
-        $query = 'UPDATE order_info SET status="Kitchen" WHERE number='
+        $query = 'UPDATE open_order_info SET status="Kitchen" WHERE order_id='
             . $orderNumber . ';';
         if ($conn->query($query)) {
             //success
@@ -120,12 +115,12 @@ if ($conn->query($query)) {
                 $oPrepTime = getOrderPrepTime($order);
                 $eRTime = date('Y-m-d H:i:s', (($oPrepTime * 60) + time()));
                 //$eRTime = 
-                
-                $query = 'UPDATE order_info SET eRTime="' . $eRTime
-                    . '" WHERE number=' . $orderNumber . ';';
+
+                $query = 'UPDATE open_order_info SET eRTime="' . $eRTime
+                    . '" WHERE order_id=' . $orderNumber . ';';
                 if ($conn->query($query)) {
                     //everthing worked
-                    $return = array($eRTime,$oPrepTime);
+                    $return = array($eRTime, $oPrepTime);
 
                     echo json_encode($return);
                 } else {
@@ -137,11 +132,25 @@ if ($conn->query($query)) {
         } else {
             die('something is wrong');
         }
-    } else if ($userLevel == 2 && $status == 'Served') {
-        $query = 'UPDATE order_info SET status="Closed" WHERE number='
-            . $ordeNumber . ';';
-        //return wait time of 0
-        echo 0;
+    } else if ($status == 'Served') {
+        //Customer has received food and paid for it, regardless of which user type
+        // completed the payment transaction.  Set order status to 'Closed' and move
+        // to completed orders.
+        $multiquery = 'UPDATE open_order_info SET status="Closed" WHERE order_id='
+            . $ordeNumber . '; ';
+        $multiquery .= 'INSERT INTO closed_order_info SELECT * 
+                        FROM open_order_info 
+                        WHERE order_id=' .$orderNumber .'; ';
+        $multiquery .= 'DELETE FROM open_order_info WHERE order_id=' .$orderNumber .';';
+
+        if ($conn->multi_query($query)) {
+            //return wait time of 0
+            echo 0;
+        } else {
+            //query failure
+            echo $conn->error;
+        }
+
     }
 } else {
     //database error
