@@ -5,7 +5,7 @@
 // Customer view: only sees current order.
 // Employee can see a current order as well as switch to view of all orders.
 
-
+include 'mysqlConnection.php';
 
 
 class item implements JsonSerializable
@@ -48,20 +48,6 @@ class item implements JsonSerializable
     }
 }
 
-//mySQL server authentication details
-$servername = "127.0.0.1";
-$dbusername = "rest_manager";
-$dbpassword = "iF2ONNbmcCTcdjrd";
-$dbname = "rest_info";
-
-//establish connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-//verify connection
-if ($conn->connect_error) {
-    echo 'not connected to mysql server';
-    exit('Could not connect');
-}
 
 //establish php session to ascertain user's:
 // 1) logged-in status

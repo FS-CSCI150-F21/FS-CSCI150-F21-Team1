@@ -1,5 +1,7 @@
 <?php
 
+include 'mysqlConnection.php';
+
 class item
 {
     private $prepTime;
@@ -36,20 +38,6 @@ function getOrderPrepTime($orderArr)
     else return $max + count($orderArr) / 2;
 }
 
-//mySQL server authentication details
-$servername = "127.0.0.1";
-$dbusername = "rest_manager";
-$dbpassword = "iF2ONNbmcCTcdjrd";
-$dbname = "rest_info";
-
-//establish connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-//verify connection
-if ($conn->connect_error) {
-    echo 'not connected to mysql server';
-    exit('Could not connect');
-}
 
 session_start();
 
@@ -59,8 +47,6 @@ if (!$userStatus) {
     echo 'no user logged-in';
     return;
 }
-
-
 
 //in order to reach this point, user should have a session order assigned already
 //11 is for testing purposes
@@ -85,6 +71,7 @@ if ($conn->query($query)) {
         //update MySQL record status to 'Kitchen'
         $query = 'UPDATE open_order_info SET status="Kitchen" WHERE order_id='
             . $orderNumber . ';';
+
         if ($conn->query($query)) {
             //success.  calculate and set estimated ready time.
 
@@ -122,17 +109,13 @@ if ($conn->query($query)) {
                 $eRTime = date('Y-m-d H:i:s', (($oPrepTime * 60) + time()));
 
                 //set estimated ready time (eRTime column)
-                //need to set prep time column
-                //do prep time still!!! =======================================
+                //set prep time column (for long's wait time algorithm)
                 $query = 'UPDATE open_order_info SET eRTime="' . $eRTime
-                    . '" WHERE order_id=' . $orderNumber . ';';
+                    . '", prep_time=' . $oPrepTime
+                    . ' WHERE order_id=' . $orderNumber . ';';
                 if ($conn->query($query)) {
                     //everthing worked
 
-                    //deprecated.  these are calculated through load()'s httpRequest
-                    //$return = array($eRTime, $oPrepTime);
-
-                    //echo json_encode($return);
                 } else {
                     echo $conn->error;
                 }

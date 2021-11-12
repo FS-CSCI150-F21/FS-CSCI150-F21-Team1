@@ -1,19 +1,6 @@
 <?php
 
-//mySQL server authentication details
-$servername = "127.0.0.1";
-$dbusername = "rest_manager";
-$dbpassword = "iF2ONNbmcCTcdjrd";
-$dbname = "rest_info";
-
-//establish connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-//verify connection
-if ($conn->connect_error) {
-    echo 'not connected to mysql server';
-    exit('Could not connect');
-}
+include "mysqlConnection.php";
 
 //establish php session to: 
 //1) check if user is logged in 
@@ -147,7 +134,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 $conn->close();
 
-//for order page: once order is closed out through payment, unset($_SESSION['order']);
 // just sent to kitchen is not enough because tab is still open for things like
 // dessert and coffee
 
@@ -160,5 +146,6 @@ $conn->close();
 
 //on orders page, employees and manager can select from open orders and assign
 // themselves one to modify.  that order's order_id will be stored in $_SESSION['order'].
-// when they finish with it, $_SESSION['order'] will be released with unset(),
+// when they finish with it, $_SESSION['order'] will be released with unset(), (or
+// assignment of another order)
 // but the order changes will have been saved to the database already.

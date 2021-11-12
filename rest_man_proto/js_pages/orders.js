@@ -114,8 +114,9 @@ class order {
 
             //remove action buttons
             let actionButtons = document.getElementsByClassName('actionButton');
-            console.log(actionButtons);
-            console.log(actionButtons[0]);
+            //debug
+            //console.log(actionButtons);
+            //console.log(actionButtons[0]);
             while (actionButtons[0]) {
                 actionButtons[0].remove();
                 console.log(actionButtons);
@@ -399,6 +400,7 @@ function load() {
                 }
                 //create order object
                 orderInstance = new order(responseObj.order);
+                console.log(responseObj);
 
             }
         }
