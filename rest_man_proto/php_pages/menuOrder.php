@@ -47,15 +47,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             //query database and store result
             $result = $conn->query($query);
 
-            /*
-            if ($status = $result->fetch_object()->status) {
-                echo $status;
-                $status = $result->fetch_object()->status;
-                echo $status;
-                if (!$status) echo 'hello';
-            }
-            */
-
             //make object from result
             if (!$resultObj = $result->fetch_object()) {
                 //1: no order is found
@@ -77,25 +68,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 //return order id and order items to client
                 echo json_encode($returnArr);
             }
-
-            //if($resultObj->status=='C') echo 'yes';
-
-            if (!$status = $result->fetch_object()->status) {
-                //no order found.  it must be in closed_orders_info.
-                echo false;
-            }
-
-
-            /*
-            if (!$result->num_rows) {
-                //associated order was closed.  return false.
-                echo false;
-            }
-            */
-            /*else if($result){
-
-            }
-            */ 
+            
         }
     } else {
         //user needs a new order to be opened or the most recent open order under
