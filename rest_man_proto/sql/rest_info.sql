@@ -1,6 +1,4 @@
-
-
--- script to create "rest_manager" user, and "rest_info" database that accesses database from php backend.
+-- script to create "rest_manager" user, and "rest_info" database with all tables necessary for menu, and order functionality
 
 
 -- create user
@@ -10,11 +8,11 @@ CREATE USER IF NOT EXISTS 'rest_manager'@'localhost' IDENTIFIED BY 'iF2ONNbmcCTc
 -- this statement likely to fail if not ran from root.
 GRANT ALL ON rest_info.* to 'rest_manager'@'localhost';
 
-CREATE DATABASE  IF NOT EXISTS `rest_info` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `rest_info` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `rest_info`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: rest_info
+-- Host: localhost    Database: rest_info
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -165,7 +163,7 @@ CREATE TABLE `open_order_info` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `dinerTable` int DEFAULT NULL,
-  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Opened',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `finished` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -177,7 +175,7 @@ CREATE TABLE `open_order_info` (
   `customer_username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `eRTime` datetime DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +184,7 @@ CREATE TABLE `open_order_info` (
 
 LOCK TABLES `open_order_info` WRITE;
 /*!40000 ALTER TABLE `open_order_info` DISABLE KEYS */;
-INSERT INTO `open_order_info` VALUES (30,'angryduck462',NULL,'Opened','2021-11-10 05:45:37','2021-11-10 07:41:30',NULL,_binary '{\"1\":4}',NULL,0,0,NULL,NULL,NULL),(31,'angryduck462',NULL,'Opened','2021-11-10 08:16:51','2021-11-10 08:17:11',NULL,_binary '{\"42\":2}',NULL,0,0,NULL,NULL,NULL),(32,'angryduck462',NULL,'Opened','2021-11-10 18:34:00','2021-11-10 18:37:35',NULL,_binary '{\"45\":1,\"51\":1,\"53\":1}',NULL,0,1,NULL,NULL,NULL),(35,'bigleopard946',NULL,'Kitchen','2021-11-10 19:33:22','2021-11-10 20:22:16',NULL,_binary '{\"43\":3,\"44\":2,\"45\":1,\"47\":3,\"48\":1}',NULL,0,1,NULL,NULL,NULL),(36,'bigleopard946',NULL,'Kitchen','2021-11-10 20:22:58','2021-11-10 20:23:08',NULL,_binary '{\"46\":1,\"51\":1,\"124\":1}',NULL,0,1,NULL,NULL,NULL),(37,'bigleopard946',NULL,'Kitchen','2021-11-10 22:21:46','2021-11-10 22:21:55',NULL,_binary '{\"3\":1,\"10\":1,\"16\":1}',NULL,0,1,NULL,NULL,NULL),(38,'bigleopard946',NULL,'Kitchen','2021-11-11 01:14:17','2021-11-11 01:14:23',NULL,_binary '{\"0\":1,\"2\":1}',NULL,0,1,NULL,NULL,NULL),(39,'bigleopard946',NULL,'Kitchen','2021-11-11 01:15:42','2021-11-11 01:15:47',NULL,_binary '{\"68\":1}',NULL,0,1,NULL,NULL,'2021-11-10 17:24:47'),(40,'bigleopard946',NULL,'Kitchen','2021-11-11 01:19:37','2021-11-11 01:19:44',NULL,_binary '{\"16\":1}',NULL,0,1,NULL,NULL,'2021-11-10 17:32:44'),(41,'bigleopard946',NULL,'Kitchen','2021-11-11 03:10:38','2021-11-11 04:01:08',NULL,_binary '{\"6\":2,\"7\":2}',NULL,0,1,NULL,NULL,'2021-11-10 19:27:45'),(42,'angryduck462',NULL,'Opened','2021-11-11 04:07:31','2021-11-11 04:09:32',NULL,_binary '{\"4\":1,\"5\":1,\"7\":2}',NULL,0,1,NULL,NULL,NULL),(43,'bigleopard946',NULL,'Kitchen','2021-11-11 04:09:50','2021-11-11 04:09:57',NULL,_binary '{\"3\":5}',NULL,0,1,NULL,NULL,'2021-11-10 20:20:57'),(45,'angryduck462',NULL,'Opened','2021-11-11 04:23:18','2021-11-11 04:26:33',NULL,_binary '{\"44\":1,\"45\":2,\"48\":1}',NULL,0,1,NULL,NULL,NULL);
+INSERT INTO `open_order_info` VALUES (30,'angryduck462',NULL,'Opened','2021-11-10 05:45:37','2021-11-10 07:41:30',NULL,_binary '{\"1\":4}',NULL,0,0,NULL,NULL,NULL),(31,'angryduck462',NULL,'Opened','2021-11-10 08:16:51','2021-11-10 08:17:11',NULL,_binary '{\"42\":2}',NULL,0,0,NULL,NULL,NULL),(32,'angryduck462',NULL,'Opened','2021-11-10 18:34:00','2021-11-11 22:40:16',NULL,_binary '{\"45\":1,\"51\":1,\"53\":1}',NULL,0,0,NULL,NULL,NULL),(35,'bigleopard946',NULL,'Kitchen','2021-11-10 19:33:22','2021-11-10 20:22:16',NULL,_binary '{\"43\":3,\"44\":2,\"45\":1,\"47\":3,\"48\":1}',NULL,0,1,NULL,NULL,NULL),(36,'bigleopard946',NULL,'Kitchen','2021-11-10 20:22:58','2021-11-10 20:23:08',NULL,_binary '{\"46\":1,\"51\":1,\"124\":1}',NULL,0,1,NULL,NULL,NULL),(37,'bigleopard946',NULL,'Kitchen','2021-11-10 22:21:46','2021-11-10 22:21:55',NULL,_binary '{\"3\":1,\"10\":1,\"16\":1}',NULL,0,1,NULL,NULL,NULL),(38,'bigleopard946',NULL,'Kitchen','2021-11-11 01:14:17','2021-11-11 01:14:23',NULL,_binary '{\"0\":1,\"2\":1}',NULL,0,1,NULL,NULL,NULL),(39,'bigleopard946',NULL,'Kitchen','2021-11-11 01:15:42','2021-11-11 01:15:47',NULL,_binary '{\"68\":1}',NULL,0,1,NULL,NULL,'2021-11-10 17:24:47'),(40,'bigleopard946',NULL,'Kitchen','2021-11-11 01:19:37','2021-11-11 01:19:44',NULL,_binary '{\"16\":1}',NULL,0,1,NULL,NULL,'2021-11-10 17:32:44'),(41,'bigleopard946',NULL,'Kitchen','2021-11-11 03:10:38','2021-11-11 04:01:08',NULL,_binary '{\"6\":2,\"7\":2}',NULL,0,1,NULL,NULL,'2021-11-10 19:27:45'),(42,'angryduck462',NULL,'Opened','2021-11-11 04:07:31','2021-11-11 22:40:16',NULL,_binary '{\"4\":1,\"5\":1,\"7\":2}',NULL,0,0,NULL,NULL,NULL),(43,'bigleopard946',NULL,'Kitchen','2021-11-11 04:09:50','2021-11-11 04:09:57',NULL,_binary '{\"3\":5}',NULL,0,1,NULL,NULL,'2021-11-10 20:20:57'),(45,'angryduck462',NULL,'Kitchen','2021-11-11 04:23:18','2021-11-11 23:11:57',NULL,_binary '{\"44\":1,\"45\":2,\"48\":1}',NULL,0,1,NULL,NULL,'2021-11-11 15:33:57'),(50,'bigleopard946',NULL,'Kitchen','2021-11-12 00:07:58','2021-11-12 00:08:03','2021-11-12 00:07:58',_binary '{\"6\":1}',15,NULL,1,NULL,NULL,'2021-11-11 16:23:03');
 /*!40000 ALTER TABLE `open_order_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-11 14:09:27
+-- Dump completed on 2021-11-11 16:44:18
