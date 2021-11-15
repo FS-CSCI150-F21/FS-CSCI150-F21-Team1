@@ -13,6 +13,7 @@ class order {
     //itemsAss = {};
     //itemsAss2 = {};
     status;
+    //paymentTableDisplay;
     constructor(orderObj) {
         if (orderObj.items != null) {
             for (let i = 0; i < orderObj.items.length; i++) {
@@ -123,9 +124,14 @@ class order {
             }
 
             if (this.status == 'Kitchen') {
+
+                //see if element already exists and remove to prevent duplicate
+                let ul = document.getElementById('eRTUL');
+                if (ul) ul.remove();
+                
                 //build estimated wait time table: 'Estimated Order Ready Time',
-                // 'Countdown to Estimated Order Ready Time in Minutes'
-                let ul = document.createElement('ul');
+                ul = document.createElement('ul');
+                ul.id = 'eRTUL';
                 document.body.appendChild(ul);
                 let li = document.createElement('li');
                 ul.appendChild(li);
@@ -136,6 +142,8 @@ class order {
                 li = document.createElement('li');
                 ul.appendChild(li);
                 li.innerText = 'Countdown';
+
+                // 'Countdown to Estimated Order Ready Time in Minutes'
                 li = document.createElement('li');
                 let minutes = (((new Date(this.eRTime)) - (new Date())) / 60000).toFixed(0);
                 li.innerText = minutes + ' minutes';
@@ -150,15 +158,19 @@ class order {
             }
 
         }
-        else {
 
-        }
         if (Number(this.paid)) {
             let paymentTable = document.getElementById('paymentTable');
+            //this.paymentTableDisplay = paymentTable.style.display;
+            //console.log(this.paymentTableDisplay);
+            //paymentTable.style.display = 'none';
+
             if (paymentTable) paymentTable.remove();
         }
 
-
+    }
+    getStatus() {
+        return this.status;
     }
 }
 
@@ -382,27 +394,27 @@ function load() {
                 location.replace('account.html');
                 return;
             }
-            else {
 
-                if (responseObj.privilegeLevel == 0
-                    || responseObj.privilegeLevel == 1) {
-                    //employee+.  reveal privileged features
-                    let empPrivElmts = document.getElementsByClassName('employeePrivilege');
-                    for (let i = 0; i < empPrivElmts.length; i++) {
-                        empPrivElmts[i].style.visibility = 'visible';
-                        console.log(empPrivElmts[i]);
-                    }
+            //client is logged in.  check which authorization he has
+            if (responseObj.privilegeLevel == 0
+                || responseObj.privilegeLevel == 1) {
+                //employee+.  reveal privileged features
+                let empPrivElmts = document.getElementsByClassName('employeePrivilege');
+                for (let i = 0; i < empPrivElmts.length; i++) {
+                    empPrivElmts[i].style.visibility = 'visible';
+                    console.log(empPrivElmts[i]);
                 }
-                else if (responseObj.privilegeLevel != 2) {
-                    //database has an error in a user's privlege level field
-                    console.log('Check database for correct privilege level format on '
-                        + 'this user');
-                }
-                //create order object
-                orderInstance = new order(responseObj.order);
-                console.log(responseObj);
-
             }
+            else if (responseObj.privilegeLevel != 2) {
+                //database has an error in a user's privlege level field
+                console.log('Check database for correct privilege level format on '
+                    + 'this user');
+            }
+
+            //create order object
+            orderInstance = new order(responseObj.order);
+            console.log(responseObj);
+
         }
     }
     httpRequest.open("GET", "../php_pages/orders.php");
@@ -429,10 +441,43 @@ function updateDB(itemsObj) {
 
 
 function kitchen() {
-    alert('This will send order to kitchen.  To be used by servers+ only.');
+    //implemt another feature at some point:
+    //hide 'Send to Kitchen' button when it isn't applicable (status!='Opened').
+
+    if (orderInstance.getStatus() != 'Opened') return;
+
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            load();
+        }
+    }
+    httpRequest.open("GET", "../php_pages/ordersSendToKitchen.php");
+    httpRequest.send();
+
 }
 
 function newOrder() {
-    alert('This will create a new order');
+    //alert('This will create a new order and load it into order form');
+
+
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            window.location.reload();
+        }
+    }
+    httpRequest.open("GET", "../php_pages/ordersNew.php");
+    httpRequest.send();
 }
 
