@@ -189,3 +189,23 @@ th#viewOrder{
     background-color: #055f60;
     color: white;
 }
+
+/*
+#catTblBod{
+    text-align: center;
+    border: 1px solid black;
+}
+*/
+
+/*
+.editFieldCell{
+    text-align: center;
+}
+*/
+
+
+.editField {
+    margin: 2vh auto;
+    text-align: center;
+    display: block;
+}

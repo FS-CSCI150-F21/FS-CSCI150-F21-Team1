@@ -11,8 +11,31 @@
 
 </head>
 
-<body onload='mainMenu()'>
+<body onload='load()'>
     <h1 id='h1Title'>Menu</h1>
+    <table id='orderTbl' class='inactive'>
+        <caption>
+            Order
+        </caption>
+        <thead>
+            <tr>
+                <th>Item Added</th>
+                <th>Current Quantity</th>
+                <th id='viewOrder' onclick="orderView()">
+                    View Order
+                </th>
+            </tr>
+            <!--<th>Price</th>-->
+        </thead>
+        <tbody id='orderTblBod'>
+            <tr>
+                <td id='orderItemAdded'></td>
+                <td id='orderItemQuantity'></td>
+                <td id='orderItemRemove'></td>
+            </tr>
+            <!--items will be put here-->
+        </tbody>
+    </table>
     <table id='catTbl'>
         <caption>Categories</caption>
         <thead>

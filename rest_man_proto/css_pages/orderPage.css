@@ -82,3 +82,84 @@ h3{
 #span{
     padding-left: 9%;
 }
+#statsTable {
+    text-align: center;
+    margin: auto;
+    border: 1px solid black;
+    width: 90vw;
+}
+#itemsTable{
+    text-align: center;
+    margin: auto;
+    width: 90vw;
+    border: 1px solid black;
+
+}
+#itemsTable tfoot{
+    text-align: center;
+}
+.itemName{
+    text-align: left;
+}
+#itemsNameHeader{
+    text-align: left;
+    padding: 0 5vw;
+}
+.actionButton{
+    padding: 0 1vw;
+    background-color:rgb(255, 191, 112);
+        	/*prevent text highlights*/
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+#paymentTable{
+    margin: 2vh auto;
+    /*width: 65vw;*/
+    text-align: center;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+#paymentTable th{
+    width: 50%;
+}
+
+#employeeFunctions{
+    margin: auto;
+    width: 100%;
+}
+#employeeFunctions #newOrder{
+    text-align: left;
+    padding: 1vh 1vw;
+}
+#employeeFunctions #kitchen{
+    text-align: right;
+    padding: 1vh 1vw;
+}
+.employeePrivilege{
+    visibility: collapse;
+    -webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+/*
+#paymentTableBody{
+    text-align: left;
+}
+*/
+
+ul{
+    margin: auto;
+    list-style: none;
+    display: block;
+}
+li{
+    float: left;
+    margin: 1vh 3vw;
+}
