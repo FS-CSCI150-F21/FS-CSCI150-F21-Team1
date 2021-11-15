@@ -6,8 +6,8 @@ This software will be run on the Raspberry Pi 4 microprocessor. This is an auxil
 - download and run xampp db control panel, start apache and mysql service
 - (if first time) import all sql files into database to setup.
 - go to people_detection_algorithm directory and open terminal or powershell
-- (if first time) pip install -r requirements.txt
-- python run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
+- (if first time) `pip install -r requirements.txt`
+- `python run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel`
 
 # People-Counting-in-Real-Time
 People Counting in Real-Time using live video stream/IP camera in OpenCV.
