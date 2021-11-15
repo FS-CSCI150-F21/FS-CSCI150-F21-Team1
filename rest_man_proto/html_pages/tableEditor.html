@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <script src="../js_pages/tableEditor.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link href="../css_pages/tableEditor.css" rel="stylesheet">
+</head>
+
+<body onload="set_table()">
+  <header>
+      <nav>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="#Menu">Menu</a>
+          <a href="#Contact">Contact</a>
+          <a href="#About">About</a>
+          <div class="rightnav">
+              <a href="account.html">Account</a>
+          </div>
+      </nav>
+  </header>
+  <div id="error"></div>
+  <div class="buttons">
+    <input type="number" id="x" min="10" max="25" value="10">
+    <input type="number" id="y" min="10" max="25" value="10">
+    <button type="button" onclick="set_table_coords()">Create New grid</button>
+    <button type="button" onclick="new_table_button()">New table</button>
+    <button type="button" onclick="make_interactive('delete')">Delete</button>
+    <button type="button" onclick="make_interactive('default')">Default</button>
+    <button type="button" onclick="remove_clickable()">Normal Mouse</button>
+    <button type="button" onclick="save_table()">Save</button>
+
+    <button type="button" onclick="make_interactive('table', this.id)" id="tableA">Table A</button>
+    <div id="table_buttons">
+      
+     
+    </div>
+  </div>
+  
+  <div class="gridcontainer">
+    <table>
+        <tbody id="grid">
+    
+        </tbody>
+      </table>
+  </div>
+
+
+</body>
+</html>
+
