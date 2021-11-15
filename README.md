@@ -1,5 +1,2 @@
-# FS-CSCI150-F21-Team1
-Team1
-
-
-In order to work on any pages related to the mySQL database, it is necessary to have the MySQLi PHP extension installed.  It enables PHP to communicate with the MySQL database.  The scripts to create the database, tables, records, and user should be found under the sql directory.
+# Deprecated
+This branch is no longer current, all latest changes have been committed to main.
