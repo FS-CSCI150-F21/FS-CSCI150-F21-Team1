@@ -3,8 +3,9 @@
 <head>
     <title>Inventory</title>
     <link rel="stylesheet" type="text/css" href="../css_pages/users.css">
-    <script src="../js_pages/users.js" async></script>
-    <script src="../js_pages/login.js"></script>
+    <script src="../js_pages/inventory.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <header>
 </header>
@@ -17,8 +18,24 @@
             <a href="account.html">Account</a>
           </div>
       </nav>
-      </header>
-    
+    </header>
+    <button type="button" onclick="get_users()">Refresh Data</button>
+    <button type="button" onclick="document.getElementById('add_modal').style.display='block'">Add Inventory</button>
+
+    <div id="add_modal" class="modal">
+        <div class="modal-content">
+          <div>
+            <input type="text" placeholder="Item Name" id="modal_name" required>
+            <input type="text" placeholder="Current Quantity" id="modal_currentQuantity" required>
+            <input type="text" placeholder="Required Quantity" id="modal_requiredQuantity" required>
+            <button type="button" onclick="add_inventory()">Add</button>
+          </div>
+          <div class="container">
+            <button type="button" onclick="hide_modal()">Close</button>
+            <div id="test" style="color: white;"></div>
+          </div>
+        </div>
+    </div>
     <div id="Body">
         <h1 id="Welcome">Inventory</h1>
         <table>
@@ -26,9 +43,12 @@
                 <tr>
                     <th>Item name</th>
                     <th>Current Quantity</th>
+                    <th>Required Quantity</th>
                     <th>Last Updated</th>
+                    <th>Action</th>
                 </tr>
             </thead>
+            <tbody id="inventory_list"></tbody>
             </tbody>
         </table>
     </div>

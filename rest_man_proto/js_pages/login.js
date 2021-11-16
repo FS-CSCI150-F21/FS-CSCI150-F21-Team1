@@ -51,12 +51,14 @@ function login() {
   var user = document.getElementById("username").value;
   var pass = document.getElementById("password").value;
   var level = get_level();
+  var j = new XMLHttpRequest();
   if (user != "" && pass != "" && level != "") {
     var j = new XMLHttpRequest();
     j.onreadystatechange = function () {
       if (j.readyState == 4 && j.status == 200) {
         good = j.responseText;
         document.getElementById("response").innerHTML = j.responseText;
+        alert(j.responseText);
         if (good == "1") {
           switch(level){
             case '0':
@@ -78,6 +80,7 @@ function login() {
   }
   else {
     document.getElementById("response").innerHTML = "ERROR: EMPTY FIELDS";
+    alert(j.responseText);
   }
 }
 
