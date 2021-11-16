@@ -71,3 +71,21 @@ a{
 #Body{
     text-align: center;
 }
+
+#logout
+{
+    border: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+    background-color: transparent;
+    width: 100px;
+    height:40px;
+    font-size: 20px;
+    font-family:unset;
+}
+#logout:hover
+{
+    color:rgb(165, 91, 0);
+}
