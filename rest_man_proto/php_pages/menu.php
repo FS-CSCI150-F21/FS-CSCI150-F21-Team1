@@ -24,7 +24,7 @@ class subcategory implements JsonSerializable
     }
     public function jsonSerialize()
     {
-        return ['name' => $this->name, 'items' => $this->items];
+        return ['name' => $this->name, 'items' => $this->items, 'subcatID' => $this->id];
     }
 }
 

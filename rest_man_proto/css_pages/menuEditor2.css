@@ -135,6 +135,20 @@ table.subcategory {
 	user-select: none; /* Standard */
 }
 
+
+table.subcategoryEdit{
+    margin:  3vh auto;
+    border-collapse: collapse;
+}
+#subcategoryTitle{
+    text-align: right;
+}
+table.subcategoryEdit th{
+    font-weight: normal;
+    text-align: left;
+}
+
+
 .subcategory tr:hover{
     opacity: .5;
 }

@@ -18,6 +18,8 @@ function load() {
 //used on load to show the main categories of the menu.
 //this data is grabbed from the mysql database.  see menu.php file.
 function mainMenu() {
+    //track where user is in menu so editor can open correct area
+    editorInstance.setCurLoc('m');
 
     if (navBar = document.getElementById('navBar')) {
         //this is not first load of page.  came from single category view.
@@ -176,6 +178,7 @@ function mainMenu() {
                     }
                 }
             }
+
         }
     }
     httpRequest.open("GET", "../php_pages/menu.php?request=cats", true);
@@ -242,12 +245,16 @@ function catChange(i) {
     while (subcatTbls[0]) {
         subcatTbls[0].remove();
     }
+    let subcatEditTbls = document.getElementsByClassName('subcategoryEdit');
+    while (subcatEditTbls[0]) subcatEditTbls[0].remove();
 
     //request category records from database
     fetchCategory(i);
 }
 
 function fetchCategory(i) {
+    editorInstance.setCurLoc(i);
+
     //access database through php file to get selected category's information
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -272,78 +279,194 @@ function categoryDisplay(jsonStr) {
     //array of 2-element objects: [{"name":"<subcategory>", "items":<array>}]
     let subcatsArr = JSON.parse(jsonStr);
 
-    //go through each subcategory
-    for (let i = 0; i < subcatsArr.length; i++) {
+    console.log(subcatsArr);
 
-        //object of array: {"name":"<subcategory>", "items":<array of items>}
-        let subcat = subcatsArr[i];
+    if (editorInstance.getState()) {
+        console.log('hi');
+        //go through each subcategory
+        for (let i = 0; i < subcatsArr.length; i++) {
 
-        //use table's caption element as title
-        let tbl = document.createElement('table');
-        tbl.className = 'subcategory';
-        let caption = document.createElement('caption');
-        caption.innerText = subcat["name"];
-        tbl.appendChild(caption);
+            //object of array: {"name":"<subcategory>", "items":<array of items>}
+            let subcat = subcatsArr[i];
 
 
-        //thead contains column headers.  will be hidden in css.
-        let thead = document.createElement('thead');
-        let tr = document.createElement('tr');
-        let th = document.createElement('th');
-        th.innerText = "Name";
-        tr.appendChild(th);
-        th = document.createElement('th');
-        th.innerText = "Description";
-        tr.appendChild(th);  //consider id cell, too
-        th = document.createElement('th');
-        th.innerText = "Price";
-        tr.appendChild(th);
-        thead.appendChild(tr);
-        tbl.appendChild(thead);
+
+            //subcategory
+            let tbl = document.createElement('table');
+            tbl.className = 'subcategoryEdit';
+
+            let subcatTr = document.createElement('tr');
+            let th = document.createElement('th');
+
+            th.innerText = 'Subcategory:';
+            th.id = 'subcategoryTitle';
+            subcatTr.appendChild(th);
+
+            let subcatInput = document.createElement('input');
+            th = document.createElement('th');
+            subcatInput.type = 'text';
+            subcatInput.value = subcat["name"];
+            subcatInput.id = 'subcategory' + subcat['subcatID'] + 'NameInput';
+            th.appendChild(subcatInput);
+            subcatTr.appendChild(th);
+
+            //save button
+            let saveButton = document.createElement('input');
+            th = document.createElement('th');
+            saveButton.type = 'button';
+            saveButton.value = 'Save';
+            saveButton.onclick = function () { saveSubcategory(subcat['subcatID']) };
+            th.appendChild(saveButton)
+            subcatTr.appendChild(th);
+
+            tbl.appendChild(subcatTr);
 
 
-        //array of items from subcategory
-        let items = subcat["items"];
+            //thead contains column headers.  hidden in css.
+            let thead = document.createElement('thead');
+            let tr = document.createElement('tr');
+            th = document.createElement('th');
 
-        let tbody = document.createElement('tbody');
-        //fill tbody with items
-        for (let j = 0; j < items.length; j++) {
-            //let itemTbl = document.createElement('table');
-            tr = document.createElement('tr');
-            //click or tap an item to add it to an order
-            tr.onclick = function () {
-                addToOrder(items[j]['id'],
-                    items[j]['name'],
-                    items[j]['price']);
-            };
+            thead.appendChild(subcatTr);
 
-            //item name
-            let td = document.createElement('td');
-            td.innerText = items[j]['name'];
-            td.className = "itemName";
-            tr.appendChild(td);
+            th.innerText = "Name";
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerText = "Description";
+            tr.appendChild(th);  //consider id cell, too
+            th = document.createElement('th');
+            th.innerText = "Price";
+            tr.appendChild(th);
 
-            //item description
-            td = document.createElement('td');
-            td.innerText = items[j]['description'];
-            td.className = 'itemDescription';
-            tr.appendChild(td);
 
-            //item price
-            td = document.createElement('td');
-            td.innerText = items[j]['price'];
-            td.className = 'itemPrice';
-            tr.appendChild(td);
+            thead.appendChild(tr);
+            tbl.appendChild(thead);
 
-            tbody.appendChild(tr);
+
+            //array of items from subcategory
+            let items = subcat["items"];
+
+            let tbody = document.createElement('tbody');
+            //tbody.id = 'subcategoryTBody' + subcat["subcatID"];
+            //fill tbody with items
+            for (let j = 0; j < items.length; j++) {
+                //let itemTbl = document.createElement('table');
+                tr = document.createElement('tr');
+                tr.className = 'subcategory' + subcat["subcatID"];
+                tr.id = 'itemID' + items[j]['id'];
+
+                //item name
+                let td = document.createElement('td');
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.value = items[j]['name'];
+                //input.id = 'itemID' + items[j]['id'];
+                //input.className = 'subcategory' + subcat['subcatID'] + 'ItemName';
+                td.appendChild(input);
+                tr.appendChild(td);
+
+                //item description
+                td = document.createElement('td');
+                input = document.createElement('textarea');
+                //input.type = 'textarea';
+                input.value = items[j]['description'];
+                td.appendChild(input);
+                tr.appendChild(td);
+
+                //item price
+                td = document.createElement('td');
+                input = document.createElement('input');
+                input.type = 'text';
+                input.value = items[j]['price'];
+                input.size = 1;
+                td.appendChild(input);
+                tr.appendChild(td);
+
+                tbody.appendChild(tr);
+            }
+
+            //add this subcategory's table to document
+            tbl.appendChild(tbody);
+            document.body.appendChild(tbl);
+
+            //rinse & repeat
         }
-
-        //add this subcategory's table to document
-        tbl.appendChild(tbody);
-        document.body.appendChild(tbl);
-
-        //rinse & repeat
     }
+    else {
+        //go through each subcategory
+        for (let i = 0; i < subcatsArr.length; i++) {
+
+            //object of array: {"name":"<subcategory>", "items":<array of items>}
+            let subcat = subcatsArr[i];
+
+            //use table's caption element as title
+            let tbl = document.createElement('table');
+            tbl.className = 'subcategory';
+            let caption = document.createElement('caption');
+            caption.innerText = subcat["name"];
+            tbl.appendChild(caption);
+
+
+            //thead contains column headers.  will be hidden in css.
+            let thead = document.createElement('thead');
+            let tr = document.createElement('tr');
+            let th = document.createElement('th');
+            th.innerText = "Name";
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerText = "Description";
+            tr.appendChild(th);  //consider id cell, too
+            th = document.createElement('th');
+            th.innerText = "Price";
+            tr.appendChild(th);
+            thead.appendChild(tr);
+            tbl.appendChild(thead);
+
+
+            //array of items from subcategory
+            let items = subcat["items"];
+
+            let tbody = document.createElement('tbody');
+            //fill tbody with items
+            for (let j = 0; j < items.length; j++) {
+                //let itemTbl = document.createElement('table');
+                tr = document.createElement('tr');
+                //click or tap an item to add it to an order
+                tr.onclick = function () {
+                    addToOrder(items[j]['id'],
+                        items[j]['name'],
+                        items[j]['price']);
+                };
+
+                //item name
+                let td = document.createElement('td');
+                td.innerText = items[j]['name'];
+                td.className = "itemName";
+                tr.appendChild(td);
+
+                //item description
+                td = document.createElement('td');
+                td.innerText = items[j]['description'];
+                td.className = 'itemDescription';
+                tr.appendChild(td);
+
+                //item price
+                td = document.createElement('td');
+                td.innerText = items[j]['price'];
+                td.className = 'itemPrice';
+                tr.appendChild(td);
+
+                tbody.appendChild(tr);
+            }
+
+            //add this subcategory's table to document
+            tbl.appendChild(tbody);
+            document.body.appendChild(tbl);
+
+            //rinse & repeat
+        }
+    }
+
 }
 
 /*
@@ -395,11 +518,18 @@ function editMode() {
     button.value = (editorInstance.getState()) ? 'Switch to View Mode' : 'Switch to Edit Mode';
     //either recreate table with edit, cancel, and save buttons, or dynamically 
     // add them to current table.
-    mainMenu();
+    if (editorInstance.getCurLoc() == 'm') {
+        mainMenu();
+    }
+    else {
+        console.log(editorInstance.getCurLoc());
+        catChange(editorInstance.getCurLoc());
+    }
 }
 
 class editor {
     state = 0;//2 states: off and on; 0 and 1, respectively.
+    currentLocation = 'm'; //m for main menu; 0...* for subcategories
     constructor() {
 
     }
@@ -408,6 +538,12 @@ class editor {
     }
     changeState() {
         this.state = 1 - this.state;
+    }
+    getCurLoc() {
+        return this.currentLocation;
+    }
+    setCurLoc(val) {
+        this.currentLocation = val;
     }
 }
 
@@ -440,9 +576,96 @@ function saveCategory(index, categoryId) {
             mainMenu();
         }
     }
-    httpRequest.open("POST","../php_pages/menuEditor.php");
+    httpRequest.open("POST", "../php_pages/menuEditor.php");
     httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     httpRequest.send("categoryUpdate=" + updateStr);
+}
+
+function saveSubcategory(subcategoryID) {
+    console.log(subcategoryID);
+
+    //get subcategory name, 
+    // and then inputted name, description, and price of each item within
+
+    let subcategoryNameID = 'subcategory' + subcategoryID + 'NameInput'
+    let subcategoryName = document.getElementById(subcategoryNameID).value;
+
+    let subcat = new subcategory(subcategoryName, subcategoryID);
+
+    let items = document.getElementsByClassName('subcategory' + subcategoryID);
+
+    for(let i = 0;i<items.length;i++){
+        let itemID = items[i].id.substr(6);
+        let tds = items[i].children;
+        let nameTd = tds[0];
+        let itemNewName = nameTd.firstChild.value;
+
+        let descriptionTd = tds[1];
+        let itemNewDescr = descriptionTd.firstChild.value;
+
+        //console.log(itemNewName + ' ' + itemNewDescr);
+
+        let priceTd = tds[2];
+        let itemNewPrice = priceTd.firstChild.value;
+        //console.log(itemNewPrice);
+
+        subcat.addItem(new item(itemID, itemNewName, itemNewDescr, itemNewPrice));
+    }
+
+    
+    let updateStr = JSON.stringify(subcat);
+    console.log(updateStr);
+
+    //send updated information to server for save
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log('Failed to create instance of XMLHttpRequest');
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            //redisplay category.  this acts as a confirmation of the database save
+            // because the values will be taken from there again to rebuild the page.
+            //how to determine which category we're in
+            catChange(editorInstance.getCurLoc());
+        }
+    }
+    httpRequest.open("POST", "../php_pages/menuEditor.php");
+    httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+    httpRequest.send("subcategoryUpdate=" + updateStr);
+    /*
+    let subcatTBodyID = 'subcategoryTBody' + subcategoryID;
+    let subcatTBody = document.getElementById(subcatTBodyID);
+
+    let subcatItems = subcatTBody.children;
+    console.log(subcatItems);
+
+    for (let i = 0; i < subcatItems.length; i++) {
+        console.log(subcatItems[i].);
+    }
+    */
+
+}
 
 
+class subcategory{
+    items = [];
+    constructor(newName, id){
+        this.newName = newName;
+        this.id = id;
+    }
+    addItem(itemObj){
+        this.items.push(itemObj);
+        console.log(this.items);
+    }
+}
+
+class item{
+    constructor(id,newName,newDescr,newPrice){
+        this.id = id;
+        this.newName = newName;
+        this.newDescr = newDescr;
+        this.newPrice = newPrice;
+    }
 }

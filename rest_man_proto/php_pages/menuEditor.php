@@ -2,10 +2,14 @@
 
 require 'mysqlConnection.php';
 
-$categoryUpdate = isset($_POST['categoryUpdate'])
-    ?$_POST['categoryUpdate']:
-    '{"id":"0","name":"Drinks","img":"","available":"true"}';
-$categoryUpdateObj = json_decode($categoryUpdate);
+
+
+$categoryUpdate = isset($_POST['categoryUpdate'])?$_POST['categoryUpdate']:false;
+$subcategoryUpdate = isset($_POST['subcategoryUpdate'])?$_POST['subcategoryUpdate']:false;
+
+//determine which menu update is requested: main category, or subcategory with items
+if($categoryUpdate){
+    $categoryUpdateObj = json_decode($categoryUpdate);
 //echo $categoryUpdate . '\n';
 
 //build update query string
@@ -20,7 +24,14 @@ $updateQuery .= ' WHERE id=' . $categoryUpdateObj->id . ';';
 //echo $updateQuery;
 
 echo $result = $conn->query($updateQuery);
+}
+else if($subcategoryUpdate){
+    //build prepare statement
+    
+}
+else{
+    //nothing sent to server
+}
+
 
 $conn->close();
-
-?>
