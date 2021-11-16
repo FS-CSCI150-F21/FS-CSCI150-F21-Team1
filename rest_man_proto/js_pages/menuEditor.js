@@ -616,6 +616,7 @@ function saveSubcategory(subcategoryID) {
     let updateStr = JSON.stringify(subcat);
     console.log(updateStr);
 
+
     //send updated information to server for save
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -633,7 +634,7 @@ function saveSubcategory(subcategoryID) {
     }
     httpRequest.open("POST", "../php_pages/menuEditor.php");
     httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-    httpRequest.send("subcategoryUpdate=" + updateStr);
+    httpRequest.send("subcategoryUpdate=" + encodeURIComponent(updateStr));
     /*
     let subcatTBodyID = 'subcategoryTBody' + subcategoryID;
     let subcatTBody = document.getElementById(subcatTBodyID);
