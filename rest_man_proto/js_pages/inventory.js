@@ -140,3 +140,51 @@ function delete_inventory(data){
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("i=" + item);
 }
+
+function delete_all_inventory(){
+    var k = 0;
+    console.log(inventory_array.length);
+    while(k<inventory_array.length)
+    {
+        console.log(k);
+        console.log(inventory_array[k]['name']);
+
+        if(inventory_array[k]['name'])
+        {
+            var j = new XMLHttpRequest();
+        j.open('POST', '../php_pages/delete_inventory.php');
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("i=" + inventory_array[k]['name']);
+        k++;
+        }
+        else break;
+        
+    }
+    get_inventory();
+    
+}
+
+function add_samples_inventory() {
+    var a= ['beef', 'pork', 'baking powder', 'baking soda', 'buttermilk powder', 'milk', 'flour', 'sugar', 'pepper', 'lemon', 'lime', 'salt', 'coke', 'pepsi', 'fanta', 'ginger', 'water bottle', 'orange juice', 'chicken', 'turkey' ];
+    for (x=0;x<a.length;x++)
+    {
+
+        var randomRequiredQuantity= Math.floor(Math.random()*100);
+        var randomCurrentQuantity= Math.floor(Math.random()*randomRequiredQuantity);
+
+        const created_inventory = {
+          name: a[x], 
+          currentQuantity: randomCurrentQuantity,
+          requiredQuantity: randomRequiredQuantity,
+        };
+    
+        var j_iteminfo = JSON.stringify(created_inventory);
+        console.log(j_iteminfo);
+          var j = new XMLHttpRequest();
+          j.open('POST', '../php_pages/add_inventory.php');
+          j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          j.send("inventory=" + j_iteminfo);
+    }
+    get_inventory();
+
+}
