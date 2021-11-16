@@ -40,6 +40,12 @@ h1 {
     /*margin: auto auto;*/
     border-collapse: collapse;
     text-align: left;
+	
+	/*prevent text highlights*/
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 td.catName {
@@ -71,7 +77,7 @@ td.odd {
 }
 
 #catTbl tr:active {
-    opacity: .5;
+    /*opacity: .5;*/
 }
 
 img {
@@ -83,9 +89,13 @@ img {
 
 /*After category is chosen*/
 
-/*nav menu on left, after a category is chosen.*/
+/*nav menu at top, after a category is chosen.*/
 nav {
     margin: 0 0 1vh 0;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 nav ul {
@@ -178,4 +188,24 @@ td.itemPrice {
 th#viewOrder{
     background-color: #055f60;
     color: white;
+}
+
+/*
+#catTblBod{
+    text-align: center;
+    border: 1px solid black;
+}
+*/
+
+/*
+.editFieldCell{
+    text-align: center;
+}
+*/
+
+
+.editField {
+    margin: 2vh auto;
+    text-align: center;
+    display: block;
 }

@@ -1,5 +1,13 @@
 # This open source software was modified and integrated as a feature of the main project. 
-Link to the original work: https://github.com/saimj7/People-Counting-in-Real-Time 
+Link to the original work: https://github.com/saimj7/People-Counting-in-Real-Time. 
+This software will be run on the Raspberry Pi 4 microprocessor. This is an auxilary software only available to the restaurant owner/manager.
+
+# Quickstart:
+- download and run xampp db control panel, start apache and mysql service
+- (if first time) import all sql files into database to setup.
+- go to people_detection_algorithm directory and open terminal or powershell
+- (if first time) `pip install -r requirements.txt`
+- `python run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel`
 
 # People-Counting-in-Real-Time
 People Counting in Real-Time using live video stream/IP camera in OpenCV.

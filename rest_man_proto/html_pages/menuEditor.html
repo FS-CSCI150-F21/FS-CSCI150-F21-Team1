@@ -1,48 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta charset="UTF-8">
+<html>
+<!-- This will be for the manager's access.  Might implement in menu.html instead.
+Will retrieve menu from MySQL database and provide html input tags next to presentation
+that allow changes to be made.-->
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css_pages/menuEditor.css">
-    <title>Home</title>
+    <title>
+
+    </title>
 </head>
+
 <body>
-    <!--Nav bar-->
-    <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="#Menu">Menu</a></li>
-        <a href="#Contact">Contact</a></li>
-        <a href="#About">About</a></li>
-        <div class="rightnav">
-            <a id= "login" href="index.html">Log Out</a>
-        </div>
-    </nav>
-    
-    <div id="Body">
-        <h1 id="Welcome">Menu Editor</h1>
-        <div class="functions">
-            <button>ADD</button><br>
-            <button>REMOVE</button><br>
-            <button>EDIT</button><br>
-        </div>
-        <div class="menu">
-            <label>Menu</label><br>
-            <div class="bar">
-                <button>Appertizers</button><br>
-                <button>Entree</button><br>
-                <button>Drink</button><br>
-                <button>Dinner</button><br>
-            </div>
-            <div class="plate">
-                <button>Plate</button>
-                <button>Plate</button>
-                <button>Plate</button>
-                <button>Plate</button>
-                <button>Plate</button>
-                <button>Plate</button>
-            </div>
-        </div>
-    </div>
+<label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">
+<!-- image file validation shoud occur on server side (php) to prevent malicious
+uploads.  ensure it's not too big.-->
 </body>
+
 </html>

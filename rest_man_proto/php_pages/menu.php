@@ -1,19 +1,6 @@
 <?php
 
-//mySQL server authentication details
-$servername = "127.0.0.1";
-$dbusername = "rest_manager";
-$dbpassword = "iF2ONNbmcCTcdjrd";
-$dbname = "rest_info";
-
-//establish connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-//verify connection
-if ($conn->connect_error) {
-    echo 'not connected to mysql server';
-    exit('Could not connect');
-}
+include 'mysqlConnection.php';
 
 //helps group items with their appropriate parent subcategory for JSON
 class subcategory implements JsonSerializable
@@ -93,6 +80,7 @@ if ($_GET['request'] == 'cats') {
     //adds all items to appropriate subcategory objects through record fetches
     $i = 0;
     while ($itemsRec = $itemsResult->fetch_object()) {
+
         if (!$subcategoryObjs[$i]->addItem($itemsRec)) {
             $i++;
             $subcategoryObjs[$i]->addItem($itemsRec);
@@ -104,103 +92,3 @@ if ($_GET['request'] == 'cats') {
 }
 
 $conn->close();
-
-
-/*
-//debug
-else {
-    echo $servername, ' mySQL server connected with username: ', $dbusername, ' and 
-        dbname: ', $dbname;
-}
-echo '<br>', $conn->host_info;
-*/
-
-    /*
-    $subcatsArr = array();
-    while ($subcategoryRec = $qry_result->fetch_object()) {
-        //echo $subcategoryRecs->name;
-        /*
-        if ($subcategoryRecs->available) {
-            $subcatsArr[] = new subcategory($subcategoryRecs);
-        }
-        */
-    /*
-        $subcatsArr[] = new subcategory($subcategoryRec);
-    }
-    */
-
- //echo json_encode($rec);
-    //echo json_encode($subObj);
-    /*
-    echo $subcategoryRecs->name;
-    $subcategoryRecs = $qry_result->fetch_object();
-    echo $subcategoryRecs->name;
-    */
-
-    //echo $subcatsArr[4]->name;
-
-
-    /*
-    $subcategoryRecs = $qry_result->fetch_all(MYSQLI_BOTH);
-    echo $subcategoryRecs[0]["name"];
-    //echo $subcategoryRecs[0]["name"];
-    //echo $subcategoryRecs[1][0];
-    //$test = new subcategory($subcategoryRecs[0]);
-    $subcatArr = array();
-
-    //$subcatArr[]='test';
-    //echo $subcatArr;
-    $rec1 = new subcategory($subcategoryRecs[0]);
-    $subcatArr[] = $rec1;
-    echo $rec1->name;
-    $subcatArr[] = new subcategory($subcategoryRecs[0]);
-    echo $subcatArr[0]->name;
-    echo $subcatArr[0];
-    echo $subcatArr[1];
-    */
-    /*
-    foreach($subcategoryRecs as $rec){
-        if($rec["available"]) echo 'yes';
-        $subcatArr[] = new subcategory($rec);
-    }
-    foreach($subcatArr as $ele){
-        echo $ele->name;
-    }
-    $myTest = $subcatArr[0];
-    echo $myTest->name;
-    echo $subcatArr[0]["name"];
-*/
-
-    /*
-    foreach($subcategoryRecs as $rec){
-        echo $rec["name"];
-    }
-    */
-
-    /*debug
-    $jsonStr = json_encode($subcategoryRecs);
-    echo $jsonStr;
-    */
-
-    //$query;
-
-    /*
-    $dog = 'dog';
-    $cat = 'cat';
-    $animal = 'animal';
-
-    echo json_encode($animal,$dog);
-    */
-//debug
-//$query = $query . '0';
-//echo $query;
-
-
-//debug stuff
-/*
-$drinks = $catNames[0];
-echo $drinks;
-foreach ($drinks as $val) {
-    echo $val;
-}
-*/

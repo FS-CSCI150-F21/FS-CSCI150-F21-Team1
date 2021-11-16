@@ -21,27 +21,30 @@
       <nav>
         <nav class="nav">
           <a href="index.html">Home</a>
-          <a href="#Menu">Menu</a>
-          <a href="#Contact">Contact</a>
+          <a href="menu.html">Menu</a>
+          <a href="contact.html">Contact</a>
           <a href="#About">About</a>
           <div class="rightnav">
               <a href="account.html">Account</a>
           </div>
       </nav>
   </header>
+
   
+
   <div id="login_form" class="loginform">
+    <h1>Log In</h1>
     <label for="username">Username</label><br>
-    <input type="text" id="username" placeholder="username" required><br>
+    <input type="text" id="username" placeholder="Username" required><br><br>
     <label for="passowrd">Password</label><br>
-    <input type="password" id="password" placeholder="password" required><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
     <label for="level">Access Level</label><br>
     <select name="level" id="user_level">
       <option value="0">Manager</option>
       <option value="1">Employee</option>
       <option value="2">Customer</option>
-    </select>    <br>
-    <button type="button" onclick="login()">Log In</button>
+    </select>    <br><br>
+    <button type="button" onclick="login()">Log In</button><br><br>
     <button type="button" onclick="document.getElementById('customer_modal').style.display='block'">New Customer? Click Here to Create Account</button>
   </div>
   <div id="btn_logout">

@@ -1,40 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css_pages/orderPage.css">
-    <title>Order Page</title>
+    <title>Order</title>
+    <script src="../js_pages/orders.js"></script>
 </head>
-<body>
+
+<body onload="load()">
     <header>
         <nav class="nav">
-          <a href="index.html">Home</a></li>
-          <a href="menu.html">Menu</a></li>
-          <div class="rightnav">
-            <a href="account.html">Account</a>
-          </div>
-      </nav>
-      </header>
-    
-    <div id="Body">
-        <h1 id="Welcome">Order Page</h1>
-        <table>
-            <thead class="tableHead">
-                <tr>
-                    <th>Order number</th>
-                    <th>Togo/Dine-in</th>
-                    <th>Status</th>
-                    <th>Items</th>
-                    <th>Created time</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            </tbody>
-        </table>
-        
+            <a href="index.html">Home</a></li>
+            <a href="menu.html">Menu</a></li>
+            <div class="rightnav">
+                <a href="account.html">Account</a>
+            </div>
+        </nav>
+    </header>
 
-    </div>
+    <table id='employeeFunctions' class='employeePrivilege'>
+        <tr>
+            <td id='newOrder' onclick='newOrder()'>New Order</td>
+            <td id='kitchen' onclick='kitchen()'>Send to Kitchen</td>
+        </tr>
+    </table>
+
+    <h1 id="Welcome">Order</h1>
+    <table id='statsTable'>
+        <thead class="tableHead">
+            <tr>
+                <th>Order #</th>
+                <th>Table</th>
+                <!--Togo vs Dine-in-->
+                <th>Status</th>
+                <!--Submitted to kitchen, Ready, Delivered to Customer, Closed-->
+                <th>Created</th>
+                <th>Last Modified</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr id='statsRow'>
+                <td id='orderNumber'></td>
+                <td id='table'></td>
+                <td id='orderStatus'></td>
+                <td id='creationTime'></td>
+                <td id='lastModified'></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table id='itemsTable'>
+        <!--<caption>Items</caption>-->
+        <thead>
+            <th id='itemsNameHeader'>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th colspan=2>Action</th>
+        </thead>
+        <tbody id='itemsTableBody'>
+
+        </tbody>
+        <tfoot id='itemsTableFooter'></tfoot>
+    </table>
+                <!-- Move "Action" to beneath items table.
+                     Submit to kitchen, pay bill-->
+
+    <table id='paymentTable'>
+        <caption>Payment</caption>
+        <thead>
+            <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
+                Credit Card
+            </th>
+            <th id ='paymentOptionCash' class='employeePrivilege' 
+                onclick='paymentInstance.cash()'>Cash</th>
+        </thead>
+        <tbody id='paymentTableBody'>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td id='completeTransaction' colspan=3 hidden 
+                    onclick='paymentInstance.completeTransaction()'>
+                    Complete Transaction
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
 </body>
+
 </html>

@@ -270,9 +270,20 @@ def run():
 
                         noww = datetime.datetime.now()
                         noww.strftime('%Y-%m-%d %H:%M:%S')
-                        valz = [x, noww]
-                        # print(valz)
-                        sql_insert = """INSERT INTO people_count (num_people_inside, date_time) VALUES (%s,%s)"""
+                        
+                        #finds the number of people waiting in open dine in orders database
+                        sql_dine_in_sum = "SELECT SUM(people_dining_in) FROM open_order_info"
+                        cursor.execute(sql_dine_in_sum)
+                        dine_in_sum = cursor.fetchone()[0]
+
+                        sql_prep_time = "SELECT SUM(prep_time) FROM open_order_info"
+                        cursor.execute(sql_prep_time)
+                        prep_time = cursor.fetchone()[0]
+
+                        #performs calcuations
+                        people_in_line = x - dine_in_sum;
+                        valz = [x, people_in_line, prep_time, noww]
+                        sql_insert = """INSERT INTO people_count (num_people_inside, num_people_in_line, wait_time, date_time) VALUES (%s,%s,%s,%s)"""
                         cursor.execute(sql_insert, valz)
                         db_connection.commit()
                     xPrev = x
