@@ -26,7 +26,7 @@ $exists = $results->num_rows;
 
 if ($exists > 0)
 {
-    echo "1";
+    echo "Logged in.";
 }
 else
 {

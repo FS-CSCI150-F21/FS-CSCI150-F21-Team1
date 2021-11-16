@@ -59,7 +59,7 @@ function login() {
         good = j.responseText;
         document.getElementById("response").innerHTML = j.responseText;
         alert(j.responseText);
-        if (good == "1") {
+        if (good == "Logged in.") {
           switch(level){
             case '0':
               location.replace("../html_pages/m_dash.html");
