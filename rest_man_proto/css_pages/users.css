@@ -47,7 +47,7 @@ body{
 }
 h1
 {
-    padding-top: 100px;
+    padding-top: 20px;
     text-align: center;
     font-size: 30px;
     color: rgb(255, 191, 112);
@@ -75,4 +75,21 @@ select{
   height: 50px;
   width: 200px;
   border-radius: 30px;
+}
+#logout
+{
+    border: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+    background-color: transparent;
+    width: 100px;
+    height:40px;
+    font-size: 19px;
+    font-family:unset;
+}
+#logout:hover
+{
+    color:rgb(165, 91, 0);
 }

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<link href="../css_pages/m_dash.css" rel="stylesheet">
+
 <html>
 <!-- This will be for the manager's access.  Might implement in menu.html instead.
 Will retrieve menu from MySQL database and provide html input tags next to presentation
@@ -7,15 +9,49 @@ that allow changes to be made.-->
 
 
 <head>
+    <link rel="stylesheet" href="../css_pages/menuEditor2.css"> 
+    <script src="../js_pages/menuEditor.js"></script>
     <title>
-
+        Menu Editor
     </title>
 </head>
 
-<body>
-<label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">
+<body onload="load()">
+    <header>
+        <nav class="nav">
+          <a href="index.html">Home</a></li>
+          <a href="../html_pages/menu.html">Menu</a></li>
+          <a href="#Contact">Contact</a></li>
+          <a href="#About">About</a></li>
+          <div class="rightnav">
+            <a href="account.html">Account</a>
+            <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
+          </div>
+      </nav>
+      </header>
+
+      <label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">
 <!-- image file validation shoud occur on server side (php) to prevent malicious
 uploads.  ensure it's not too big.-->
+
+      <div>
+        <!--<label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">->>
+        <!--<input type='button' value='Go to items' onclick='mainToSingleCategory(0)'>-->
+        Currently in view mode.
+        <input type='button' value='Switch to Edit Mode' onclick='editMode()' id='editModeButton'>
+        <!-- image file validation shoud occur on server side (php) to prevent malicious
+        uploads.  ensure it's not too big.-->
+        <table id='catTbl'>
+            <caption>Categories</caption>
+            <thead>
+                <th>Category</th>
+                <th>Image</th>
+            </thead>
+            <!--
+            <tbody id='catTblBod'></tbody>
+            -->
+        </table>
+    </div>
 </body>
 
 </html>

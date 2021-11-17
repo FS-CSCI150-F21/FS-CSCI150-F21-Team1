@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/employeeCheckInOut.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/e_dash.css" rel="stylesheet">
 </head>
 
 
-<body>
+<body onload="get_WaitTime()">
     <header>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -28,9 +29,14 @@
           <button>Order food</button>
           <button>Menu</button>
           <button>Current Orders</button>
-          <button>Inventory</button>
+          <button onclick="CheckIn()" id="CheckIn">Check In</button>
+          <button onclick="CheckOut()" id="CheckOut" hidden=true>Check Out</button>
+          <button><a href="inventory.html">Inventory</a></button>
           <h2>Estimated Waiting Time:</h2>
-          <h3>Togo: ... <span id="span"></span>Dine-in: ...  </h3>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
       </div>
     </div>
 

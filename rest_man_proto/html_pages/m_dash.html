@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="../js_pages/login.js"></script>
   <link href="../css_pages/m_dash.css" rel="stylesheet">
 </head>
 
 
-<body>
+<body onload="get_WaitTime()">
     <header>
       <nav class="nav">
         <a href="index.html">Home</a></li>
@@ -17,6 +18,8 @@
         <a href="#About">About</a></li>
         <div class="rightnav">
           <a href="account.html">Account</a>
+          <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
+          <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
         </div>
     </nav>
     </header>
@@ -35,8 +38,14 @@
           <button><a href="tableEditor.html">Table Editor</a></button>
 
 
-          <!-- <h2>Estimated Waiting Time:</h2>
-          <h3>Togo: ... <span id="span"></span>Dine-in: ...  </h3> -->
+
+          <h2>Estimated Waiting Time:</h2>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
+
+
       </div>
     </div>
 

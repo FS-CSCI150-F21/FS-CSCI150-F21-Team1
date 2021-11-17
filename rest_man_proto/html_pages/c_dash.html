@@ -10,7 +10,7 @@
 </head>
 
 
-<body>
+<body onload="get_WaitTime()">
   <svg id="fader"></svg>
   <script>
       fadeInPage();
@@ -19,6 +19,7 @@
       <nav class="nav">
         <a href="index.html">Home</a></li>
         <a href="menu.html">Menu</a></li>
+        
         <div class="rightnav">
           <a href="account.html">Account</a>
         </div>
@@ -30,6 +31,11 @@
       <div>
           <button><a href="orderPage.html">Create Order</a></button>
           <button><a href="menu.html">Menu</a></button>
+          <h2>Estimated Waiting Time:</h2>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
       </div>
    </div>
 
