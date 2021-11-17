@@ -4,6 +4,42 @@
     padding: 0;
 }
 */
+.nav
+{
+    background-color: rgba(255, 255, 255, 0);
+    padding: 20px;
+}
+.nav a
+{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color:rgb(159, 159, 159);
+    text-decoration: none;
+}
+.nav a:hover{
+    color:rgb(255, 149, 0);
+}
+.rightnav
+{
+    float: right;
+}
+button
+{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+button a{
+    text-decoration: none;
+    color: rgb(165, 91, 0);
+    font-weight: 700;
+}
+button a:hover{
+    color:rgb(209, 115, 0);
+    font-size:15px;
+}
 
 html {
     /*background-color: #000a0b;*/
@@ -11,6 +47,7 @@ html {
 }
 
 body {
+    background-image: url(../images/background.png);
     margin: 0 0;
 }
 
@@ -40,10 +77,16 @@ h1 {
     /*margin: auto auto;*/
     border-collapse: collapse;
     text-align: left;
+	
+	/*prevent text highlights*/
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 td.catName {
-    background-color: white;
+    background-image: url(../images/background.png);
     text-align: center;
 }
 
@@ -70,9 +113,6 @@ td.odd {
     opacity: 1;
 }
 
-#catTbl tr:active {
-    opacity: .5;
-}
 
 img {
     margin: 0;
@@ -83,9 +123,13 @@ img {
 
 /*After category is chosen*/
 
-/*nav menu on left, after a category is chosen.*/
+/*nav menu at top, after a category is chosen.*/
 nav {
     margin: 0 0 1vh 0;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 nav ul {
@@ -179,3 +223,4 @@ th#viewOrder{
     background-color: #055f60;
     color: white;
 }
+
