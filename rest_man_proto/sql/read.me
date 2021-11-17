@@ -1,9 +1,11 @@
-'rest_info.sql' will create:
-
+'rest_info.sql' creates:
 Main Database - rest_info
-User needed for the php scripts to interact with the MySQL database
 Tables needed for features: menu, order, people counter, user authentication, inventory, and table layout. 
 
-if PHPMyAdmin is used to import data, turn off "Enable foreign key checks."  Database tables are imported in an order that invalidates FKs.
+'userCreation.sql' creates:
+MySQL user that php uses to connect to database
+
+Note:
+If PHPMyAdmin is used to import data, turn off "Enable foreign key checks."  Database tables are imported in an order that invalidates FKs.
 
 Nov 16, 2021 - All other sql scripts will be deleted to declutter directory as their functions are now incorporated.

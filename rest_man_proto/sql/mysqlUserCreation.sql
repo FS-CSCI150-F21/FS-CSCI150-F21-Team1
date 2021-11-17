@@ -1,5 +1,5 @@
 -- statements for user creation and privileges granted are not included in automatic database exports
--- Will be backed-up here in case anyone forgets to append them to the latest export
+-- Therefore, this script will serve as user creation.
 
 -- create user
 CREATE USER IF NOT EXISTS 'rest_manager'@'localhost' IDENTIFIED BY 'iF2ONNbmcCTcdjrd';
