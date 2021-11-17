@@ -10,7 +10,7 @@
 </head>
 
 
-<body>
+<body onload="get_WaitTime()">
     <header>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -33,7 +33,10 @@
           <button onclick="CheckOut()" id="CheckOut" hidden=true>Check Out</button>
           <button><a href="inventory.html">Inventory</a></button>
           <h2>Estimated Waiting Time:</h2>
-          <h3>Togo: ... <span id="span"></span>Dine-in: ...  </h3>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
       </div>
     </div>
 

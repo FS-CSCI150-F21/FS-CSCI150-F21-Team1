@@ -158,6 +158,23 @@ function get_level() {
   var ele = document.getElementById('user_level');
   
   return ele.value;
-      
-  
+}
+
+var wait_time_array;
+function get_WaitTime(){
+  var j = new XMLHttpRequest();
+  j.onreadystatechange = function () {
+    if (j.readyState == 4 && j.status == 200) {
+      wait_time_array=JSON.parse(j.responseText);
+      length=wait_time_array.length;
+      console.log(j.responseText);
+      document.getElementById("numInside").innerHTML=wait_time_array['num_people_inside'];
+      document.getElementById("numInLine").innerHTML=wait_time_array['num_people_in_line'];
+      document.getElementById("waittime").innerHTML=wait_time_array['wait_time'];
+      document.getElementById("updatedtime").innerHTML=wait_time_array['date_time'];
+
+    }
+  };
+  j.open('GET', '../php_pages/getwaittime.php');
+  j.send();
 }
