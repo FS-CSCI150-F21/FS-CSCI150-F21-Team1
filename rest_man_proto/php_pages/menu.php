@@ -71,7 +71,7 @@ if ($_GET['request'] == 'cats') {
 
 
     //query to retrieve items
-    $itemsQuery = "SELECT name, id, description, price, subcategory
+    $itemsQuery = "SELECT name, id, description, price, subcategory, available 
         FROM menuItems WHERE category=" . $_GET['request'] . ' ORDER BY subcategory ASC';
 
     //make query and store result.

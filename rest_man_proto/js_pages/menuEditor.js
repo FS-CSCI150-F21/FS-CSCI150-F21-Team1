@@ -237,8 +237,6 @@ function catChange(i) {
     navCats[i].onclick = '';
     navCats[i].id = 'selectedNavItem';
     navCats[j].onclick = function () { catChange(j); }
-    //document.getElementById('h1Title').innerText = navCats[i].innerText;
-    //document.getElementById('title').innerText = 'Menu: ' + navCats[i].innerText;
 
     //remove previous subcategories and their items
     let subcatTbls = document.getElementsByClassName('subcategory');
@@ -282,7 +280,7 @@ function categoryDisplay(jsonStr) {
     console.log(subcatsArr);
 
     if (editorInstance.getState()) {
-        console.log('hi');
+        //console.log('hi');
         //go through each subcategory
         for (let i = 0; i < subcatsArr.length; i++) {
 
@@ -337,6 +335,9 @@ function categoryDisplay(jsonStr) {
             th = document.createElement('th');
             th.innerText = "Price";
             tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerText = "Available";
+            tr.appendChild(th);
 
 
             thead.appendChild(tr);
@@ -382,7 +383,19 @@ function categoryDisplay(jsonStr) {
                 td.appendChild(input);
                 tr.appendChild(td);
 
+
+                //availability check box
+                td = document.createElement('td');
+                let availableCheckBox = document.createElement('input');
+                availableCheckBox.type = 'checkbox';
+                availableCheckBox.id = 'availableCheckBox' + i;
+                availableCheckBox.checked = (Number(items[j]['available'])) ? true : false;
+                availableCheckBox.className = 'editField';
+                td.appendChild(availableCheckBox);
+                tr.appendChild(td);
+
                 tbody.appendChild(tr);
+
             }
 
             //add this subcategory's table to document
@@ -429,34 +442,39 @@ function categoryDisplay(jsonStr) {
             let tbody = document.createElement('tbody');
             //fill tbody with items
             for (let j = 0; j < items.length; j++) {
-                //let itemTbl = document.createElement('table');
-                tr = document.createElement('tr');
-                //click or tap an item to add it to an order
-                tr.onclick = function () {
-                    addToOrder(items[j]['id'],
-                        items[j]['name'],
-                        items[j]['price']);
-                };
 
-                //item name
-                let td = document.createElement('td');
-                td.innerText = items[j]['name'];
-                td.className = "itemName";
-                tr.appendChild(td);
+                //check to see if item should be presented or not based on
+                // availability attribute.
+                if (Number(items[j]['available'])) {
+                    tr = document.createElement('tr');
 
-                //item description
-                td = document.createElement('td');
-                td.innerText = items[j]['description'];
-                td.className = 'itemDescription';
-                tr.appendChild(td);
+                    //click or tap an item to add it to an order
+                    tr.onclick = function () {
+                        addToOrder(items[j]['id'],
+                            items[j]['name'],
+                            items[j]['price']);
+                    };
 
-                //item price
-                td = document.createElement('td');
-                td.innerText = items[j]['price'];
-                td.className = 'itemPrice';
-                tr.appendChild(td);
+                    //item name
+                    let td = document.createElement('td');
+                    td.innerText = items[j]['name'];
+                    td.className = "itemName";
+                    tr.appendChild(td);
 
-                tbody.appendChild(tr);
+                    //item description
+                    td = document.createElement('td');
+                    td.innerText = items[j]['description'];
+                    td.className = 'itemDescription';
+                    tr.appendChild(td);
+
+                    //item price
+                    td = document.createElement('td');
+                    td.innerText = items[j]['price'];
+                    td.className = 'itemPrice';
+                    tr.appendChild(td);
+
+                    tbody.appendChild(tr);
+                }
             }
 
             //add this subcategory's table to document
@@ -469,63 +487,20 @@ function categoryDisplay(jsonStr) {
 
 }
 
-/*
-//itemID is found in MySQL database.  itemType identifies which table to use:
-// category, subcategory, item.
-function makeEditable(elementID, itemID, itemType) {
-    console.log('makeEditable');
-    let ele = document.getElementById(elementID);
-    ele.onclick = '';
-    if (ele.className == 'catName') {
-        //replace inner text with a text input field, a cancel button, and a
-        // save button.
-        let text = ele.innerText;
-        ele.innerText = '';
-        let textInput = document.createElement('input');
-        textInput.type = 'text';
-        textInput.value = text;
-        //textInput.placeholder = text;
-        textInput.size = 5;
-        ele.appendChild(textInput);
-        let cancelButton = document.createElement('input');
-        cancelButton.type = 'button';
-        cancelButton.value = 'Cancel';
-        cancelButton.onclick = function () { cancel(elementID, text, itemID, itemType); };
-        ele.appendChild(cancelButton);
-        let saveButton = document.createElement('input');
-        saveButton.type = 'button';
-        saveButton.value = 'Save';
-        saveButton.onclick = function () { alert('save'); };
-        ele.appendChild(saveButton);
-    }
-}
-*/
-
-/*
-function cancel(elementID, originalText, itemID, itemType) {
-    console.log('test');
-    let ele = document.getElementById(elementID);
-    ele.innerText = originalText;
-    //ele.onclick = function(){makeEditable(elementID,itemID,itemType);};
-    ele.onclick = function () { alert('hey'); };
-
-}
-*/
-
 function editMode() {
     editorInstance.changeState();
     let button = document.getElementById('editModeButton');
     button.value = (editorInstance.getState()) ? 'Switch to View Mode' : 'Switch to Edit Mode';
     let marquee = document.getElementById('editModeLabel');
     marquee.innerText = (editorInstance.getState()) ? 'Currently in Edit Mode' : 'Currently in View Mode';
-    console.log(editorInstance.getState());
+    //console.log(editorInstance.getState());
     //either recreate table with edit, cancel, and save buttons, or dynamically 
     // add them to current table.
     if (editorInstance.getCurLoc() == 'm') {
         mainMenu();
     }
     else {
-        console.log(editorInstance.getCurLoc());
+        //console.log(editorInstance.getCurLoc());
         catChange(editorInstance.getCurLoc());
     }
 }
@@ -554,7 +529,7 @@ editorInstance = new editor();
 
 function saveCategory(index, categoryId) {
     //alert('Saved (still need to implement)'); 
-    console.log(index + '; ' + categoryId);
+    //console.log(index + '; ' + categoryId);
 
     //get values
     let name = document.getElementById('nameInput' + index).value;
@@ -562,9 +537,9 @@ function saveCategory(index, categoryId) {
     let available = document.getElementById('availableCheckBox' + index).checked;
 
     let updateObj = { "id": categoryId, "name": name, "img": img, "available": available };
-    console.log(updateObj);
+    //console.log(updateObj);
     let updateStr = JSON.stringify(updateObj);
-    console.log(updateStr);
+    //console.log(updateStr);
 
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -573,7 +548,7 @@ function saveCategory(index, categoryId) {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             //redisplay menu.  this acts as a confirmation of the database save
             // because the values will be taken from there again to rebuild the page.
             mainMenu();
@@ -585,7 +560,7 @@ function saveCategory(index, categoryId) {
 }
 
 function saveSubcategory(subcategoryID) {
-    console.log(subcategoryID);
+    //console.log(subcategoryID);
 
     //get subcategory name, 
     // and then inputted name, description, and price of each item within
@@ -612,12 +587,16 @@ function saveSubcategory(subcategoryID) {
         let itemNewPrice = priceTd.firstChild.value;
         //console.log(itemNewPrice);
 
-        subcat.addItem(new item(itemID, itemNewName, itemNewDescr, itemNewPrice));
+        let availTd = tds[3];
+        let itemNewAvail = availTd.firstChild.checked;
+
+        subcat.addItem(new item(itemID, itemNewName,
+            itemNewDescr, itemNewPrice, itemNewAvail));
     }
 
 
     let updateStr = JSON.stringify(subcat);
-    console.log(updateStr);
+    //console.log(updateStr);
 
 
     //send updated information to server for save
@@ -628,7 +607,7 @@ function saveSubcategory(subcategoryID) {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             //redisplay category.  this acts as a confirmation of the database save
             // because the values will be taken from there again to rebuild the page.
             //how to determine which category we're in
@@ -638,18 +617,6 @@ function saveSubcategory(subcategoryID) {
     httpRequest.open("POST", "../php_pages/menuEditor.php");
     httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     httpRequest.send("subcategoryUpdate=" + encodeURIComponent(updateStr));
-    /*
-    let subcatTBodyID = 'subcategoryTBody' + subcategoryID;
-    let subcatTBody = document.getElementById(subcatTBodyID);
-
-    let subcatItems = subcatTBody.children;
-    console.log(subcatItems);
-
-    for (let i = 0; i < subcatItems.length; i++) {
-        console.log(subcatItems[i].);
-    }
-    */
-
 }
 
 
@@ -661,15 +628,16 @@ class subcategory {
     }
     addItem(itemObj) {
         this.items.push(itemObj);
-        console.log(this.items);
+        //console.log(this.items);
     }
 }
 
 class item {
-    constructor(id, newName, newDescr, newPrice) {
+    constructor(id, newName, newDescr, newPrice, newAvail) {
         this.id = id;
         this.newName = newName;
         this.newDescr = newDescr;
         this.newPrice = newPrice;
+        this.newAvail = newAvail;
     }
 }

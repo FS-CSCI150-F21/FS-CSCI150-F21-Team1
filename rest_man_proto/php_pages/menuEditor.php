@@ -56,7 +56,7 @@ else if($subcategoryUpdate){
 
     //update subcategory's items, second
     //build prepare statement
-    $query = 'UPDATE menuItems SET name=?, description=?, price=?' 
+    $query = 'UPDATE menuItems SET name=?, description=?, price=?, available=?' 
             . ' WHERE id=?;';
 
     //debug
@@ -65,7 +65,7 @@ else if($subcategoryUpdate){
     //prepare statement
     $stmt = $conn->prepare($query);
 
-    $stmt->bind_param("ssdi",$name,$descr,$price,$id);
+    $stmt->bind_param("ssdii",$name,$descr,$price,$avail,$id);
     echo $stmt->error;
     $items = $subcategoryUpdateObj->items;
 
@@ -73,6 +73,7 @@ else if($subcategoryUpdate){
         $name = $item->newName;
         $descr = $item->newDescr;
         $price = $item->newPrice;
+        $avail = $item->newAvail;
         $id = $item->id;
         $stmt->execute();
         echo '<br>' . $stmt->error;
