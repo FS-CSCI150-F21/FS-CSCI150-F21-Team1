@@ -103,7 +103,7 @@ function mainMenu() {
                     let availableCheckBox = document.createElement('input');
                     availableCheckBox.type = 'checkbox';
                     availableCheckBox.id = 'availableCheckBox' + i;
-                    availableCheckBox.checked = (responseObj[i][2]) ? true : false;
+                    availableCheckBox.checked = (Number(responseObj[i][2])) ? true : false;
                     availableCheckBox.className = 'editField';
                     td.appendChild(availableLabel);
                     td.appendChild(availableCheckBox);
@@ -140,11 +140,11 @@ function mainMenu() {
                 }
             }
             else {
-
+                console.log(responseObj);
                 // view/functional mode
                 for (let i = 0; i < responseObj.length; i++) {
                     //only populate category if marked as "available"
-                    if (responseObj[i][2] == true) {
+                    if (Number(responseObj[i][2])) {
 
                         //table row
                         let tr = document.createElement('tr');
@@ -277,7 +277,7 @@ function categoryDisplay(jsonStr) {
     //array of 2-element objects: [{"name":"<subcategory>", "items":<array>}]
     let subcatsArr = JSON.parse(jsonStr);
 
-    console.log(subcatsArr);
+    //console.log(subcatsArr);
 
     if (editorInstance.getState()) {
         //console.log('hi');
@@ -537,9 +537,9 @@ function saveCategory(index, categoryId) {
     let available = document.getElementById('availableCheckBox' + index).checked;
 
     let updateObj = { "id": categoryId, "name": name, "img": img, "available": available };
-    //console.log(updateObj);
+    console.log(updateObj);
     let updateStr = JSON.stringify(updateObj);
-    //console.log(updateStr);
+    console.log(updateStr);
 
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -548,7 +548,7 @@ function saveCategory(index, categoryId) {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            //console.log(this.responseText);
+            console.log(this.responseText);
             //redisplay menu.  this acts as a confirmation of the database save
             // because the values will be taken from there again to rebuild the page.
             mainMenu();
@@ -607,7 +607,7 @@ function saveSubcategory(subcategoryID) {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            //console.log(this.responseText);
+            console.log(this.responseText);
             //redisplay category.  this acts as a confirmation of the database save
             // because the values will be taken from there again to rebuild the page.
             //how to determine which category we're in

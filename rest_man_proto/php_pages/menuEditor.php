@@ -10,20 +10,24 @@ $subcategoryUpdate = isset($_POST['subcategoryUpdate'])?$_POST['subcategoryUpdat
 //determine which menu update is requested: main category, or subcategory with items
 if($categoryUpdate){
     $categoryUpdateObj = json_decode($categoryUpdate);
-//echo $categoryUpdate . '\n';
 
-//build update query string
-$updateQuery = 'UPDATE menuCategories SET name="' . $categoryUpdateObj->name
-                . '", available=' . $categoryUpdateObj->available;
-if($categoryUpdateObj->img!=""){
-    $updateQuery .= ', imgURL="' . $categoryUpdateObj->img . '"';
-}
-$updateQuery .= ' WHERE id=' . $categoryUpdateObj->id . ';';
+    echo $categoryUpdate;
+    echo $categoryUpdateObj->available . '<br>';
 
-//debug
-//echo $updateQuery;
+    $available = ($categoryUpdateObj->available)?1:0;
 
-echo $result = $conn->query($updateQuery);
+    //build update query string
+    $updateQuery = 'UPDATE menuCategories SET name="' . $categoryUpdateObj->name
+                    . '", available=' . $available;
+    if($categoryUpdateObj->img!=""){
+        $updateQuery .= ', imgURL="' . $categoryUpdateObj->img . '"';
+    }
+    $updateQuery .= ' WHERE id=' . $categoryUpdateObj->id . ';';
+
+    //debug
+    echo $updateQuery;
+
+    echo $result = $conn->query($updateQuery);
 }
 else if($subcategoryUpdate){
     
@@ -74,6 +78,7 @@ else if($subcategoryUpdate){
         $descr = $item->newDescr;
         $price = $item->newPrice;
         $avail = $item->newAvail;
+        echo $avail;
         $id = $item->id;
         $stmt->execute();
         echo '<br>' . $stmt->error;
