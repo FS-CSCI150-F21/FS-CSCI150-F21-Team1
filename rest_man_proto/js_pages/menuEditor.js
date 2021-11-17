@@ -516,6 +516,9 @@ function editMode() {
     editorInstance.changeState();
     let button = document.getElementById('editModeButton');
     button.value = (editorInstance.getState()) ? 'Switch to View Mode' : 'Switch to Edit Mode';
+    let marquee = document.getElementById('editModeLabel');
+    marquee.innerText = (editorInstance.getState()) ? 'Currently in Edit Mode' : 'Currently in View Mode';
+    console.log(editorInstance.getState());
     //either recreate table with edit, cancel, and save buttons, or dynamically 
     // add them to current table.
     if (editorInstance.getCurLoc() == 'm') {
@@ -594,7 +597,7 @@ function saveSubcategory(subcategoryID) {
 
     let items = document.getElementsByClassName('subcategory' + subcategoryID);
 
-    for(let i = 0;i<items.length;i++){
+    for (let i = 0; i < items.length; i++) {
         let itemID = items[i].id.substr(6);
         let tds = items[i].children;
         let nameTd = tds[0];
@@ -612,7 +615,7 @@ function saveSubcategory(subcategoryID) {
         subcat.addItem(new item(itemID, itemNewName, itemNewDescr, itemNewPrice));
     }
 
-    
+
     let updateStr = JSON.stringify(subcat);
     console.log(updateStr);
 
@@ -650,20 +653,20 @@ function saveSubcategory(subcategoryID) {
 }
 
 
-class subcategory{
+class subcategory {
     items = [];
-    constructor(newName, id){
+    constructor(newName, id) {
         this.newName = newName;
         this.id = id;
     }
-    addItem(itemObj){
+    addItem(itemObj) {
         this.items.push(itemObj);
         console.log(this.items);
     }
 }
 
-class item{
-    constructor(id,newName,newDescr,newPrice){
+class item {
+    constructor(id, newName, newDescr, newPrice) {
         this.id = id;
         this.newName = newName;
         this.newDescr = newDescr;

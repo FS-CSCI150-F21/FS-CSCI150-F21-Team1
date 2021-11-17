@@ -17,9 +17,9 @@ that allow changes to be made.-->
 <body onload="load()">
 <!--<label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">->>
 <!--<input type='button' value='Go to items' onclick='mainToSingleCategory(0)'>-->
-Currently in view mode.
+<label for='editModeButton' id='editModeLabel' class='editSwitch'>Currently in View Mode</label>
 <input type='button' value='Switch to Edit Mode' onclick='editMode()' 
-    id='editModeButton'>
+    id='editModeButton' class='editSwitch'>
 <!-- image file validation shoud occur on server side (php) to prevent malicious
 uploads.  ensure it's not too big.-->
 <table id='catTbl'>
