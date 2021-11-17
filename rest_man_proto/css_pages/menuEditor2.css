@@ -8,6 +8,7 @@
 html {
     /*background-color: #000a0b;*/
     color: #055f60;
+    text-align: center;
 }
 
 body {
@@ -134,6 +135,20 @@ table.subcategory {
 	-ms-user-select: none; /* IE10+/Edge */
 	user-select: none; /* Standard */
 }
+
+
+table.subcategoryEdit{
+    margin:  3vh auto;
+    border-collapse: collapse;
+}
+#subcategoryTitle{
+    text-align: right;
+}
+table.subcategoryEdit th{
+    font-weight: normal;
+    text-align: left;
+}
+
 
 .subcategory tr:hover{
     opacity: .5;
