@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 
 
 
-$sql = "SELECT username, password, level FROM employee_test where username='$playerusername' AND password='$playerpassword' AND level='$userlevel'";
+$sql = "SELECT username, password, level FROM user_info where username='$playerusername' AND password='$playerpassword' AND level='$userlevel'";
 
 
 $results = $conn->query($sql);
@@ -26,7 +26,7 @@ $exists = $results->num_rows;
 
 if ($exists > 0)
 {
-    echo "1";
+    echo "Logged in.";
 }
 else
 {

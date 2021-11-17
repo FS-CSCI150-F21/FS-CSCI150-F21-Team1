@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>contact page</title>
+    <link rel="stylesheet" type="text/css" href="../css_pages/contact.css">
+    <script src="../js_pages/page_transition.js"></script>
+    <link href="../css_pages/page_transition.css" rel="stylesheet">
+</head>
+<header>
+</header>
+<body>
+    <svg id="fader"></svg>
+    <script>
+        fadeInPage();
+    </script>
+
+    <!--Nav bar-->
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="contact.html">Contact</a>
+        <a href="#About">About</a>
+        <div class="rightnav">
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+    
+    <div id="Body">
+        <h1 id="Welcome">Contact us!</h1>
+        <div id= "contact_form" class = "contactform">
+            <label for="name">Name</label><br>
+            <input type="text" id="name" placeholder="Name" required><br><br>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" placeholder="Email" required><br><br>
+            <label for="subject">Subject</label><br>
+            <input type="text" id="subject" placeholder="Subject" required><br><br>
+            <label for="message">Message</label><br>
+            <textarea rows="4" cols="50" type="text" id="message" placeholder="Message"required>
+            </textarea><br><br>
+            <button type="button">Submit</button><br><br>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,18 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <link href="../css_pages/" rel="stylesheet">
+  <link href="../css_pages/c_dash.css" rel="stylesheet">
+  
 </head>
 
 
-<body>
-    <h1>Customer Dashboard</h1>
+<body onload="get_WaitTime()">
+  <svg id="fader"></svg>
+  <script>
+      fadeInPage();
+  </script>
     <header>
-        <nav>
-          <a href="index.html">Home</a>
+      <nav class="nav">
+        <a href="index.html">Home</a></li>
+        <a href="menu.html">Menu</a></li>
+        
+        <div class="rightnav">
           <a href="account.html">Account</a>
-        </nav>
+        </div>
+    </nav>
     </header>
+
+    <div id="Body">
+      <h1 id="Welcome">Customer</h1>
+      <div>
+          <button><a href="orderPage.html">Create Order</a></button>
+          <button><a href="menu.html">Menu</a></button>
+          <h2>Estimated Waiting Time:</h2>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
+      </div>
+   </div>
 
 </body>
 </html>

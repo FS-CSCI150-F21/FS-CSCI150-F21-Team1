@@ -1,22 +1,139 @@
 body{
-    background-color: gray;
+  background-image: url(../images/background.png);
+  color: rgb(205,205,205);
+  text-align: center;
+  margin: 0;
+}
+
+.nav
+{
+  text-align: initial;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 20px;
+}
+.nav a
+{
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color:rgb(159,159,159);
+  text-decoration: none;
+}
+.nav a:hover{
+  color:rgb(165, 91, 0);
+}
+.rightnav
+{
+  float: right;
+}
+
+/* Set a style for all buttons */
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #3b3737;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  display: flex;
+  flex-direction: column;
+  width: 100vh;
+}
+
+
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
   }
-    
-  .modal-content {
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    width: 80%; /* Could be more or less, depending on screen size */
+  .cancelbtn {
+     width: 100%;
   }
+}
+
+.loginform {
+  width: 30vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  margin: auto;
+  margin-top: 50px; 
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	margin: 8px 0;
+	width: 100%;
+}

@@ -19,7 +19,7 @@ body{
 .nav a:hover{
     color:rgb(165, 91, 0);
 }
-.navlog
+.rightnav
 {
     float: right;
 }
@@ -28,7 +28,8 @@ button
     width: 300px;
     height: 150px;
     border-radius: 10px;
-    margin-left: 100px;
+    margin-right: 2%;
+    margin-left: 2%;
     font-size: 30px;
     margin-top: 40px;
     text-align: center;
@@ -68,4 +69,7 @@ h3{
 a{
     text-decoration: none;
     color: rgb(71, 71, 71);
+}
+#Body{
+    text-align: center;
 }

@@ -4,30 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/page_transition.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/account.css" rel="stylesheet">
+  <link href="../css_pages/page_transition.css" rel="stylesheet">
+  
 </head>
 
-<body onload="check();">    
-<h1>Account</h1>
+<body onload="check();">
+  <svg id="fader"></svg>
+  <script>
+      fadeInPage();
+  </script>
+
   <header>
       <nav>
-        <a href="index.html">Home</a>
-        <a href="account.html">Account</a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="menu.html">Menu</a>
+          <a href="contact.html">Contact</a>
+          <a href="#About">About</a>
+          <div class="rightnav">
+              <a href="account.html">Account</a>
+          </div>
       </nav>
   </header>
+
   
-  <div id="login_form" style="display:none">
-    <label for="username">Username</label>
-    <input type="text" id="username" placeholder="username" required>
-    <label for="passowrd">Password</label>
-    <input type="password" id="password" placeholder="password" required>
-    <button type="button" onclick="login()">Log In</button>
 
-    <input type="radio" name="level" value="0">Manager
-    <input type="radio" name="level" value="1">Employee
-    <input type="radio" name="level" value="2">Customer
-
+  <div id="login_form" class="loginform">
+    <h1>Log In</h1>
+    <label for="username">Username</label><br>
+    <input type="text" id="username" placeholder="Username" required><br><br>
+    <label for="passowrd">Password</label><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+    <label for="level">Access Level</label><br>
+    <select name="level" id="user_level">
+      <option value="0">Manager</option>
+      <option value="1">Employee</option>
+      <option value="2">Customer</option>
+    </select>    <br><br>
+    <button type="button" onclick="login()">Log In</button><br><br>
     <button type="button" onclick="document.getElementById('customer_modal').style.display='block'">New Customer? Click Here to Create Account</button>
   </div>
   <div id="btn_logout">
@@ -40,8 +57,8 @@
   
 
   <div id="customer_modal" class="modal">
-    <div class="modal-content">
-      <div>
+    <div class="modal-content animate">
+      <div class="container">
         <input type="text" placeholder="First Name" id="c_fname" required>
         <input type="text" placeholder="Last Name" id="c_lname" required>
         <input type="text" placeholder="Username" id="c_username" required>
@@ -55,8 +72,9 @@
     </div>
   </div>
 
-  <p id="user_info">
-  </p>
+  <!-- <p id="user_info">
+  </p> -->
+
 </body>
 </html>
 

@@ -1,3 +1,91 @@
-body {
-    background-color: gray;
+body{
+    margin: 0;
+}
+.nav
+{
+    background-color: rgb(255, 191, 112);
+    padding: 20px;
+}
+.nav a
+{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color:black;
+    text-decoration: none;
+}
+.nav a:hover{
+    color:rgb(165, 91, 0);
+}
+.rightnav
+{
+    float: right;
+}
+button
+{
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    margin-right: 2%;
+    margin-left: 2%;
+    font-size: 30px;
+    margin-top: 40px;
+    text-align: center;
+    padding: 0;
+    overflow: hidden;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgba(255, 191, 112, 0.315);
+    border: 2px solid rgba(0, 0, 0, 0.521);
+    color: rgb(71, 71, 71);
+}
+button:hover{
+    background-color: rgba(255, 191, 112, 0.527)
+}
+#Welcome
+{
+    padding-top: 3%;
+}
+h1
+{
+    padding-top: 100px;
+    text-align: center;
+    font-size: 30px;
+}
+h2
+{
+    text-align: center;
+    padding-top: 110px;
+    font-size: 35px;
+}
+h3{
+    text-align: center;
+    font-size: 30px;
+}
+#span{
+    padding-left: 9%;
+}
+a{
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+}
+#Body{
+    text-align: center;
+}
+
+#logout
+{
+    border: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+    background-color: transparent;
+    width: 100px;
+    height:40px;
+    font-size: 19px;
+    font-family:unset;
+}
+#logout:hover
+{
+    color:rgb(165, 91, 0);
 }

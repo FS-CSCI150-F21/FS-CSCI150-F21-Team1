@@ -5,11 +5,21 @@ $dbusername = "rest_manager";
 $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
-$firstname = $_POST['fn'];
-$lastname = $_POST['ln'];
-$playerusername = $_POST['u'];
-$playerpassword = $_POST['p'];
-$userlevel = $_POST['l'];
+
+
+$jsonarray = $_POST['userinfo'];
+
+$decoded = json_decode($jsonarray, true);
+
+$firstname = $decoded['f_name'];
+$lastname = $decoded['l_name'];
+$username = $decoded['username'];
+$password = $decoded['password'];
+$userlevel = $decoded['level'];
+$userphone = $decoded['phone'];
+$useremail = $decoded['email'];
+$userposition = $decoded['position'];
+$userwage = $decoded['wage'];
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
@@ -18,8 +28,7 @@ if ($conn->connect_error) {
 }
 
 
-
-$sql = "SELECT username FROM employee_test where username='$playerusername'";
+$sql = "SELECT username FROM user_info where username='$username'";
 
 $results = $conn->query($sql);
 
@@ -31,8 +40,8 @@ if ($exists > 0)
 }
 else
 {
-    $sql = "INSERT INTO employee_test (first_name, last_name, username, password, level) 
-    VALUES ('$firstname','$lastname','$playerusername','$playerpassword','$userlevel');";
+    $sql = "INSERT INTO user_info (first_name, last_name, username, password, level, phone, email, position, wage) 
+    VALUES ('$firstname','$lastname','$username','$password','$userlevel', '$userphone', '$useremail', '$userposition', '$userwage');";
     echo "1";
 }
 

@@ -4,20 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="../js_pages/login.js"></script>
   <link href="../css_pages/m_dash.css" rel="stylesheet">
 </head>
 
 
-<body>
-    <h1>Manager Dashboard</h1>
+<body onload="get_WaitTime()">
     <header>
-        <nav>
-          <a href="index.html">Home</a>
+      <nav class="nav">
+        <a href="index.html">Home</a></li>
+        <a href="../html_pages/menu.html">Menu</a></li>
+        <a href="#Contact">Contact</a></li>
+        <a href="#About">About</a></li>
+        <div class="rightnav">
           <a href="account.html">Account</a>
-        </nav>
+          <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
+          <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
+        </div>
+    </nav>
     </header>
 
-    <a href="users.html">View Users</a>
+    <div id="Body">
+      <h1 id="Welcome">Manager</h1>
+      <div>
+          <button><a href="employeeList.html">Employee Information</a></button>
+          <button><a href="users.html">View Users</a></button>
+          <button><a href="orderPage.html">Order food</a></button>
+          <button><a href="menuEditor.html">Menu Editor</a></button>
+          <button><a href="currentOrders.html">Current Orders</a></button>
+          <button><a href="timesheet.html">Timesheet</a></button>
+          <button><a href="completedOrders.html">Completed Orders</a></button>
+          <button><a href="inventory.html">Inventory</a></button>
+          <button><a href="tableEditor.html">Table Editor</a></button>
+          <button><a href="viewLayout.html">View Layout</a></button>
+
+
+
+          <h2>Estimated Waiting Time:</h2>
+          <p>Number of people inside: <span id="numInside"></span></p>
+          <p>Number of people in line: <span id="numInLine"></span></p>
+          <p>Wait time: <span id="waittime"></span></p>
+          <p>Updated time: <span id="updatedtime"></span></p>
+
+
+      </div>
+    </div>
 
 </body>
 </html>
