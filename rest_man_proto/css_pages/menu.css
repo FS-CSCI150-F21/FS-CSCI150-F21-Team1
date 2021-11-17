@@ -18,7 +18,7 @@
     text-decoration: none;
 }
 .nav a:hover{
-    color:rgb(255, 149, 0);
+    color: rgb(5, 95, 96);
 }
 .rightnav
 {
@@ -65,9 +65,6 @@ h1 {
     margin: 1vh 0 1vh 5vw;
 }
 
-
-
-
 #catTbl caption,
 #catTbl thead {
     display: none;
@@ -87,7 +84,9 @@ h1 {
 
 td.catName {
     background-image: url(../images/background.png);
-    text-align: center;
+    color: rgb(5, 95, 96);
+    text-align:center;
+    
 }
 
 /*
@@ -97,24 +96,26 @@ td.catName:hover{
 */
 
 td.odd {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 
 #catTbl td {
     padding: 0 0;
     margin: 0 0;
     width: 11vw;
+    
 }
 
 #catTbl tr {
     margin: 0 0;
-    padding: 0 0;
+    padding: 10px 0;
     display: inline-block;
     opacity: 1;
 }
 
 
 img {
+    cursor: pointer;
     margin: 0;
     padding: 0;
     object-fit: cover;
@@ -147,6 +148,7 @@ nav ul li {
 }
 
 nav ul li:hover {
+    cursor: pointer;
     opacity: .5;
 }
 
@@ -223,4 +225,7 @@ th#viewOrder{
     background-color: #055f60;
     color: white;
 }
+
+
+
 
