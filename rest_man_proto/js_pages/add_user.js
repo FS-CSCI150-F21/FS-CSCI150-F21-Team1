@@ -49,7 +49,7 @@ function add_user() {
 var modal = document.getElementById('add_modal');
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        modal.style.visibility = "hidden";
     }
 }
 
@@ -63,12 +63,17 @@ function customer_input(data){
 }
 
 
-function hide_modal(){
-get_users();
-document.getElementById("test").innerHTML = "";
-document.getElementById('add_modal').style.display='none';
-}
+// function hide_modal(){
+//   get_users();
+//   document.getElementById("test").innerHTML = "";
+//   document.getElementById('add_modal').style.display='none';
+// }
 
+function hide_modal(){
+  get_users();
+  document.getElementById("test").innerHTML = "";
+  document.getElementById('add_modal').style.visibility="hidden";
+}
 
 // function hide_edit(){
 //     get_users();

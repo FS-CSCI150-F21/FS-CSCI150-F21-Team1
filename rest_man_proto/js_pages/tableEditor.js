@@ -58,17 +58,19 @@ function set_table(){
 }
 
 function createtablebuttons(numberof){
-    for(var i = 0; i<(numberof-1); i++){
+    for(var i = 0; i<(numberof); i++){
         const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
         var parent = document.getElementById("table_buttons");
         var element = document.createElement("button");
         element.type = "button";
-        element.innerText = "Table " + (alphabet[1 + newtables]);
-        element.id = "table" + alphabet[1 + newtables];
+        element.innerText = "Table " + (alphabet[1 + i]);
+        console.log(alphabet[1 + i]);
+        element.id = "table" + alphabet[1 + i];
         element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[1 + newtables])))
         parent.appendChild(element);
         newtables++;
     }
+    
 }
 function deletetablebuttons(){
 
@@ -121,6 +123,7 @@ function paintgrid(rows,cols){
                 document.getElementById(id).style.backgroundColor = "red";
             }
             else if(current_coord==0){
+                document.getElementById(id).style.border = "1px solid black";
                 document.getElementById(id).style.background = "transparent";
             }
             else if(current_coord==-1){
@@ -238,6 +241,8 @@ function make_default(id){
     var test = id;
     var i = parseInt(test.substring(0,2));
     var j = parseInt(test.substring(2,4));
+    document.getElementById(id).style.border = "1px solid black";
+
     document.getElementById(test).style.background = "transparent";
     document.getElementById(test).innerText = 0;  
     table_coords[i][j] = 0;  

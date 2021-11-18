@@ -27,8 +27,7 @@ body{
 }
 
 .modal {
-  /* display: none; */
-  visibility: hidden;
+  display: none; /* Hidden by default */
   position: fixed; /*Stay in place*/
   z-index: 1; /*Sit on top */
   left: 0;
@@ -39,29 +38,12 @@ body{
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   padding-top: 60px; 
-  text-align: center;
-  align-items: center;
-
-  
 }
   
 .modal-content {
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  width: 35vh; /* Could be more or less, depending on screen size */
-  align-items: center;
-  color: white;
-
-  
+  width: 80%; /* Could be more or less, depending on screen size */
 } 
-
-.inputs{
-  width: 100%;
-  padding: 5px;
-  font-size: 25px;
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 3px;
-}
 
 table {
   border-collapse: collapse;
@@ -70,25 +52,15 @@ table {
   overflow: auto;
   font-size: 20px;
   display: table;
-}
-.inputselect, .add{
-  width: 50%;
-  font-size: 20px;
-}
-.closeBtn {
-  margin: 0;
-  font-size: 30px;
-  background-color: transparent;
-  color: red;
-  border: none;
-  text-decoration: none;
+
+  
 }
 tbody{
   height: 250px;
   text-align: center;
-
   
 }
+
 th{
   transition: all 0.25s;
 }

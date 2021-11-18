@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css_pages/users.css" rel="stylesheet">    
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+    <link href="../css_pages/users.css" rel="stylesheet">  
+    
+  
     <script src="../js_pages/add_user.js"></script>
     <script src="../js_pages/users.js"></script>
     <script src="../tests/randomdata.js"></script>
@@ -15,18 +18,21 @@
 <body>
   <!--Nav bar-->
   <nav class="nav">
-    <a href="index.html">Home</a></li>
-    <a href="#Menu">Menu</a></li>
-    <a href="#Contact">Contact</a></li>
-    <a href="#About">About</a></li>
+    <a href="index.html" class="test"><i class="fas fa-home"></i></a></li>
+    <a href="menu.html" class="test"><i class="fas fa-utensils"></i></a></li>
+    <a href="contact.html" class="test"><i class="fas fa-envelope"></i></a></li>
+    <a href="about.html" class="test"><i class="fas fa-info"></i></a></li>
+
     <div class="rightnav">
-      <a href="account.html">Account</a>
-  </div>
+      <button type="button" onclick="get_users()" class="refreshBtn"><i class="fas fa-sync"></i></button>
+      <button type="button" onclick="document.getElementById('add_modal').style.visibility='visible'" class="addBtn"><i class="fas fa-user-plus"></i></button>
+      <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
+    </div>
   </nav>
-  <button type="button" onclick="fill()">FILL DATABASE WITH RANDOM DATA</button>
-  <button type="button" onclick="get_users()">Refresh Data</button>
-  <button type="button" onclick="document.getElementById('add_modal').style.display='block'">Add User</button>
+
+
   <table>
+    <caption class="tableTitle">USERS</caption>
     <thead>
         <tr>
           <th>First Name</th>
@@ -34,37 +40,54 @@
           <th>Username</th>
           <th>Password</th>
           <th>Level</th>
-          <th>Action</th>
+          <th></th>
         </tr>
     </thead>
     <tbody id="user_list">
     </tbody>
   </table>
+  <button type="button" onclick="fill()">FILL DATABASE WITH RANDOM DATA</button>
 
   <div id="add_modal" class="modal">
     <div class="modal-content">
+
       <div>
-        <input type="text" placeholder="First Name" id="modal_fname" required>
-        <input type="text" placeholder="Last Name" id="modal_lname" required>
-        <input type="number" placeholder="(888)888-8888" id="modal_phone" required>
-        <input type="email" placeholder="name@email.com" id="modal_email" required>
+        <i class="fas fa-signature"></i>
+        <input type="text" placeholder="First Name" id="modal_fname" class="inputs" required>
+
+        <i class="fas fa-signature"></i>
+        <input type="text" placeholder="Last Name" id="modal_lname"  class="inputs" required>
+
+        <i class="fas fa-phone"></i>
+        <input type="number" placeholder="(888)888-8888" id="modal_phone"  class="inputs" required>
+
+        <i class="far fa-envelope-open"></i>
+        <input type="email" placeholder="name@email.com" id="modal_email"  class="inputs" required>
+
+
         <div id="employeeOnly">
-          <input type="text" placeholder="Waiter" id="modal_position" required>
-          <input type="number" placeholder="15.00" id="modal_wage" required>
+
+          <i class="fas fa-user-check"></i>
+          <input type="text" placeholder="Position" id="modal_position"  class="inputs" required>
+
+          <i class="fas fa-dollar-sign"></i>
+          <input type="number" placeholder="15.00" id="modal_wage"  class="inputs" required>
         </div>
+        <i class="fas fa-user"></i>
+        <input type="text" name="user" placeholder="Username" id="modal_username" class="inputs" required>
         
-        <input type="text" placeholder="Username" id="modal_username" required>
-        <input type="password" placeholder="Password" id="modal_password" required>
-        <select name="level" id="modal_level" onchange="customer_input(this.value)">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Password" id="modal_password"  class="inputs" required>
+        <select name="level" id="modal_level" onchange="customer_input(this.value)"  class="inputselect" >
           <option value="0">Manager</option>
           <option value="1">Employee</option>
           <option value="2">Customer</option>
         </select>
 
-        <button type="button" onclick="add_user()">Add</button>
+        <button type="button" onclick="add_user()" class="add">Add</button>
       </div>
       <div class="container">
-        <button type="button" onclick="hide_modal()">Close</button>
+        <button type="button" onclick="hide_modal()" class="closeBtn"><i class="fas fa-window-close"></i></button>
         <div id="test" style="color: white;"></div>
       </div>
     </div>

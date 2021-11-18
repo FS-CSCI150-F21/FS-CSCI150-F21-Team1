@@ -18,7 +18,9 @@ function create_user_rows(){
         var edit = row.insertCell(-1);
         var element = document.createElement("button");
         element.type = "button";
-        element.innerText = "Delete"
+        
+        element.innerHTML = '<i class="fas fa-trash"></i>';
+        element.className ="deleteBtn"
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
@@ -29,6 +31,10 @@ function create_user_rows(){
         level.innerHTML = level_to_name(user_array[i]['level']);
         edit.appendChild(element);
     }
+    $("table tr").hide();
+    $("table tr").each(function(index){
+        $(this).delay(index*20).show(0);
+    });
 }
 
 function level_to_name(level){
