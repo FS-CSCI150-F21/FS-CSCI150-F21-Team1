@@ -11,6 +11,7 @@ session_start();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     //does client have a current order
     $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : -1;
+    echo $curOrder;
     if ($curOrder >= 0) {
         //user has a current order open.  
 

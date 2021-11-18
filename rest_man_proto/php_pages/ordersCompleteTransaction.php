@@ -1,4 +1,6 @@
 <?php
+// this script updates the paid field and possibly status field of open_orders_info
+
 
 include 'mysqlConnection.php';
 
@@ -21,6 +23,10 @@ class item
     function getID()
     {
         return $this->id;
+    }
+    function getQty()
+    {
+        return $this->quantity;
     }
     function getPrepTime()
     {
@@ -61,7 +67,7 @@ if ($conn->query($query)) {
     // to determine next status
     $query = 'SELECT status, items FROM open_order_info WHERE order_id=' . $orderNumber . ';';
     $result = $conn->query($query);
-    $resultObj = $result->fetch_object();//can combine this line and next
+    $resultObj = $result->fetch_object(); //can combine this line and next
     $status = $resultObj->status;
 
     $userLevel = isset($_SESSION['loggedin']) ? $_SESSION['level'] : -1;
@@ -83,6 +89,7 @@ if ($conn->query($query)) {
             foreach ($items as $id => $qty) {
                 $order[] = new item($id, $qty);
             }
+
             //build query with recently grabbed item ids to acquire prep times
             $query = "SELECT id, prep_time FROM menuItems WHERE ";
             for ($i = 0; $i < count($order) - 1; $i++) {
@@ -113,8 +120,10 @@ if ($conn->query($query)) {
                 $query = 'UPDATE open_order_info SET eRTime="' . $eRTime
                     . '", prep_time=' . $oPrepTime
                     . ' WHERE order_id=' . $orderNumber . ';';
+
                 if ($conn->query($query)) {
                     //everthing worked
+
 
                 } else {
                     echo $conn->error;
@@ -123,6 +132,30 @@ if ($conn->query($query)) {
                 //MySQL query to get prep times of items went wrong.
                 die('MySQL query to get prep times of items went wrong.');
             }
+
+            //update kitchen table with prepare statement
+            $query = 'INSERT INTO kitchen (order_id, item_id, quantity) '
+                . 'VALUES (' . $orderNumber . ',?,?);';
+
+            $statement = $conn->prepare($query);
+
+            $statement->bind_param("ii", $id, $qty);
+
+            
+            for ($i = 0;$i<count($order);$i++){
+                $id = $order[$i]->getID();
+                $qty = $order[$i]->getQty();
+                if ($statement->execute()) {
+                    //success
+                    echo 'inserted ' . $orderNumber . ', ' . $id . ', ' . $qty . '<br>';
+                } else {
+                    echo 'error: ' . $statement->error;
+                }
+            }
+            
+
+            $statement->close();
+
         } else {
             //MySQL query to change status to 'Kitchen' went wrong
             die('MySQL query to change status to "Kitchen" went wrong.');

@@ -31,7 +31,7 @@ function load() {
     //grab all records from open_order_info table and populate html table
 
     let view = viewTrackerInstance.getView();
-    console.log(view);
+    //console.log(view);
 
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -40,7 +40,7 @@ function load() {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             let currentOrders = JSON.parse(this.responseText);
             presentView(currentOrders);
         }
@@ -150,10 +150,10 @@ function presentView(currentOrders) {
         th.className = 'nameColumn';
         thead.append(th);
         th = document.createElement('th');
-        th.innerText = 'Elapsed Time';
+        th.innerText = 'Elapsed Time (minutes)';
         thead.append(th);
         th = document.createElement('th');
-        th.innerText = 'Complete';
+        th.innerText = 'Completed';
         thead.append(th);
 
         table.appendChild(thead);
@@ -184,7 +184,7 @@ function presentView(currentOrders) {
 
                 //Elapsed time
                 td = document.createElement('td');
-                td.innerText = '0:00';
+                td.innerText = ((new Date() - new Date(items[j].start))/60000).toFixed(0);
                 tr.appendChild(td);
 
                 //action button
@@ -195,17 +195,21 @@ function presentView(currentOrders) {
                 checkBox.onchange = function() {};
                 td.appendChild(checkBox);
                 */
-                let completed = 0;
-                td.innerText = completed + '/' + items[j].qty;
+
+                //completed count
+                td.innerText = items[j].completedCount + '/' + items[j].qty;
                 tr.appendChild(td);
+
+                //item completion function
+                tr.onclick = function(){
+                    incrementItemCompleted(currentOrders[i].OrderId, items[j].id);
+                }
 
                 tbody.appendChild(tr);
             }
         }
         table.appendChild(tbody);
         document.body.appendChild(table);
-
-
 
     }
     else {
@@ -229,7 +233,7 @@ function orderPage(orderNumber) {
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
-            window.location.replace('../html_pages/orderPage.html')
+            window.location.replace('../html_pages/orderPage.html');
         }
     }
     httpRequest.open("POST", "../php_pages/ordersCurrent.php");
@@ -237,56 +241,20 @@ function orderPage(orderNumber) {
     httpRequest.send('orderNumber=' + orderNumber);
 }
 
-
-
-/*
-   else if (viewTrackerInstance.getView() == 'kitchen') {
-        //kitchen view
-        //each order gets its own table.  order number will be caption
-        //each item gets its own row with attributes: name, quantity,
-        // accumulated time, and action button [ready].
-
-        for (let i = 0; i < currentOrders.length; i++) {
-            let table = document.createElement('table');
-            let caption = document.createElement('caption');
-            caption.innerText = currentOrders[i].OrderId;
-            table.append(caption);
-
-            //build header
-
-            //build item rows
-            let items = currentOrders[i].items;
-            for (let j = 0; j < items.length; j++) {
-                let tr = document.createElement('tr');
-                let td = document.createElement('td');
-
-                //item name
-                td.innerText = items[j].name;
-                tr.appendChild(td);
-
-                //item quantity
-                td = document.createElement('td');
-                td.innerText = items[j].qty;
-                tr.appendChild(td);
-
-                //accumulated time?
-
-                //action button
-
-                td = document.createElement('td');
-                td.innerText = 'Complete';
-                td.onclick = function() {};
-                tr.appendChild(td);
-
-
-                table.appendChild(tr);
-            }
-
-
-            document.body.append(table);
-        }
-
-
-
+function incrementItemCompleted(orderId, itemId){
+    console.log(orderId,itemId);
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log('httpRequest instance failed');
+        return false;
     }
-    */
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            load();
+        }
+    }
+    httpRequest.open("POST", "../php_pages/ordersCurrent.php");
+    httpRequest.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    httpRequest.send('orderId=' + orderId + '&itemId=' + itemId);
+}

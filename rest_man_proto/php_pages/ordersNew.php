@@ -1,5 +1,6 @@
 <?php
 
+//this will simply create a new order in the db, assign its id to the session variable, and return its id to the client
 
 require 'mysqlConnection.php';
 
