@@ -24,31 +24,25 @@ if($status == 'in')
   $sql = "INSERT INTO `employee_time`(`name`, `status`, `time_loggedIn`, `total_hours_worked`) VALUES ('$name','$status', CURRENT_TIMESTAMP, NULL);";
   echo $sql;
   $results = $conn->query($sql);
-  // INSERT INTO `employee_time`(`name`, `status`, `time_loggedIn`, `time_loggedOut`, `total_hours_worked`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
 }
 else //status=out
 {
+  echo "out";
   $sql ="SELECT `name`, `status`, `time_loggedIn`, `time_loggedOut`, `total_hours_worked` FROM `employee_time` WHERE name='$name' AND status='in' ORDER BY
   3 DESC LIMIT 1;";
-  // $sql = "INSERT INTO `employee_time`(`name`, `status`, `time_loggedIn`, `total_hours_worked`) VALUES ('$name','$status', CURRENT_TIMESTAMP, NULL);";
-  // echo $sql;
+
   $results = $conn->query($sql);
 
-  $rows = array();
+  $exists = $results->num_rows;
 
-while($r = mysqli_fetch_assoc($results)) {
-    $rows[] = $r;
+  $rows = $results->fetch_assoc();
+
+  $loginTime = $rows['time_loggedIn'];
+  $sql1 = "INSERT INTO `employee_time`(`name`, `status`, `time_loggedIn`, `time_loggedOut`, `total_hours_worked`) VALUES ('$name','$status','$loginTime', CURRENT_TIMESTAMP, TIMESTAMPDIFF(MINUTE, '$loginTime', CURRENT_TIMESTAMP));";
+  $result = $conn->query($sql1);
+
+
 }
-echo json_encode($rows);
-
-
-  // $a= mysqli_fetch_assoc($results);
-  // echo $a;
-}
-
-//  $sql = "INSERT INTO `employee_time`(`name`, `status`) VALUES ('$name','$status');";
-
- 
 
 
 
