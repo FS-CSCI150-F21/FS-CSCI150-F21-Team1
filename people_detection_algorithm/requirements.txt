@@ -1,6 +1,6 @@
 schedule
 numpy
-mysql-connector
+mysql-connector-python
 argparse
 imutils
 cmake
