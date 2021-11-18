@@ -481,3 +481,11 @@ function newOrder() {
     httpRequest.send();
 }
 
+function served(){
+
+
+}
+
+function openOrders(){
+    window.location.replace('../html_pages/currentOrders.html');
+}

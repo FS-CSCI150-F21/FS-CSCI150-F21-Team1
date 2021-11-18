@@ -21,10 +21,15 @@
         </nav>
     </header>
 
-    <table id='employeeFunctions' class='employeePrivilege'>
+    <ul id='employeeFunctions' class='employeePrivilege'>
+        <li id='newOrder' onclick='newOrder()'>New Order</li>
+        <li id='kitchen' onclick='kitchen()'>Send to Kitchen</li>
+        <li id='served' onclick='served()'>Mark as Served</li>
+        <li id='openOrders' onclick='openOrders()'>Open Orders</li>
+    </ul>
+    <table>
         <tr>
-            <td id='newOrder' onclick='newOrder()'>New Order</td>
-            <td id='kitchen' onclick='kitchen()'>Send to Kitchen</td>
+
         </tr>
     </table>
 
@@ -66,24 +71,22 @@
         </tbody>
         <tfoot id='itemsTableFooter'></tfoot>
     </table>
-                <!-- Move "Action" to beneath items table.
+    <!-- Move "Action" to beneath items table.
                      Submit to kitchen, pay bill-->
 
     <table id='paymentTable'>
         <caption>Payment</caption>
         <thead>
-            <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
+            <th id='paymentOptionCC' onclick='paymentInstance.cC()'>
                 Credit Card
             </th>
-            <th id ='paymentOptionCash' class='employeePrivilege' 
-                onclick='paymentInstance.cash()'>Cash</th>
+            <th id='paymentOptionCash' class='employeePrivilege' onclick='paymentInstance.cash()'>Cash</th>
         </thead>
         <tbody id='paymentTableBody'>
         </tbody>
         <tfoot>
             <tr>
-                <td id='completeTransaction' colspan=3 hidden 
-                    onclick='paymentInstance.completeTransaction()'>
+                <td id='completeTransaction' colspan=3 hidden onclick='paymentInstance.completeTransaction()'>
                     Complete Transaction
                 </td>
             </tr>
