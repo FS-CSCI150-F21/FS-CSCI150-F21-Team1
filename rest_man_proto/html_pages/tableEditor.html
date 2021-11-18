@@ -8,7 +8,7 @@
   <link href="../css_pages/tableEditor.css" rel="stylesheet">
 </head>
 
-<body onload="set_table()">
+<body onload="set_table();">
   <header>
       <nav>
         <nav class="nav">
@@ -27,6 +27,7 @@
     <input type="number" id="y" min="10" max="25" value="10">
     <button type="button" onclick="set_table_coords()">Create New grid</button>
     <button type="button" onclick="new_table_button()">New table</button>
+    <button type="button" onclick="deletetablebuttons()">Delete table</button>
     <button type="button" onclick="make_interactive('delete')">Delete</button>
     <button type="button" onclick="make_interactive('default')">Default</button>
     <button type="button" onclick="remove_clickable()">Normal Mouse</button>
@@ -45,6 +46,13 @@
     
         </tbody>
       </table>
+  </div>
+
+  <div id="table_settings">
+    <select name="tables" id="tables" onchange="set_capacity(this.value)">
+      <option value="0">tableA</option>
+    </select>
+    <input type="number" id="table_capacity">Capacity</input>
   </div>
 
 
