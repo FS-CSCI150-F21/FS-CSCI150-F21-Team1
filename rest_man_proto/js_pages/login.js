@@ -127,6 +127,7 @@ function add_customer() {
         }
         else {
           document.getElementById("test").innerHTML = "Username already exists";
+          alert("Username already exists");
         }
       }
     };
