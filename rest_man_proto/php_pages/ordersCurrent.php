@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //this is call to view an order's details or update kitchen item completion status.
 
     if (isset($_POST['itemId'])) {
-        //kitchen request.
+        //kitchen item completion increment.
 
         //get pre-increment value.  see if next increment will fulfill order
         $query = 'SELECT completed, quantity FROM kitchen WHERE order_id='
@@ -126,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($result->num_rows){
                     //if any item's end time is null, then at least one item of the
                     // order is not ready
-                    //increment completion count
                     //increment completed count by one.
 
                     $query = 'UPDATE kitchen SET completed='
@@ -161,7 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         echo 'error: ' . $conn->error;
                     }
                 }
-            } else {
+            } else if($resultObj->completed == $resultObj->quantity){
+                //do nothing.  completed count already at max.
+            } 
+            else {
                 //increment completed count by one.
                 $query = 'UPDATE kitchen SET completed='
                     . ($resultObj->completed + 1) 
