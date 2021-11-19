@@ -213,6 +213,7 @@ class order {
         }
 
         if (Number(this.paid)) {
+            console.log('hey');
             let paymentTable = document.getElementById('paymentTable');
             //this.paymentTableDisplay = paymentTable.style.display;
             //console.log(this.paymentTableDisplay);
