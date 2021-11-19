@@ -41,7 +41,11 @@ function load() {
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             //console.log(this.responseText);
-            let currentOrders = JSON.parse(this.responseText);
+            let currentOrders;
+            if (this.responseText) {
+                console.log('hey');
+                currentOrders = JSON.parse(this.responseText);
+            }
             presentView(currentOrders);
         }
     }
@@ -95,6 +99,7 @@ function presentView(currentOrders) {
 
         table.appendChild(thead);
 
+
         //build body
         let tbody = document.createElement('tbody');
         for (let i = 0; i < currentOrders.length; i++) {
@@ -105,7 +110,7 @@ function presentView(currentOrders) {
             tr.appendChild(td);
 
             td = document.createElement('td');
-            td.innerText = (currentOrders[i].dinerTable) ? currentOrders[i].dinerTable : 'To Go';
+            td.innerText = (currentOrders[i].dinerTable==0) ? 'To Go': currentOrders[i].dinerTable;
             tr.appendChild(td);
 
             td = document.createElement('td');
@@ -125,11 +130,11 @@ function presentView(currentOrders) {
             tbody.appendChild(tr);
 
 
-            table.appendChild(tbody);
-            document.body.append(table);
+
         }
 
-
+        table.appendChild(tbody);
+        document.body.append(table);
 
     }
     else if (viewTrackerInstance.getView() == 'kitchen') {
@@ -184,7 +189,7 @@ function presentView(currentOrders) {
 
                 //Elapsed time
                 td = document.createElement('td');
-                td.innerText = ((new Date() - new Date(items[j].start))/60000).toFixed(0);
+                td.innerText = ((new Date() - new Date(items[j].start)) / 60000).toFixed(0);
                 tr.appendChild(td);
 
                 //action button
@@ -201,7 +206,7 @@ function presentView(currentOrders) {
                 tr.appendChild(td);
 
                 //item completion function
-                tr.onclick = function(){
+                tr.onclick = function () {
                     incrementItemCompleted(currentOrders[i].OrderId, items[j].id);
                 }
 
@@ -241,8 +246,8 @@ function orderPage(orderNumber) {
     httpRequest.send('orderNumber=' + orderNumber);
 }
 
-function incrementItemCompleted(orderId, itemId){
-    console.log(orderId,itemId);
+function incrementItemCompleted(orderId, itemId) {
+    console.log(orderId, itemId);
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
         console.log('httpRequest instance failed');

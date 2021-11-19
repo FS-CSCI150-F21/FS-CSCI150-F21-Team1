@@ -14,7 +14,7 @@ class order {
     //itemsAss2 = {};
     status;
     //paymentTableDisplay;
-    constructor(orderObj) {
+    constructor(orderObj, privLvl) {
         if (orderObj.items != null) {
             for (let i = 0; i < orderObj.items.length; i++) {
                 this.items.push(new item(orderObj.items[i]));
@@ -30,6 +30,7 @@ class order {
         this.eRTime = orderObj.eRTime;
         this.paid = orderObj.paid;
         this.partySize = orderObj.people_dining_in;
+        this.privLvl = privLvl;
         this.presentCurrentOrder();
 
     }
@@ -100,49 +101,53 @@ class order {
 
 
 
-        //drop down input for table #
-        //remove previous dropdown.
-        let tblSlct = document.getElementById('tblSlct');
-        if(tblSlct) tblSlct.remove();
-        tblSlct = document.createElement('select');
-        tblSlct.id = 'tblSlct';
-        tblSlct.onchange = function () { changeTblNum(tblSlct.value) };
-        let option = document.createElement('option');
-        option.value = 0;
-        option.innerText = 'To Go';
-        tblSlct.appendChild(option);
-        //once number of tables is stored by database, this should grab
-        // from there for for-loop's count.  now, just 12 as default.
-        let tablesCount = 12;
-        for (let i = 0; i < tablesCount; i++) {
+        if (this.privLvl != 2) {
+            //drop down input for table #
+            //remove previous dropdown.
+            let tblSlct = document.getElementById('tblSlct');
+            if (tblSlct) tblSlct.remove();
+            tblSlct = document.createElement('select');
+            tblSlct.id = 'tblSlct';
+            tblSlct.clasName = 'employeePrivilege';
+            tblSlct.onchange = function () { changeTblNum(tblSlct.value) };
             let option = document.createElement('option');
-            option.value = i + 1;
-            option.innerText = i + 1;
+            option.value = 0;
+            option.innerText = 'To Go';
             tblSlct.appendChild(option);
+            //once number of tables is stored by database, this should grab
+            // from there for for-loop's count.  now, just 12 as default.
+            let tablesCount = 12;
+            for (let i = 0; i < tablesCount; i++) {
+                let option = document.createElement('option');
+                option.value = i + 1;
+                option.innerText = i + 1;
+                tblSlct.appendChild(option);
+            }
+            //Table 0 means 'To Go' order.  Set selected table number for client.
+            tblSlct.children[this.dinerTable].selected = 'selected';
+            document.getElementById('table').appendChild(tblSlct);
+
+
+            //drop down input for party size
+            //remove previous dropdown.
+            let partySizeSlct = document.getElementById('partySizeSlct');
+            if (partySizeSlct) partySizeSlct.remove();
+            partySizeSlct = document.createElement('select');
+            partySizeSlct.id = 'partySizeSlct';
+            partySizeSlct.onchange = function () { changePartySize(partySizeSlct.value) };
+            let maxPartySize = 20;//this value, too, can be retrieved from db.
+            for (let i = 0; i < maxPartySize + 1; i++) {
+                let option = document.createElement('option');
+                option.value = i;
+                option.innerText = i;
+                partySizeSlct.appendChild(option);
+            }
+            console.log(this.people_dining_in);
+
+            partySizeSlct.children[this.partySize].selected = 'selected';
+            document.getElementById('partySize').appendChild(partySizeSlct);
         }
-        //Table 0 means 'To Go' order.  Set selected table number for client.
-        tblSlct.children[this.dinerTable].selected = 'selected';
-        document.getElementById('table').appendChild(tblSlct);
 
-
-        //drop down input for party size
-        //remove previous dropdown.
-        let partySizeSlct = document.getElementById('partySizeSlct');
-        if(partySizeSlct) partySizeSlct.remove();
-        partySizeSlct = document.createElement('select');
-        partySizeSlct.id = 'partySizeSlct';
-        partySizeSlct.onchange = function () { changePartySize(partySizeSlct.value) };
-        let maxPartySize = 20;//this value, too, can be retrieved from db.
-        for (let i = 0; i < maxPartySize+1; i++) {
-            let option = document.createElement('option');
-            option.value = i;
-            option.innerText = i;
-            partySizeSlct.appendChild(option);
-        }
-        console.log(this.people_dining_in);
-
-        partySizeSlct.children[this.partySize].selected = 'selected';
-        document.getElementById('partySize').appendChild(partySizeSlct);
 
 
         //delete leftover items table elements if they exist.  
@@ -440,30 +445,31 @@ function load() {
             // for 'guest' (not logged-in client)
             let responseObj = JSON.parse(this.responseText);
             //console.log(responseObj);
+            console.log(responseObj);
             if (!responseObj.privilegeLevel) {
                 //client is not logged-in.  redirect to login.
                 location.replace('account.html');
                 return;
             }
 
-            //client is logged in.  check which authorization he has
-            if (responseObj.privilegeLevel == 0
-                || responseObj.privilegeLevel == 1) {
-                //employee+.  reveal privileged features
-                let empPrivElmts = document.getElementsByClassName('employeePrivilege');
-                for (let i = 0; i < empPrivElmts.length; i++) {
-                    empPrivElmts[i].style.visibility = 'visible';
-                    //console.log(empPrivElmts[i]);
-                }
+            //privileged features.  check which authorization client has, and set.
+            let visibilityState = 'visible';
+            if (responseObj.privilegeLevel == 2) visibilityState = 'hidden';
+            let empPrivElmts = document.getElementsByClassName('employeePrivilege');
+            for (let i = 0; i < empPrivElmts.length; i++) {
+                empPrivElmts[i].style.visibility = visibilityState;
+                //console.log(empPrivElmts[i]);
             }
-            else if (responseObj.privilegeLevel != 2) {
+
+            if (responseObj.privilegeLevel < 0 ||
+                responseObj.privilegeLevel > 2) {
                 //database has an error in a user's privlege level field
                 console.log('Check database for correct privilege level format on '
                     + 'this user');
             }
 
             //create order object
-            orderInstance = new order(responseObj.order);
+            orderInstance = new order(responseObj.order, responseObj.privilegeLevel);
             //console.log(responseObj);
 
         }
@@ -579,7 +585,7 @@ function changeTblNum(tblNum) {
     httpRequest.send('tblNum=' + tblNum + '&orderId=' + orderInstance.getId());
 }
 
-function changePartySize(partySize){
+function changePartySize(partySize) {
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
         console.log("Failed to make httpRequest instance");

@@ -196,13 +196,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //build query
         $query = 'SELECT * FROM open_order_info;';
 
-        $result = $conn->query($query);
-
-        if ($result->num_rows) {
+        if($result = $conn->query($query)){
             //success
             $resultArr = $result->fetch_all(true);
             echo json_encode($resultArr);
-        } else {
+        } else if($conn->error) {
             echo 'error: ' . $conn->error;
         }
     } else if ($_GET['view'] == 'kitchen') {
@@ -294,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $statement->close();
             echo json_encode($kitchenOrders);
-        } else {
+        } else if($conn->error) {
             echo 'error: ' . $conn->error;
         }
     }
