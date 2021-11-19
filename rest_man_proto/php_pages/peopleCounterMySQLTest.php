@@ -3,7 +3,7 @@
 //this is a script to test mysql tunnel connection through ngrok
 
 //mySQL server authentication details
-$servername = "0.tcp.ngrok.io:16677";
+$servername = "3.tcp.ngrok.io:26206";
 $dbusername = "rest_manager";
 $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
@@ -35,9 +35,10 @@ if($result->num_rows){
     }
 }
 else{
-    echo 'error: ' . $conn->error;
-    $conn->host_info;
+    echo 'error: ' . $conn->error . '<br>';
+    echo 'host_info: ' .  $conn->host_info;
 }
 
+$conn->close();
 
 ?>
