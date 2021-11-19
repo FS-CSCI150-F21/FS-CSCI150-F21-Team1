@@ -99,8 +99,7 @@ if (!$orderNumber) {
 //create query string
 $query = 'SELECT status, created, items, dinerTable, last_modified, eRTime, paid ' .
     'FROM open_order_info ' .
-    'WHERE order_id=' . $orderNumber .
-    ' AND username="' . $_SESSION['username'] . '";';
+    'WHERE order_id=' . $orderNumber . ';';
 
 //query MySQL database
 $result = $conn->query($query);

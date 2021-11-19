@@ -97,6 +97,8 @@ class order {
         document.getElementById('creationTime').innerText = this.creationTime;
         document.getElementById('lastModified').innerText = this.lastModified;
 
+        console.log(this);
+
         //delete leftover items table elements if they exist.  
         document.getElementById('itemsTableBody').remove();
         document.getElementById('itemsTableFooter').remove();
@@ -402,7 +404,7 @@ function load() {
                 let empPrivElmts = document.getElementsByClassName('employeePrivilege');
                 for (let i = 0; i < empPrivElmts.length; i++) {
                     empPrivElmts[i].style.visibility = 'visible';
-                    console.log(empPrivElmts[i]);
+                    //console.log(empPrivElmts[i]);
                 }
             }
             else if (responseObj.privilegeLevel != 2) {
