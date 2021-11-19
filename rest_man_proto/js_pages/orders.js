@@ -29,6 +29,7 @@ class order {
         this.lastModified = orderObj.last_modified;
         this.eRTime = orderObj.eRTime;
         this.paid = orderObj.paid;
+        this.partySize = orderObj.people_dining_in;
         this.presentCurrentOrder();
 
     }
@@ -91,13 +92,52 @@ class order {
 
         //update order stats
         document.getElementById('orderNumber').innerText = this.orderID;
-        let table = (this.dinerTable) ? this.dinerTable : 'To Go';
-        document.getElementById('table').innerText = table;
+        //let table = (this.dinerTable) ? this.dinerTable : 'To Go';
+        //document.getElementById('table').innerText = table;
         document.getElementById('orderStatus').innerText = this.status;
         document.getElementById('creationTime').innerText = this.creationTime;
         document.getElementById('lastModified').innerText = this.lastModified;
 
-        //console.log(this);
+
+
+        //drop down input for table #
+        let tblSlct = document.createElement('select');
+        tblSlct.id = 'tblSlct';
+        tblSlct.onchange = function () { changeTblNum(tblSlct.value) };
+        let option = document.createElement('option');
+        option.value = 0;
+        option.innerText = 'To Go';
+        tblSlct.appendChild(option);
+        //once number of tables is stored by database, this should grab
+        // from there for for-loop's count.  now, just 12 as default.
+        let tablesCount = 12;
+        for (let i = 0; i < tablesCount; i++) {
+            let option = document.createElement('option');
+            option.value = i + 1;
+            option.innerText = i + 1;
+            tblSlct.appendChild(option);
+        }
+        //Table 0 means 'To Go' order.  Set selected table number for client.
+        tblSlct.children[this.dinerTable].selected = 'selected';
+        document.getElementById('table').appendChild(tblSlct);
+
+
+        //drop down input for party size
+        let partySizeSlct = document.createElement('select');
+        partySizeSlct.id = 'partySizeSlct';
+        partySizeSlct.onchange = function () { changePartySize(partySizeSlct.value) };
+        let maxPartySize = 20;//this value, too, can be retrieved from db.
+        for (let i = 0; i < maxPartySize+1; i++) {
+            let option = document.createElement('option');
+            option.value = i;
+            option.innerText = i;
+            partySizeSlct.appendChild(option);
+        }
+        console.log(this.people_dining_in);
+
+        partySizeSlct.children[this.partySize].selected = 'selected';
+        document.getElementById('partySize').appendChild(partySizeSlct);
+
 
         //delete leftover items table elements if they exist.  
         document.getElementById('itemsTableBody').remove();
@@ -130,7 +170,7 @@ class order {
                 //see if element already exists and remove to prevent duplicate
                 let ul = document.getElementById('eRTUL');
                 if (ul) ul.remove();
-                
+
                 //build estimated wait time table: 'Estimated Order Ready Time',
                 ul = document.createElement('ul');
                 ul.id = 'eRTUL';
@@ -174,7 +214,7 @@ class order {
     getStatus() {
         return this.status;
     }
-    getId(){
+    getId() {
         return this.orderID;
     }
 }
@@ -486,7 +526,7 @@ function newOrder() {
     httpRequest.send();
 }
 
-function served(){
+function served() {
     //updates order status to 'Served'.
     //if order has already been paid, changes status to closed and
     // moves to closed_order_info
@@ -506,12 +546,46 @@ function served(){
         }
     }
     httpRequest.open("POST", "../php_pages/orderPageMarkServed.php");
-    httpRequest.setRequestHeader('content-type','application/x-www-form-urlencoded');
-    httpRequest.send('orderId='+orderInstance.getId());
-    
+    httpRequest.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    httpRequest.send('orderId=' + orderInstance.getId());
+
 
 }
 
-function openOrders(){
+function openOrders() {
     window.location.replace('../html_pages/currentOrders.html');
+}
+
+function changeTblNum(tblNum) {
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            window.location.reload();
+        }
+    }
+    httpRequest.open("POST", "../php_pages/orderPageSetTableNumber.php");
+    httpRequest.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    httpRequest.send('tblNum=' + tblNum + '&orderId=' + orderInstance.getId());
+}
+
+function changePartySize(partySize){
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            window.location.reload();
+        }
+    }
+    httpRequest.open("POST", "../php_pages/orderPageSetPartySize.php");
+    httpRequest.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    httpRequest.send('partySize=' + partySize + '&orderId=' + orderInstance.getId());
 }
