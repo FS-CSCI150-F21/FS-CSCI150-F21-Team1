@@ -51,6 +51,7 @@ function checkUserAndCurOrder() {
                 // and populate this.order object with database
                 // information, or create new order
                 let openOrder = httpRequest.responseText;
+                console.log(openOrder);
                 //console.log(order);
                 //console.log(JSON.parse(order));
                 if (openOrder) {
