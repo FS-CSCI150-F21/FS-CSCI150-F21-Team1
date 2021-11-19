@@ -101,7 +101,10 @@ class order {
 
 
         //drop down input for table #
-        let tblSlct = document.createElement('select');
+        //remove previous dropdown.
+        let tblSlct = document.getElementById('tblSlct');
+        if(tblSlct) tblSlct.remove();
+        tblSlct = document.createElement('select');
         tblSlct.id = 'tblSlct';
         tblSlct.onchange = function () { changeTblNum(tblSlct.value) };
         let option = document.createElement('option');
@@ -123,7 +126,10 @@ class order {
 
 
         //drop down input for party size
-        let partySizeSlct = document.createElement('select');
+        //remove previous dropdown.
+        let partySizeSlct = document.getElementById('partySizeSlct');
+        if(partySizeSlct) partySizeSlct.remove();
+        partySizeSlct = document.createElement('select');
         partySizeSlct.id = 'partySizeSlct';
         partySizeSlct.onchange = function () { changePartySize(partySizeSlct.value) };
         let maxPartySize = 20;//this value, too, can be retrieved from db.
@@ -542,7 +548,7 @@ function served() {
         if (this.readyState == 4 && this.status == 200) {
             console.log('world');
             console.log(this.responseText);
-            window.location.reload();
+            load();
         }
     }
     httpRequest.open("POST", "../php_pages/orderPageMarkServed.php");
@@ -565,7 +571,7 @@ function changeTblNum(tblNum) {
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
-            window.location.reload();
+            load();
         }
     }
     httpRequest.open("POST", "../php_pages/orderPageSetTableNumber.php");
@@ -582,7 +588,7 @@ function changePartySize(partySize){
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
-            window.location.reload();
+            load();
         }
     }
     httpRequest.open("POST", "../php_pages/orderPageSetPartySize.php");
