@@ -97,7 +97,7 @@ class order {
         document.getElementById('creationTime').innerText = this.creationTime;
         document.getElementById('lastModified').innerText = this.lastModified;
 
-        console.log(this);
+        //console.log(this);
 
         //delete leftover items table elements if they exist.  
         document.getElementById('itemsTableBody').remove();
@@ -122,7 +122,7 @@ class order {
             //console.log(actionButtons[0]);
             while (actionButtons[0]) {
                 actionButtons[0].remove();
-                console.log(actionButtons);
+                //console.log(actionButtons);
             }
 
             if (this.status == 'Kitchen') {
@@ -173,6 +173,9 @@ class order {
     }
     getStatus() {
         return this.status;
+    }
+    getId(){
+        return this.orderID;
     }
 }
 
@@ -390,7 +393,7 @@ function load() {
             //response will be privilege level (number), or boolean false
             // for 'guest' (not logged-in client)
             let responseObj = JSON.parse(this.responseText);
-            console.log(responseObj);
+            //console.log(responseObj);
             if (!responseObj.privilegeLevel) {
                 //client is not logged-in.  redirect to login.
                 location.replace('account.html');
@@ -415,7 +418,7 @@ function load() {
 
             //create order object
             orderInstance = new order(responseObj.order);
-            console.log(responseObj);
+            //console.log(responseObj);
 
         }
     }
@@ -484,7 +487,28 @@ function newOrder() {
 }
 
 function served(){
+    //updates order status to 'Served'.
+    //if order has already been paid, changes status to closed and
+    // moves to closed_order_info
 
+    console.log('hello');
+
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log("Failed to make httpRequest instance");
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log('world');
+            console.log(this.responseText);
+            window.location.reload();
+        }
+    }
+    httpRequest.open("POST", "../php_pages/orderPageMarkServed.php");
+    httpRequest.setRequestHeader('content-type','application/x-www-form-urlencoded');
+    httpRequest.send('orderId='+orderInstance.getId());
+    
 
 }
 
