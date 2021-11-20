@@ -53,23 +53,7 @@ anibutton:active{
     transform: translateY(4px);
 }
 
-button   /*regular button*/
-{
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    text-decoration: none;
-}
-button a{
-    text-decoration: none;
-    color: rgb(165, 91, 0);
-    font-weight: 700;
-}
-button a:hover{
-    color:rgb(209, 115, 0);
-    font-size:15px;
-    cursor:pointer;
-} 
+
 #Welcome
 {
     padding-top: 3%;
@@ -100,7 +84,43 @@ a{
 #Body{
     text-align: center;
 }
-
+#logout
+{
+    cursor:pointer;
+    border: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color:rgb(159, 159, 159);
+    background-color: transparent;
+    box-shadow: 0 9px rgba(126, 126, 126, 0);
+    width: 100px;
+    height:25px;
+    font-size: 19px;
+    font-family:unset;
+    transform: none;
+}
+#logout:hover
+{
+    color: rgb(5, 95, 96);
+}
+button   /*regular button*/
+{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+button a{
+    text-decoration: none;
+    color: rgb(165, 91, 0);
+    font-weight: 700;
+}
+button a:hover{
+    color:rgb(209, 115, 0);
+    font-size:15px;
+    cursor:pointer;
+} 
 .dropbtn 
 {
     background-color: #ffffff00;
