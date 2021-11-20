@@ -11,17 +11,21 @@
 
 
 <body onload="get_WaitTime()">
-  <svg id="fader"></svg>
+  <!-- <svg id="fader"></svg>
   <script>
       fadeInPage();
-  </script>
+  </script>  commented out because it was causing nav bar to be too low  -->
     <header>
       <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="menu.html">Menu</a></li>
-        
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
         <div class="rightnav">
-          <a href="account.html">Account</a>
+          <div class="dropdown">
+            <a class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
+            </div>
+          </div>
         </div>
     </nav>
     </header>
@@ -29,8 +33,8 @@
     <div id="Body">
       <h1 id="Welcome">Customer</h1>
       <div>
-          <button><a href="orderPage.html">Create Order</a></button>
-          <button><a href="menu.html">Menu</a></button>
+          <anibutton><a href="orderPage.html">Create Order</a></anibutton>
+          <anibutton><a href="menu.html">Menu</a></anibutton>
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
           <p>Number of people in line: <span id="numInLine"></span></p>
@@ -41,4 +45,3 @@
 
 </body>
 </html>
-
