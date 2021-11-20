@@ -1,45 +1,55 @@
 body{
+    background-image: url(../images/background.png);
+    color:rgb(155, 155, 155);
     margin: 0;
 }
 .nav
 {
-    background-color: rgb(255, 191, 112);
+    background-color: rgba(255, 255, 255, 0);
     padding: 20px;
 }
 .nav a
-{
+{   
     padding: 20px;
     font-size: 20px;
     font-weight: 500;
-    color:black;
+    color:rgb(155, 155, 155);
     text-decoration: none;
 }
 .nav a:hover{
-    color:rgb(165, 91, 0);
+    color:rgb(5, 95, 96);
 }
 .rightnav
 {
     float: right;
 }
-button
+
+anibutton   /*animated buttons*/
 {
-    width: 300px;
-    height: 150px;
-    border-radius: 10px;
-    margin-right: 2%;
-    margin-left: 2%;
-    font-size: 30px;
-    margin-top: 40px;
+    color: rgb(155, 155, 155);
+    display: inline-block;
+    padding: 25px 45px;
+    font-size: 24px;
+    cursor: pointer;
     text-align: center;
-    padding: 0;
-    overflow: hidden;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: rgba(255, 191, 112, 0.315);
-    border: 2px solid rgba(0, 0, 0, 0.521);
-    color: rgb(71, 71, 71);
+    text-decoration: none;
+    outline: none;
+    background-color: rgb(5, 95, 96);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(126, 126, 126);
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 40px;
+
 }
-button:hover{
-    background-color: rgba(255, 191, 112, 0.527)
+anibutton:hover{
+    background-color: rgb(4, 69, 70);
+}
+anibutton:active{
+    background-color: rgb(4, 55, 56);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 #Welcome
 {
@@ -47,14 +57,14 @@ button:hover{
 }
 h1
 {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
     text-align: center;
     font-size: 30px;
 }
 h2
 {
     text-align: center;
-    padding-top: 110px;
+    padding-top: 40px;
     font-size: 35px;
 }
 h3{
@@ -66,8 +76,82 @@ h3{
 }
 a{
     text-decoration: none;
-    color: rgb(71, 71, 71);
+    color: rgb(155, 155, 155);
 }
 #Body{
     text-align: center;
+}
+
+#logout
+{
+    cursor:pointer;
+    border: transparent;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color:rgb(159, 159, 159);
+    background-color: transparent;
+    box-shadow: 0 9px rgba(126, 126, 126, 0);
+    width: 100px;
+    height:25px;
+    font-size: 19px;
+    font-family:unset;
+    transform: none;
+}
+#logout:hover
+{
+    color: rgb(5, 95, 96);
+}
+
+.dropbtn 
+{
+    background-color: #ffffff00;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    color:rgb(155, 155, 155);
+}
+  
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+    background-color: #f1f1f100;
+}
+  
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: #ffffff00;
+    min-width: 10px;
+    box-shadow: 0px 8px 10px 0px rgba(255, 255, 255, 0);
+    z-index: 1;
+}
+  
+.dropdown-content a 
+{
+    color: black;
+    padding: 10px 13px;
+    text-decoration: none;
+    display: block; 
+    border:none;
+}
+  
+.dropdown-content a:hover 
+{
+    background-color: #f1f1f100;
+    
+}
+  
+.dropdown:hover .dropdown-content 
+{
+    display: block;
+}
+  
+.dropdown:hover .dropbtn 
+{
+    background-color: #ffffff00;
 }
