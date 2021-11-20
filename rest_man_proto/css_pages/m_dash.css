@@ -23,7 +23,7 @@ body{
 {
     float: right;
 }
-button   /*animated buttons*/
+anibutton   /*animated buttons*/
 {
     color: #fff;
     display: inline-block;
@@ -42,10 +42,10 @@ button   /*animated buttons*/
     margin-top: 40px;
 
 }
-button:hover{
+anibutton:hover{
     background-color: rgb(4, 69, 70);
 }
-button:active{
+anibutton:active{
     background-color: rgb(4, 55, 56);
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -100,4 +100,73 @@ a{
 #logout:hover
 {
     color: rgb(5, 95, 96);
+}
+button   /*regular button*/
+{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+button a{
+    text-decoration: none;
+    color: rgb(165, 91, 0);
+    font-weight: 700;
+}
+button a:hover{
+    color:rgb(209, 115, 0);
+    font-size:15px;
+    cursor:pointer;
+} 
+.dropbtn 
+{
+    background-color: #ffffff00;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    color:rgb(155, 155, 155);
+}
+  
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+    background-color: #f1f1f100;
+}
+  
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: #ffffff00;
+    min-width: 10px;
+    box-shadow: 0px 8px 10px 0px rgba(255, 255, 255, 0);
+    z-index: 1;
+}
+  
+.dropdown-content a 
+{
+    color: black;
+    padding: 10px 13px;
+    text-decoration: none;
+    display: block; 
+    border:none;
+}
+  
+.dropdown-content a:hover 
+{
+    background-color: #f1f1f100;
+    
+}
+  
+.dropdown:hover .dropdown-content 
+{
+    display: block;
+}
+  
+.dropdown:hover .dropbtn 
+{
+    background-color: #ffffff00;
 }
