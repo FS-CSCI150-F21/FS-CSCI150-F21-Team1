@@ -1,0 +1,46 @@
+
+.nav
+{
+  text-align: initial;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 20px;
+}
+.nav a
+{
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color:rgb(159,159,159);
+  text-decoration: none;
+}
+.nav a:hover{
+  color:rgb(5, 95, 96);
+}
+
+abutton   /*animated buttons*/
+{
+    color: #fff;
+    display: inline-block;
+    padding: 25px 45px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: rgb(5, 95, 96);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(126, 126, 126);
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 40px;
+
+}
+abutton:hover{
+    background-color: rgb(4, 69, 70);
+}
+abutton:active{
+    background-color: rgb(4, 55, 56);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
