@@ -10,26 +10,22 @@
     <script src="../js_pages/orders.js"></script>
 </head>
 
+
 <body onload="load()">
     <header>
         <nav class="nav">
             <a href="index.html">Home</a></li>
             <a href="menu.html">Menu</a></li>
             <div class="rightnav">
-                <a href="account.html">Account</a>
+              <a href="account.html">Account</a>
             </div>
         </nav>
     </header>
 
-    <ul id='employeeFunctions' class='employeePrivilege'>
-        <li id='newOrder' onclick='newOrder()'>New Order</li>
-        <li id='kitchen' onclick='kitchen()'>Send to Kitchen</li>
-        <li id='served' onclick='served()'>Mark as Served</li>
-        <li id='openOrders' onclick='openOrders()'>Open Orders</li>
-    </ul>
-    <table>
+    <table id='employeeFunctions' class='employeePrivilege'>
         <tr>
-
+            <td id='newOrder' onclick='newOrder()'>New Order</td>
+            <td id='kitchen' onclick='kitchen()'>Send to Kitchen</td>
         </tr>
     </table>
 
@@ -38,9 +34,10 @@
         <thead class="tableHead">
             <tr>
                 <th>Order #</th>
-                <th class='employeePrivilege'>Table</th>
-                <th class='employeePrivilege'>Party Size</th>
+                <th>Table</th>
+                <!--Togo vs Dine-in-->
                 <th>Status</th>
+                <!--Submitted to kitchen, Ready, Delivered to Customer, Closed-->
                 <th>Created</th>
                 <th>Last Modified</th>
 
@@ -50,7 +47,6 @@
             <tr id='statsRow'>
                 <td id='orderNumber'></td>
                 <td id='table'></td>
-                <td id='partySize'></td>
                 <td id='orderStatus'></td>
                 <td id='creationTime'></td>
                 <td id='lastModified'></td>
@@ -64,29 +60,31 @@
             <th id='itemsNameHeader'>Item</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th colspan=2>Action</th>
+            <th colspan=2>Remove/Add</th>
         </thead>
         <tbody id='itemsTableBody'>
 
         </tbody>
         <tfoot id='itemsTableFooter'></tfoot>
     </table>
-    <!-- Move "Action" to beneath items table.
+                <!-- Move "Action" to beneath items table.
                      Submit to kitchen, pay bill-->
 
     <table id='paymentTable'>
         <caption>Payment</caption>
         <thead>
-            <th id='paymentOptionCC' onclick='paymentInstance.cC()'>
-                Credit Card
+            <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
+              Credit Card
             </th>
-            <th id='paymentOptionCash' class='employeePrivilege' onclick='paymentInstance.cash()'>Cash</th>
+            <th id ='paymentOptionCash' class='employeePrivilege' 
+                onclick='paymentInstance.cash()'>Cash</th>
         </thead>
         <tbody id='paymentTableBody'>
         </tbody>
         <tfoot>
             <tr>
-                <td id='completeTransaction' colspan=3 hidden onclick='paymentInstance.completeTransaction()'>
+                <td id='completeTransaction' colspan=3 hidden 
+                    onclick='paymentInstance.completeTransaction()'>
                     Complete Transaction
                 </td>
             </tr>
