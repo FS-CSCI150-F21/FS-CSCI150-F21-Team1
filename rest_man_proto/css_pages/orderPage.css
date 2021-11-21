@@ -1,24 +1,23 @@
 body{
-    width: 100%;
-    height:100%;
+    background-image: url(../images/background.png);
+    color:rgb(155, 155, 155);
     margin: 0;
-    background-color: gray;
 }
 .nav
 {
-    background-color: rgb(255, 191, 112);
+    background-color: rgba(255, 255, 255, 0);
     padding: 20px;
 }
 .nav a
-{
+{   
     padding: 20px;
     font-size: 20px;
     font-weight: 500;
-    color:black;
+    color:rgb(155, 155, 155);
     text-decoration: none;
 }
 .nav a:hover{
-    color:rgb(165, 91, 0);
+    color:rgb(5, 95, 96);
 }
 .rightnav
 {
@@ -107,7 +106,7 @@ h3{
 }
 .actionButton{
     padding: 0 1vw;
-    background-color:rgb(255, 191, 112);
+    background-color:rgb(5, 95, 96);
         	/*prevent text highlights*/
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
@@ -125,10 +124,10 @@ h3{
 	user-select: none; /* Standard */
 }
 #paymentTable th{
+    text-align: center;
     width: 50%;
 }
 
-/*
 #employeeFunctions{
     margin: auto;
     width: 100%;
@@ -141,16 +140,8 @@ h3{
     text-align: right;
     padding: 1vh 1vw;
 }
-*/
-
 .employeePrivilege{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-.employeePrivilege li{
-    float: right;
-    padding: 1vh 1vw;
+    visibility: collapse;
     -webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -163,13 +154,12 @@ h3{
 }
 */
 
-
-#eRTUL{
+ul{
     margin: auto;
     list-style: none;
     display: block;
 }
-#eRTUL li{
+li{
     float: left;
     margin: 1vh 3vw;
 }
