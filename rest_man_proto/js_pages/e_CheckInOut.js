@@ -1,6 +1,4 @@
-window.onload = function () {
-  get_timesheet();
-}
+var timesheet_array;
 
 function CheckIn() {
     var j = new XMLHttpRequest();
@@ -34,9 +32,11 @@ function CheckOut() {
 }
 
 function create_timesheet_rows(){
-  var users = document.getElementById("timesheet");
+  var timesheet = document.getElementById("timesheet");
   for(i = 0; i < length; i++){
-      var status = users.insertRow(-1);
+    var row = timesheet.insertRow(-1);
+      var status = row.insertCell(-1);
+      var date = row.insertCell(-1);
       var login = row.insertCell(-1);
       var logout = row.insertCell(-1);
       var totaltime = row.insertCell(-1);
@@ -45,9 +45,10 @@ function create_timesheet_rows(){
       element.type = "button";
       element.innerText = "Delete"
       element.onclick = function() {
-          delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
+          delete_time(timesheet_array[this.parentNode.parentNode.rowIndex-1]);
       }
       status.innerHTML = timesheet_array[i]['status'];
+      date.innerHTML = timesheet_array[i]['date'];
       login.innerHTML = timesheet_array[i]['time_loggedIn'];
       logout.innerHTML = timesheet_array[i]['time_loggedOut'];
       totaltime.innerHTML = timesheet_array[i]['total_hours_worked'];
@@ -57,17 +58,53 @@ function create_timesheet_rows(){
 
 function get_timesheet() {
   document.getElementById("timesheet").innerHTML = "";
-  console.log("hi");
   var j = new XMLHttpRequest();
       j.onreadystatechange = function () {
-        console.log(j.responseText);
           if (j.readyState == 4 && j.status == 200) {
               timesheet_array = JSON.parse(j.responseText);
-              // length = timesheet_array.length;
-              // create_timesheet_rows();
+              length = timesheet_array.length;
+              create_timesheet_rows();
           }
   };
-  j.open('POST', '../php_pages/getusertimesheet.php');
+  j.open('POST', '../php_pages/e_getusertimesheet.php');
   j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   j.send();
+}
+
+function delete_time(data){
+  item = data['name'];
+  status = data['status'];
+  logIn = data['time_loggedIn'];
+  
+  console.log(item);
+  console.log(logIn);
+  console.log(status);
+
+  var j = new XMLHttpRequest();
+      j.onreadystatechange = function () {
+          console.log(j.responseText);
+          if (j.readyState == 4 && j.status == 200) {
+              alert(j.responseText);
+              get_timesheet();
+          }
+  };
+  j.open('POST', '../php_pages/delete_time.php');
+  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  j.send("i=" + item +"&s="+ status +"&lI="+logIn);
+}
+
+function delete_all_time(){
+  var k = 0;
+  console.log(timesheet_array.length);
+  while(k<timesheet_array.length)
+  {
+          var j = new XMLHttpRequest();
+      j.open('POST', '../php_pages/delete_time.php');
+      j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      j.send("i=" + timesheet_array[k]['name']);
+      k++;
+      
+  }
+  get_timesheet();
+  
 }

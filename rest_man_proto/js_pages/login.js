@@ -162,6 +162,11 @@ function get_level() {
 }
 
 var wait_time_array;
+function a()
+{
+  get_WaitTime();
+  setTimeout(a,1000);
+}
 function get_WaitTime(){
   var j = new XMLHttpRequest();
   j.onreadystatechange = function () {
