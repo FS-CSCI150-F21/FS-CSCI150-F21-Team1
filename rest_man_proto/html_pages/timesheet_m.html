@@ -10,7 +10,7 @@
 </head>
 <header>
 </header>
-<body onload="a()">
+<body onload="get_timesheet()">
 <!-- <a class ="navigate" href="login.html"><br>Login/Sign Up</a></li> -->
 
     <!--Nav bar-->
@@ -29,13 +29,13 @@
         <h1 id="Welcome">Timesheet</h1>
         <div id="hi">
             <div class="custom-select">
-                <select onchange="get_timesheet()" id="selection">
-                    <option value="0">Select Employee Name</option>
-                    <option value="1">Long</option>
+                <select onchange="get_user_timesheet()" id="options">
+                    <!-- <option value="0">Select Employee Name</option> -->
+                    <!-- <option value="1">Long</option>
                     <option value="2">Aran</option>
                     <option value="3">Vi</option>
                     <option value="4">Michael</option>
-                    <option value="5">Daniel</option>
+                    <option value="5">Daniel</option> -->
                 </select>
             </div>
         </div>

@@ -17,8 +17,7 @@ if ($conn->connect_error) {
 
 
 
-$sql = "SELECT username, password, level FROM user_info where username='$playerusername' AND password='$playerpassword' AND level='$userlevel'";
-
+$sql = "SELECT first_name, username, password, level FROM user_info where username='$playerusername' AND password='$playerpassword' AND level='$userlevel'";
 
 $results = $conn->query($sql);
 
@@ -42,8 +41,10 @@ else {
 if($exists==1)
 {
     session_start();
+    $a= mysqli_fetch_assoc($results);
     $_SESSION['loggedin'] = true;
     $_SESSION['username'] = $playerusername;
+    $_SESSION['first_name'] = $a['first_name'];
     $_SESSION['level'] = $userlevel;
 
 }

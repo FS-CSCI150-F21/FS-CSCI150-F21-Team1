@@ -18,6 +18,7 @@ if ($conn->connect_error) {
 
 session_start();
 $name= $_SESSION['first_name'];
+echo $name;
 
 if($status == 'in')
 {

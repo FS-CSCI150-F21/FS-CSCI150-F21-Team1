@@ -61,6 +61,7 @@ function get_timesheet() {
   var j = new XMLHttpRequest();
       j.onreadystatechange = function () {
           if (j.readyState == 4 && j.status == 200) {
+            console.log(j.responseText);
               timesheet_array = JSON.parse(j.responseText);
               length = timesheet_array.length;
               create_timesheet_rows();

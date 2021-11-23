@@ -5,6 +5,7 @@ $dbusername = "rest_manager";
 $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
+$username = $_POST['n'];
 
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -15,7 +16,7 @@ if ($conn->connect_error) {
 }
 session_start();
 
-$sql = "SELECT * FROM `employee_time` ORDER BY `time_loggedIn` DESC";
+$sql = "SELECT * FROM `employee_time` WHERE name='$username' ORDER BY `date_time` DESC";
 
 $results = $conn->query($sql);
 
