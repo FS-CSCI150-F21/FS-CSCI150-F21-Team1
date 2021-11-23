@@ -34,8 +34,8 @@ def run():
 
     # DB setup
     HOST = "localhost"
-    #HOST = "0.tcp.ngrok.io"
-    #PORT = "16677"
+    #HOST = "3.tcp.ngrok.io"
+    #PORT = "26206"
     DATABASE = "rest_info"
     USER = "rest_manager"
     PASSWORD = "iF2ONNbmcCTcdjrd"
