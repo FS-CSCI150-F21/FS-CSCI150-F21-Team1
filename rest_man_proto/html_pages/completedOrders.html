@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<meta charset='utf-8'>
 <html>
 <head>
     <title>Completed Orders</title>
     <link rel="stylesheet" type="text/css" href="../css_pages/users.css">
     <script src="../js_pages/users.js" async></script>
     <script src="../js_pages/login.js"></script>
-    <script src='../js_pages/ordersCompleted.js'></script>
-    <style>
-        tbody{
-            text-align: center;
-        }
-    </style>
 </head>
 <header>
 </header>
-<body onload='load()'>
-    <!-- the fade script needs be inserted
-
+<body>
     <svg id="fader"></svg>
     <script>
         fadeInPage();
     </script>
-    -->
 <!-- <a class ="navigate" href="login.html"><br>Login/Sign Up</a></li> -->
 
     <!--Nav bar-->
@@ -39,14 +29,15 @@
     
     <div id="Body">
         <h1 id="Welcome">Completed Orders</h1>
-        <table class="table table-hover table-dark" id='table'>
+        <table class="table table-hover table-dark">
             <thead class="tableHead">
                 <tr>
                     <th>Order number</th>
-                    <th>Table</th>
-                    <th>User</th>
-                    <th>Created</th>
-                    <th>Finished</th>
+                    <th>Togo/Dine-in</th>
+                    <th>Status</th>
+                    <th>Items</th>
+                    <th>Created time</th>
+                    <th>Finished time</th>
                 </tr>
             </thead>
             </tbody>

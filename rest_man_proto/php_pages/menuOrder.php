@@ -11,7 +11,6 @@ session_start();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     //does client have a current order
     $curOrder = isset($_SESSION['order']) ? $_SESSION['order'] : -1;
-    //echo $curOrder;
     if ($curOrder >= 0) {
         //user has a current order open.  
 
@@ -42,7 +41,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
             //check username as another layer of security
             $query = "SELECT paid, items FROM open_order_info 
-                    WHERE order_id=" . $curOrder . ";";
+            WHERE username='" . $_SESSION['username'] . "'
+            AND order_id=" . $curOrder . ";";
 
             //query database and store result
             $result = $conn->query($query);

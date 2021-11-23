@@ -18,13 +18,7 @@
         <a href="contact.html">Contact</a>
         <a href="#About">About</a>
         <div class="rightnav">
-            <div class="dropdown">
-              <a class="dropbtn">Account</a>
-              <div class="dropdown-content">
-                <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
-                <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-              </div>
-            </div>
+            <a href="account.html">Account</a>
         </div>
     </nav>
     </header>
@@ -32,12 +26,12 @@
     <div id="Body">
       <h1 id="Welcome">Employee</h1>
       <div>
-          <anibutton>Order food</anibutton>
-          <anibutton>Menu</anibutton>
-          <anibutton>Current Orders</anibutton>
-          <anibutton onclick="CheckIn()" id="CheckIn">Check In</anibutton>
-          <anibutton onclick="CheckOut()" id="CheckOut" hidden=true>Check Out</anibutton>
-          <anibutton><a href="inventory.html">Inventory</a></anibutton>
+          <button>Order food</button>
+          <button>Menu</button>
+          <button>Current Orders</button>
+          <button onclick="CheckIn()" id="CheckIn">Check In</button>
+          <button onclick="CheckOut()" id="CheckOut" hidden=true>Check Out</button>
+          <button><a href="inventory.html">Inventory</a></button>
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
           <p>Number of people in line: <span id="numInLine"></span></p>
