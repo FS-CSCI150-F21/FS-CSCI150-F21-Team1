@@ -10,13 +10,14 @@
     <script src="../js_pages/orders.js"></script>
 </head>
 
+
 <body onload="load()">
     <header>
         <nav class="nav">
             <a href="index.html">Home</a></li>
             <a href="menu.html">Menu</a></li>
             <div class="rightnav">
-                <a href="account.html">Account</a>
+              <a href="account.html">Account</a>
             </div>
         </nav>
     </header>
@@ -59,7 +60,7 @@
             <th id='itemsNameHeader'>Item</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th colspan=2>Action</th>
+            <th colspan=2>Remove/Add</th>
         </thead>
         <tbody id='itemsTableBody'>
 
@@ -73,7 +74,7 @@
         <caption>Payment</caption>
         <thead>
             <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
-                Credit Card
+              Credit Card
             </th>
             <th id ='paymentOptionCash' class='employeePrivilege' 
                 onclick='paymentInstance.cash()'>Cash</th>
