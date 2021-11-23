@@ -20,7 +20,7 @@ body{
   text-decoration: none;
 }
 .nav a:hover{
-  color:rgb(5, 95, 96);
+  color:rgb(165, 91, 0);
 }
 .rightnav
 {
@@ -136,32 +136,4 @@ input {
 	border: none;
 	margin: 8px 0;
 	width: 100%;
-}
-
-anibutton   /*animated buttons*/
-{
-    color: #fff;
-    display: inline-block;
-    padding: 25px 45px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    background-color: rgb(5, 95, 96);
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px rgb(126, 126, 126);
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-top: 40px;
-
-}
-anibutton:hover{
-    background-color: rgb(4, 69, 70);
-}
-anibutton:active{
-    background-color: rgb(4, 55, 56);
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
 }
