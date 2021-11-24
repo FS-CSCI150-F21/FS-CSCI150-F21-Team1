@@ -6,7 +6,7 @@ $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
 $playerusername = $_POST['u'];
-$playerpassword = $_POST['p'];
+$playerpassword = hash("sha256",$_POST['p']);
 $userlevel = $_POST['l'];
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
