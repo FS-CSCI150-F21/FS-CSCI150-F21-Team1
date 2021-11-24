@@ -5,7 +5,7 @@ $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
 $playerusername = $_POST['u'];
-$playerpassword = $_POST['p'];
+$playerpassword = hash("sha256",$_POST['p']);
 
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT username FROM user_test where username='$playerusername'";
+$sql = "SELECT username FROM user_info where username='$playerusername'";
 
 $results = $conn->query($sql);
 
@@ -26,7 +26,7 @@ if ($exists > 0)
 }
 else
 {
-  $sql = "INSERT INTO user_test (username, password)
+  $sql = "INSERT INTO user_info (username, password)
           VALUES ('$playerusername','$playerpassword');";
   echo "1";
   
