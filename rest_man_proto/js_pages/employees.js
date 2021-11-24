@@ -2,9 +2,6 @@ var user_array;
 var length;
 var i;
 
-window.onload = function () {
-    get_employees();
-}
 
 function create_user_rows(){
     var users = document.getElementById("employee_list");
@@ -18,6 +15,7 @@ function create_user_rows(){
         var wage = row.insertCell(-1);
 
         var edit = row.insertCell(-1);
+        //Delete button
         var element = document.createElement("button");
         element.type = "button";
         element.innerHTML = '<i class="fas fa-trash"></i>';
@@ -25,6 +23,15 @@ function create_user_rows(){
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
+
+        //Edit button
+        var editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.innerText = "Edit"
+        editBtn.onclick = function() {
+            window.location="./employeeInfo.html#"+user_array[this.parentNode.parentNode.rowIndex-1]['username'];
+        }
+
         f_name.innerHTML = user_array[i]['first_name'];
         l_name.innerHTML = user_array[i]['last_name'];
         email.innerHTML = user_array[i]['email'];
@@ -33,6 +40,8 @@ function create_user_rows(){
         wage.innerHTML = user_array[i]['wage'];
 
         edit.appendChild(element);
+        edit.appendChild(editBtn);
+
     }
     $("table tr").hide();
     $("table tr").each(function(index){
@@ -40,6 +49,9 @@ function create_user_rows(){
     });
 }
 
+function update(){
+    console.log("hi");
+}
 function get_employees(){
     document.getElementById("employee_list").innerHTML = "";
     var j = new XMLHttpRequest();

@@ -17,14 +17,10 @@ function create_inventory_rows(){
         var edit = row.insertCell(-1);
 
         //Edit button
-        // var
         var editBtn = document.createElement("button");
         editBtn.type = "button";
         editBtn.innerText = "Edit"
         editBtn.onclick = function() {
-            // edit_inventory(inventory_array[this.parentNode.parentNode.rowIndex-1]);
-            console.log(inventory_array[this.parentNode.parentNode.rowIndex-1]);
-            console.log(inventory.rows[this.parentNode.parentNode.rowIndex-1]);
             inventory.rows[this.parentNode.parentNode.rowIndex-1].innerHTML = 
             "<tr><td>"+ inventory_array[this.parentNode.parentNode.rowIndex-1]['name']+"</td>"+
             "<td><input type=\"text\" id=\"currentQuantity\" placeholder=\"Current Quantity\" required></td>"+
