@@ -50,7 +50,7 @@ h1 {
 }
 
 td.catName {
-    background-color: white;
+    background-color: rgba(0,0,0,0);
     text-align: center;
 }
 
