@@ -9,21 +9,40 @@
 </head>
 
 
-<body onload="get_WaitTime()">
+<body onload="get_info()">
     <header>
       <nav class="nav">
         <a href="index.html">Home</a></li>
         <a href="../html_pages/menu.html">Menu</a></li>
-        <a href="#Contact">Contact</a></li>
-        <a href="#About">About</a></li>
+        <a href="contact.html">Contact</a></li>
+        <a href="about.html">About</a></li>
         <div class="rightnav">
           <a href="account.html">Account</a>
-          <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
-          <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
         </div>
     </nav>
     </header>
 
+    <h1>Edit Restaurant Settings</h1>
+    <label for="name_of_rest">Name</label>
+    <input type="text" name="name_of_rest" id="rest_name">
 
+    <label for="location">Location</label>
+    <input type="text" name="location" id="rest_location">
+
+    <label for="open_time">Open Time</label>
+    <input type="time" id="open_time" name="open_time" max="24:00" required>
+    <label for="close_time">Close Time</label>
+    <input type="time" id="close_time" name="close_time" max="24:00" required>
+
+    <legend>Days open</legend>
+    <input type="checkbox" name="days" value="Sunday">Su<br> 
+    <input type="checkbox" name="days" value="Monday">M<br>      
+    <input type="checkbox" name="days" value="Tuesday">T<br>      
+    <input type="checkbox" name="days" value="Wednesday">W<br>
+    <input type="checkbox" name="days" value="Thursday">Th<br> 
+    <input type="checkbox" name="days" value="Friday">F<br> 
+    <input type="checkbox" name="days" value="Saturday">S<br>   
+
+    <button type="button" onclick="send_info()">Save</button>
 </body>
 </html>

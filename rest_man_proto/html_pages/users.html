@@ -16,19 +16,21 @@
   
 </header>
 <body>
-  <!--Nav bar-->
-  <nav class="nav">
-    <a href="index.html" class="test"><i class="fas fa-home"></i></a></li>
-    <a href="menu.html" class="test"><i class="fas fa-utensils"></i></a></li>
-    <a href="contact.html" class="test"><i class="fas fa-envelope"></i></a></li>
-    <a href="about.html" class="test"><i class="fas fa-info"></i></a></li>
+  <header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
 
-    <div class="rightnav">
-      <button type="button" onclick="get_users()" class="refreshBtn"><i class="fas fa-sync"></i></button>
-      <button type="button" onclick="document.getElementById('add_modal').style.visibility='visible'" class="addBtn"><i class="fas fa-user-plus"></i></button>
-      <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
-    </div>
-  </nav>
+      <div class="rightnav">
+        <button type="button" onclick="get_users()" class="refreshBtn"><i class="fas fa-sync"></i></button>
+        <button type="button" onclick="document.getElementById('add_modal').style.visibility='visible'" class="addBtn"><i class="fas fa-user-plus"></i></button>
+        <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+  </header>
+
 
 
   <table>
@@ -38,7 +40,6 @@
           <th>First Name</th>
           <th>Last Name</th>
           <th>Username</th>
-          <th>Password</th>
           <th>Level</th>
           <th></th>
         </tr>
@@ -46,7 +47,7 @@
     <tbody id="user_list">
     </tbody>
   </table>
-  <button type="button" onclick="fill()">FILL DATABASE WITH RANDOM DATA</button>
+  <!-- <button type="button" onclick="fill()">FILL DATABASE WITH RANDOM DATA</button> -->
 
   <div id="add_modal" class="modal">
     <div class="modal-content">

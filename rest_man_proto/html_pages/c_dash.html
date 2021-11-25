@@ -6,42 +6,40 @@
   <script src="../js_pages/login.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/c_dash.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
   
 </head>
 
 
 <body onload="get_WaitTime()">
-  <!-- <svg id="fader"></svg>
-  <script>
-      fadeInPage();
-  </script>  commented out because it was causing nav bar to be too low  -->
-    <header>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="contact.html">Contact</a>
-        <div class="rightnav">
-          <div class="dropdown">
-            <a class="dropbtn">Account</a>
-            <div class="dropdown-content">
-              <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-            </div>
-          </div>
-        </div>
-    </nav>
-    </header>
+  <header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+      <div class="rightnav">
 
-    <div id="Body">
-      <h1 id="Welcome">Customer</h1>
-      <div>
-          <anibutton><a href="orderPage.html">Create Order</a></anibutton>
-          <anibutton><a href="menu.html">Menu</a></anibutton>
+        <button type="button" onclick="logout()" class="logout_btn"><i class="fas fa-sign-out-alt"></i></button>
+
+    </nav>
+  </header>
+
+    <div style="text-align: center;">
+      <h1>Customer Dashboard</h1>
+      <div class="button_container">
+          <button class="feature_button" onclick="window.location='orderPage.html'">Order</button>
+          <button class="feature_button" onclick="window.location='menu.html'">View Menu</button>
+      </div>
+
+
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
           <p>Number of people in line: <span id="numInLine"></span></p>
           <p>Wait time: <span id="waittime"></span></p>
           <p>Updated time: <span id="updatedtime"></span></p>
-      </div>
+      
    </div>
-
 </body>
 </html>

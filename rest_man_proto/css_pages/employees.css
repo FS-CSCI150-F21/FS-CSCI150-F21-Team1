@@ -1,29 +1,59 @@
 body{
-  background-image: linear-gradient(to right, #e6faee, #fff4d9, #ffdfe0);
-  margin: 0;
+  background: linear-gradient(to right, #f9e6fa, #daffd9, #fff9df);
   font-family: 'Trebuchet MS', sans-serif;
-}
-.nav
-{
-  margin-top: 15px;
-  padding: 0px 20px 10px 20px;
-  border-bottom: 2px solid black;
+  text-decoration: none;
+  animation: gradient 25s ease infinite;
+  background-size: 400% 400%;
 }
 
-.test{
-  font-size: 30px;
-  padding: 20px 20px 0px 20px;
-  color:black;
-  transition: all .25s;
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
-.test:hover{
+
+.nav {
+  margin-top: 15px;
+  padding: 0px 20px 10px 20px;
+  border-bottom: 3px solid black;
+}
+
+.navicons {
+  cursor: pointer;
+  font-size: 30px;
+  width: 65px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
+}
+.navicons:hover {
   transform: scale(1.5, 1.5);
   color: #ffa274;
 }
+ 
+.rightnav {
+    float: right;
+}
+.accountBtn, .dash_btn, .logout_btn  {
+  cursor: pointer;
+  font-size: 30px;
+  width: 85px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
+}
 
-.rightnav
-{
-  float: right;
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+  transform: scale(1.5, 1.5);
+  color: #ffa274;
 }
 
 .modal {

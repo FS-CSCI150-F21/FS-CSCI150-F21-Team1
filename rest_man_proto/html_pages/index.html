@@ -2,29 +2,26 @@
 <meta charset="UTF-8">
 <html>
 <head>
-    <title>HOME PAGE</title>
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" href="../css_pages/index.css">
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
 </head>
 <header>
 </header>
 <body>
-<!-- <a class ="navigate" href="login.html"><br>Login/Sign Up</a></li> -->
-
-    <!--Nav bar-->
+  <header>
     <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="contact.html">Contact</a>
-        <a href="#About">About</a>
-        <div class="rightnav">
-            <a href="account.html">Account</a>
-        </div>
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+  
+      <div class="rightnav">
+        <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
+      </div>
     </nav>
+  </header>
     
-    <div id="Body">
-        <h1 id="Welcome"> Welcome to ResTips</h1>
-        <div >
-        </div>
-    </div>
 </body>
 </html>

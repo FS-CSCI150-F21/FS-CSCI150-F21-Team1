@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="../js_pages/edit_settings.js"></script>
+  <link href="../css_pages/about.css" rel="stylesheet">
+</head>
+
+
+<body onload="get_info()">
+    <header>
+      <nav class="nav">
+        <a href="index.html">Home</a></li>
+        <a href="menu.html">Menu</a></li>
+        <a href="contact.html">Contact</a></li>
+        <a href="about.html">About</a></li>
+        <div class="rightnav">
+          <a href="account.html">Account</a>
+        </div>
+    </nav>
+    </header>
+
+    <h1>About</h1>
+    
+    <p id="rest_name"></p>
+
+    <p id="rest_location"></p>
+
+    <p id="open_time"></p>
+ 
+    <p id="close_time"></p>
+
+     <div>
+      <legend>Days Open</legend>
+      <input type="checkbox" name="days" value="Sunday">Su<br> 
+      <input type="checkbox" name="days" value="Monday">M<br>      
+      <input type="checkbox" name="days" value="Tuesday">T<br>      
+      <input type="checkbox" name="days" value="Wednesday">W<br>
+      <input type="checkbox" name="days" value="Thursday">Th<br> 
+      <input type="checkbox" name="days" value="Friday">F<br> 
+      <input type="checkbox" name="days" value="Saturday">S<br>  
+     </div>
+
+</body>
+</html>

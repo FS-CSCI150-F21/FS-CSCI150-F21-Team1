@@ -1,6 +1,17 @@
 
 var isLoggedIn = false;
 function check() {
+  var input = document.getElementById("password");
+  
+  input.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("log_btn").click();
+    }
+  });
   var j = new XMLHttpRequest();
   j.onreadystatechange = function () {
     if (j.readyState == 4 && j.status == 200) {
@@ -14,6 +25,7 @@ function check() {
         isLoggedIn = true;
         document.getElementById("login_form").style.display = "none";
         document.getElementById("btn_logout").style.display = "block";
+        document.getElementById("accBtn").style.display = "none";
       }
     }
   };
@@ -208,3 +220,5 @@ function get_WaitTime() {
   j.open('GET', '../php_pages/getwaittime.php');
   j.send();
 }
+
+

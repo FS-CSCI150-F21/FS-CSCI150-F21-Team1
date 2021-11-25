@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css_pages/orderPage.css">
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
     <title>Order</title>
     <script src="../js_pages/orders.js"></script>
 </head>
@@ -13,13 +15,16 @@
 <body onload="load()">
     <header>
         <nav class="nav">
-            <a href="index.html">Home</a></li>
-            <a href="menu.html">Menu</a></li>
-            <div class="rightnav">
-                <a href="account.html">Account</a>
-            </div>
+          <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+          <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+          <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+          <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+    
+          <div class="rightnav">
+              <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          </div>
         </nav>
-    </header>
+      </header>
 
     <ul id='employeeFunctions' class='employeePrivilege'>
         <li id='newOrder' onclick='newOrder()'>New Order</li>
@@ -33,8 +38,8 @@
         </tr>
     </table>
 
-    <h1 id="Welcome">Order</h1>
     <table id='statsTable'>
+        <caption class="tableTitle">ORDER</caption>
         <thead class="tableHead">
             <tr>
                 <th>Order #</th>

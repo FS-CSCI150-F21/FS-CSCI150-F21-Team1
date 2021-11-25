@@ -1,29 +1,43 @@
 body{
   background-image: linear-gradient(to right, #e6faee, #fff4d9, #ffdfe0);
-  margin: 0;
   font-family: 'Trebuchet MS', sans-serif;
 }
-.nav
-{
+.nav {
   margin-top: 15px;
   padding: 0px 20px 10px 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
 }
 
-.test{
+.navicons {
+  cursor: pointer;
   font-size: 30px;
-  padding: 20px 20px 0px 20px;
-  color:black;
-  transition: all .25s;
+  width: 65px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
 }
-.test:hover{
+.navicons:hover {
   transform: scale(1.5, 1.5);
   color: #ffa274;
 }
+ 
+.rightnav {
+    float: right;
+}
+.accountBtn, .dash_btn, .logout_btn  {
+  cursor: pointer;
+  font-size: 30px;
+  width: 85px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
+}
 
-.rightnav
-{
-  float: right;
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+  transform: scale(1.5, 1.5);
+  color: #ffa274;
 }
 
 .modal {
@@ -174,11 +188,8 @@ table tbody tr:hover {
   transition: transform .7s ease-in-out;
 }
 
-
-.refreshBtn:focus{
-  transform: rotate(360deg);
-}
 .refreshBtn:hover{
+  transform: rotate(360deg);
   color: #ffa274;
 }
 .addBtn, .accountBtn {
@@ -191,7 +202,7 @@ table tbody tr:hover {
   transition: transform .25s ease-in-out;
 }
 .addBtn:hover, .accountBtn:hover {
-  transform: scale(1.2, 1.2);
+  transform: scale(1.5, 1.5);
   color: #ffa274;
 }
 .tableTitle{

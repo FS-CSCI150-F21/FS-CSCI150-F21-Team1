@@ -6,44 +6,41 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="../js_pages/login.js"></script>
   <link href="../css_pages/m_dash.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
 </head>
 
 
 <body onload="get_WaitTime()">
     <header>
       <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="../html_pages/menu.html">Menu</a></li>
-        <a href="#Contact">Contact</a></li>
-        <a href="#About">About</a></li>
+        <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+        <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+        <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+        <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
         <div class="rightnav">
-          <div class="dropdown">
-            <a class="dropbtn">Account</a>
-            <div class="dropdown-content">
-              <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
-              <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-            </div>
-          </div>
-        </div>
-    </nav>
+  
+          <button type="button" onclick="logout()" class="logout_btn"><i class="fas fa-sign-out-alt"></i></button>
+
+      </nav>
     </header>
 
-    <div id="Body">
-      <h1 id="Welcome">Manager</h1>
-      <div>
-          <anibutton><a href="employeeList.html">Employee Information</a></anibutton>
-          <anibutton><a href="users.html">View Users</a></anibutton>
-          <anibutton><a href="orderPage.html">Order food</a></anibutton>
-          <anibutton><a href="menuEditor.html">Menu Editor</a></anibutton>
-          <anibutton><a href="currentOrders.html">Current Orders</a></anibutton>
-          <anibutton><a href="timesheet.html">Time sheets</a></anibutton>
-          <anibutton><a href="completedOrders.html">Completed Orders</a></anibutton>
-          <anibutton><a href="inventory.html">Inventory</a></anibutton>
-          <anibutton><a href="tableEditor.html">Table Editor</a></anibutton>
-          <anibutton><a href="viewLayout.html">View Layout</a></anibutton>
-          <anibutton><a href="settingsEditor.html">Edit Settings</a></anibutton>
-
-
+    <div style="text-align: center;">
+      <h1>Manager Dashboard</h1>
+      <div class="button_container">
+          <button class="feature_button" onclick="window.location='employeeList.html'">Employee Information</button>
+          <button class="feature_button" onclick="window.location='users.html'">View Users</button>
+          <button class="feature_button" onclick="window.location='orderPage.html'">Order food</button>
+          <button class="feature_button" onclick="window.location='menuEditor.html'">Menu Editor</button>
+          <button class="feature_button" onclick="window.location='currentOrders.html'">Current Orders</button>
+          <button class="feature_button" onclick="window.location='timesheet.html'">Time sheets</button>
+          <button class="feature_button" onclick="window.location='completedOrders.html'">Completed Orders</button>
+          <button class="feature_button" onclick="window.location='inventory.html'">Inventory</button>
+          <button class="feature_button" onclick="window.location='tableEditor.html'">Table Editor</button>
+          <button class="feature_button" onclick="window.location='viewLayout.html'">View Layout</button>
+          <button class="feature_button" onclick="window.location='settingsEditor.html'">Edit Settings</button>
+          <button class="feature_button" onclick="window.location='reservations.html'">Make Reservation</button>
+      </div>
 
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
@@ -51,8 +48,7 @@
           <p>Wait time: <span id="waittime"></span></p>
           <p>Updated time: <span id="updatedtime"></span></p>
 
-
-      </div>
+      
     </div>
 
 </body>

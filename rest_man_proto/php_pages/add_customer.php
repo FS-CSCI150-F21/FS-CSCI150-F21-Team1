@@ -8,7 +8,7 @@ $dbname = "rest_info";
 $firstname = $_POST['fn'];
 $lastname = $_POST['ln'];
 $playerusername = $_POST['u'];
-$playerpassword = $_POST['p'];
+$playerpassword = hash("sha256", $_POST['p']);
 $userlevel = 2;
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);

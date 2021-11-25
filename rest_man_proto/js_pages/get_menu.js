@@ -20,8 +20,7 @@ function create_user_rows(){
         var edit = row.insertCell(-1);
         var element = document.createElement("button");
         element.type = "button";
-        element.innerHTML = '<i class="fas fa-trash"></i>';
-        element.className ="deleteBtn"
+        element.innerText = "Delete"
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
@@ -34,10 +33,6 @@ function create_user_rows(){
 
         edit.appendChild(element);
     }
-    $("table tr").hide();
-    $("table tr").each(function(index){
-        $(this).delay(index*20).show(0);
-    });
 }
 
 function get_employees(){
@@ -69,26 +64,3 @@ function delete_user(data){
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("u=" + user);
 }
-
-function to_dashboard() {
-    var j = new XMLHttpRequest();
-    j.onreadystatechange = function () {
-      if (j.readyState == 4 && j.status == 200) {
-        var value = j.responseText;
-        switch (value) {
-          case '0':
-            location.replace("../html_pages/m_dash.html");
-            break;
-          case '1':
-            location.replace("../html_pages/e_dash.html");
-            break;
-          case '2':
-            location.replace("../html_pages/c_dash.html");
-            break;
-        }
-      }
-    };
-    j.open('GET', '../php_pages/get_level.php');
-    j.send();
-  
-  }
