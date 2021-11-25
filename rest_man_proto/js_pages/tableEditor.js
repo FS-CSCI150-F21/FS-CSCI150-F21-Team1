@@ -48,6 +48,9 @@ function set_table(){
                 createtablebuttons(response.numberof);
                 get_all_tables();
 
+
+                
+
             }
         }
     };
@@ -63,15 +66,17 @@ function createtablebuttons(numberof){
         var parent = document.getElementById("table_buttons");
         var element = document.createElement("button");
         element.type = "button";
-        element.innerText = "Table " + (alphabet[1 + i]);
-        console.log(alphabet[1 + i]);
-        element.id = "table" + alphabet[1 + i];
-        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[1 + newtables])))
+        element.innerText = "Table " + (alphabet[0 + i]);
+        element.id = "table" + alphabet[0 + i];
+        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[0 + newtables])))
         parent.appendChild(element);
         newtables++;
     }
     
 }
+
+
+
 function deletetablebuttons(){
 
     const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -120,11 +125,11 @@ function paintgrid(rows,cols){
             }
             var id = newi + newj; 
             if(isCharacterALetter(current_coord)){
-                document.getElementById(id).style.backgroundColor = "red";
+                document.getElementById(id).style.backgroundColor = "rgb(145, 255, 163)";
             }
             else if(current_coord==0){
                 document.getElementById(id).style.border = "1px solid black";
-                document.getElementById(id).style.background = "transparent";
+                document.getElementById(id).style.background = "white";
             }
             else if(current_coord==-1){
                 document.getElementById(id).style.border = "none";
@@ -249,35 +254,47 @@ function make_default(id){
 }
 
 function new_table_button(){
-    const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    if(newtables < 26){
+        const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     
-    var parent = document.getElementById("table_buttons");
-    var element = document.createElement("button");
-    element.type = "button";
-    element.innerText = "Table " + (alphabet[1 + newtables]);
-    element.id = "table" + alphabet[1 + newtables];
-    element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[1 + newtables])))
-    parent.appendChild(element);
+        var parent = document.getElementById("table_buttons");
+        var element = document.createElement("button");
+        element.type = "button";
+        element.className = "tableBtns";
+        element.innerText = "Table " + (alphabet[0 + newtables]);
+        element.id = "table" + alphabet[0 + newtables];
+        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[0 + newtables])));
+        
+        
+        parent.appendChild(element);
+
     
+        var selectParent = document.getElementById("tables");
+        var option = document.createElement("option");
+        option.value = newtables+1;
+        option.innerHTML = "table" + (alphabet[0 + newtables]);
 
-    var selectParent = document.getElementById("tables");
-    var option = document.createElement("option");
-    option.value = newtables+1;
-    option.innerHTML = "table" + (alphabet[1 + newtables]);
-    selectParent.appendChild(option);
+        
 
-    var emptyTable = {
-        id: (alphabet[1 + newtables]),
-        capacity: Math.floor(Math.random() * 10)
+        selectParent.appendChild(option);
+        
+        
+    
+        var emptyTable = {
+            id: (alphabet[1 + newtables]),
+            capacity: Math.floor(Math.random() * 10)
+        }
+    
+        newtables++;
+        //console.log(emptyTable);
+        selectParent.selectedIndex = newtables;
+        
+        table_objects.push(emptyTable);
+        set_capacity(newtables);
+        //console.log(table_objects);
     }
 
-    newtables++;
-    //console.log(emptyTable);
-    selectParent.selectedIndex = newtables;
-    
-    table_objects.push(emptyTable);
-    set_capacity(newtables);
-    //console.log(table_objects);
+
 }
 
 function save_table(){
@@ -333,9 +350,11 @@ function get_all_tables(){
             for(var i =0;i<table_objects.length;i++){
                 table_objects[i].capacity = parseInt(table_objects[i].capacity); 
             }
-            console.log(table_objects);
+            //console.log(table_objects);
             set_capacity(0);
             add_tables_to_dropdown();
+
+            style_btns();
         }
     };
     j.open('POST', '../php_pages/get_table.php');
@@ -343,16 +362,48 @@ function get_all_tables(){
     j.send("tableid=" + 1 + "&" + "test=" + 0);
 }
 
+function style_btns() {
+    var table_list = document.getElementById("table_buttons").childNodes;
+    for(let i = 0;i<table_list.length;i++){
+        table_list[i].className = "tableBtns";
+    }
+}
+
 function add_tables_to_dropdown(){
     const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
-    console.log(newtables);
+    //console.log(newtables);
     var selectParent = document.getElementById("tables");
     for (let index = 0; index < newtables; index++) {
         var option = document.createElement("option");
         option.value = index + 1;
-        option.innerHTML = "table" + (alphabet[1 + index]);
+        option.innerHTML = "table" + (alphabet[0 + index]);
         selectParent.appendChild(option);
             
     }
 }
+
+
+function to_dashboard() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+      if (j.readyState == 4 && j.status == 200) {
+        var value = j.responseText;
+        switch (value) {
+          case '0':
+            location.replace("../html_pages/m_dash.html");
+            break;
+          case '1':
+            location.replace("../html_pages/e_dash.html");
+            break;
+          case '2':
+            location.replace("../html_pages/c_dash.html");
+            break;
+        }
+      }
+    };
+    j.open('GET', '../php_pages/get_level.php');
+    j.send();
+  
+  }
+
+

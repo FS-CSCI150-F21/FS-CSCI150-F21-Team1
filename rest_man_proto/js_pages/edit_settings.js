@@ -73,3 +73,25 @@ function get_info() {
     j.send();
 }
 
+function to_dashboard() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+      if (j.readyState == 4 && j.status == 200) {
+        var value = j.responseText;
+        switch (value) {
+          case '0':
+            location.replace("../html_pages/m_dash.html");
+            break;
+          case '1':
+            location.replace("../html_pages/e_dash.html");
+            break;
+          case '2':
+            location.replace("../html_pages/c_dash.html");
+            break;
+        }
+      }
+    };
+    j.open('GET', '../php_pages/get_level.php');
+    j.send();
+  
+  }

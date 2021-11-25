@@ -1,26 +1,43 @@
 body{
-    background-color: gray;
-    margin: 0;
-  }
-.nav
-{
-background-color: rgb(255, 191, 112);
-padding: 20px;
+    background-image: linear-gradient(to right, #e6faee, #fff4d9, #ffdfe0);
+    font-family: 'Trebuchet MS', sans-serif;
 }
-.nav a
-{
-padding: 20px;
-font-size: 20px;
-font-weight: 500;
-color:black;
-text-decoration: none;
+.nav {
+    margin-top: 15px;
+    padding: 0px 20px 10px 20px;
+    border-bottom: 3px solid black;
 }
-.nav a:hover{
-color:rgb(165, 91, 0);
+
+.navicons {
+    cursor: pointer;
+    font-size: 30px;
+    width: 65px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
 }
-.rightnav
-{
-float: right;
+.navicons:hover {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
+}
+
+.rightnav {
+    float: right;
+}
+.accountBtn, .dash_btn, .logout_btn  {
+    cursor: pointer;
+    font-size: 30px;
+    width: 85px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
+}
+
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
 }
 
 .box{

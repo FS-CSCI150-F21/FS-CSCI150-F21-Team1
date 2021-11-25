@@ -6,54 +6,59 @@
   <script src="../js_pages/tableEditor.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/tableEditor.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
 </head>
 
 <body onload="set_table();">
   <header>
-      <nav>
-        <nav class="nav">
-          <a href="index.html">Home</a>
-          <a href="#Menu">Menu</a>
-          <a href="#Contact">Contact</a>
-          <a href="#About">About</a>
-          <div class="rightnav">
-              <a href="account.html">Account</a>
-          </div>
-      </nav>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
   </header>
   <div id="error"></div>
   <div class="buttons">
     <input type="number" id="x" min="10" max="25" value="10">
     <input type="number" id="y" min="10" max="25" value="10">
-    <button type="button" onclick="set_table_coords()">Create New grid</button>
-    <button type="button" onclick="new_table_button()">New table</button>
-    <button type="button" onclick="deletetablebuttons()">Delete table</button>
-    <button type="button" onclick="make_interactive('delete')">Delete</button>
-    <button type="button" onclick="make_interactive('default')">Default</button>
-    <button type="button" onclick="remove_clickable()">Normal Mouse</button>
-    <button type="button" onclick="save_table()">Save</button>
+    <button type="button" onclick="set_table_coords()" class="tableBtns">Create New grid</button>
+    <button type="button" onclick="new_table_button()" class="tableBtns">Add New table</button>
+    <button type="button" onclick="deletetablebuttons()" class="tableBtns">Delete table</button>
+    <button type="button" onclick="make_interactive('delete')" class="tableBtns">Delete Cell</button>
+    <button type="button" onclick="make_interactive('default')" class="tableBtns">Default Cell</button>
+    <button type="button" onclick="remove_clickable()" class="tableBtns">Normal Mouse</button>
+    <button type="button" onclick="save_table()" class="tableBtns">Save</button>
 
-    <button type="button" onclick="make_interactive('table', this.id)" id="tableA">Table A</button>
-    <div id="table_buttons">
-      
-     
+    <div id="table_settings">
+      <label for="tableSelect">Table</label>
+      <select name="tables" id="tables" onchange="set_capacity(this.value)" name="tableSelect" class="table_select">
+        <option value="0">tableA</option>
+      </select>
+      <label for="cap">Capacity</label>
+      <input type="number" id="table_capacity" name="cap"></input>
+    </div>
+
+    <div class="tableBar"> 
+      <div id="table_buttons">
+      </div>
     </div>
   </div>
   
   <div class="gridcontainer">
-    <table>
+    <table class="test">
         <tbody id="grid">
     
         </tbody>
       </table>
   </div>
 
-  <div id="table_settings">
-    <select name="tables" id="tables" onchange="set_capacity(this.value)">
-      <option value="0">tableA</option>
-    </select>
-    <input type="number" id="table_capacity">Capacity</input>
-  </div>
+
 
 
 </body>

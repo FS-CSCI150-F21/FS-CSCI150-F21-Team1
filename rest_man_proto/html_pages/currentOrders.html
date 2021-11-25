@@ -4,9 +4,11 @@
 
 <head>
     <title>Current Orders</title>
-    <link rel="stylesheet" type="text/css" href="../css_pages/users.css">
+    <link rel="stylesheet" type="text/css" href="../css_pages/currentOrders.css">
     <script src="../js_pages/login.js"></script>
     <script src="../js_pages/ordersCurrent.js"></script>
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
     <style>
         ul {
             list-style-type: none;
@@ -58,15 +60,16 @@
 <body onload='load()'>
     <header>
         <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="menu.html">Menu</a>
-            <a href="contact.html">Contact</a>
-            <a href="#About">About</a>
-            <div class="rightnav">
-                <a href="account.html">Account</a>
-            </div>
+          <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+          <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+          <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+          <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+    
+          <div class="rightnav">
+              <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          </div>
         </nav>
-    </header>
+      </header>
 
     <ul>
         <li onclick='viewTrackerInstance.changeView("server")' id='serverViewButton' class='currentViewButton'>Server
@@ -74,9 +77,7 @@
         <li onclick='viewTrackerInstance.changeView("kitchen")' id='kitchenViewButton'>Kitchen View</li>
     </ul>
 
-    <div id="Body">
-
-        <h1 id="Welcome">Current Orders</h1>
+    <div>
         <!--
         <table>
             <thead class="tableHead">
