@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
   <script src="../js_pages/edit_settings.js"></script>
   <link href="../css_pages/about.css" rel="stylesheet">
 </head>
@@ -12,36 +13,54 @@
 <body onload="get_info()">
     <header>
       <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="menu.html">Menu</a></li>
-        <a href="contact.html">Contact</a></li>
-        <a href="about.html">About</a></li>
+        <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+        <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+        <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+        <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+  
         <div class="rightnav">
-          <a href="account.html">Account</a>
+            <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
         </div>
-    </nav>
+      </nav>
     </header>
 
-    <h1>About</h1>
-    
-    <p id="rest_name"></p>
+    <div class="content">
+      <h1>About</h1>
 
-    <p id="rest_location"></p>
+      <p id="rest_name"></p>
+  
+      <p id="rest_location"></p>
+      
+      <p>Open:</p>
+      <p id="open_time"></p>
 
-    <p id="open_time"></p>
- 
-    <p id="close_time"></p>
-
-     <div>
-      <legend>Days Open</legend>
-      <input type="checkbox" name="days" value="Sunday">Su<br> 
-      <input type="checkbox" name="days" value="Monday">M<br>      
-      <input type="checkbox" name="days" value="Tuesday">T<br>      
-      <input type="checkbox" name="days" value="Wednesday">W<br>
-      <input type="checkbox" name="days" value="Thursday">Th<br> 
-      <input type="checkbox" name="days" value="Friday">F<br> 
-      <input type="checkbox" name="days" value="Saturday">S<br>  
+      <p>Close:</p>
+      <p id="close_time"></p>
+    </div>
+    <div class="days_container">
+      <table class="days_table">
+        <caption class="tableTitle">Days Open</caption>
+        <tr class="days_row">
+          <td>Su</td>
+          <td>M</td>
+          <td>T</td>
+          <td>W</td>
+          <td>Th</td>
+          <td>F</td>
+          <td>S</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="days" value="Sunday" class="day_box" disabled></td>
+          <td><input type="checkbox" name="days" value="Monday"  class="day_box" disabled> </td>  
+          <td><input type="checkbox" name="days" value="Tuesday"  class="day_box" disabled> </td> 
+          <td><input type="checkbox" name="days" value="Wednesday"  class="day_box" disabled></td>
+          <td><input type="checkbox" name="days" value="Thursday" class="day_box"  disabled></td>
+          <td><input type="checkbox" name="days" value="Friday"  class="day_box" disabled></td>
+          <td><input type="checkbox" name="days" value="Saturday"  class="day_box" disabled></td>
+        </tr>
+      </table> 
      </div>
+
 
 </body>
 </html>

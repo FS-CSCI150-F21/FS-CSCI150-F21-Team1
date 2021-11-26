@@ -2,6 +2,7 @@
 <meta charset="UTF-8">
 <link href="../css_pages/m_dash.css" rel="stylesheet">
 <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+<script src="../js_pages/authorizem.js"></script>
 
 <html>
 <!-- This will be for the manager's access.  Might implement in menu.html instead.
@@ -17,7 +18,7 @@ that allow changes to be made.-->
     </title>
 </head>
 
-<body onload="load()">
+<body onload="load(); authorize();">
     <header>
         <nav class="nav">
           <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>

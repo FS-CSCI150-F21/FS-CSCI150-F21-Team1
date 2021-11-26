@@ -104,6 +104,7 @@ function hide_modal(){
   get_users();
   document.getElementById("test").innerHTML = "";
   document.getElementById('add_modal').style.visibility="hidden";
+
 }
 
 // function hide_edit(){

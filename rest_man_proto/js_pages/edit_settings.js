@@ -49,11 +49,11 @@ function get_info() {
     j.onreadystatechange = function () {
     if (j.readyState == 4 && j.status == 200) {
         var settings = JSON.parse(j.responseText);
-
-        document.getElementById("rest_name").innerHTML = settings.name;
-        document.getElementById("open_time").innerHTML = settings.open_time;
-        document.getElementById("close_time").innerHTML = settings.close_time;
-        document.getElementById("rest_location").innerHTML = settings.location;
+        //console.log(JSON.parse(j.responseText));
+        document.getElementById("rest_name").innerText = settings.name;
+        document.getElementById("open_time").innerText = settings.open_time;
+        document.getElementById("close_time").innerText = settings.close_time;
+        document.getElementById("rest_location").innerText = settings.location;
         
         var days_element = document.getElementsByName("days");
 
@@ -71,6 +71,50 @@ function get_info() {
     j.open('POST', '../php_pages/settings.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send();
+}
+
+function get_info_edit() {
+  var j = new XMLHttpRequest();
+  j.onreadystatechange = function () {
+  if (j.readyState == 4 && j.status == 200) {
+      var settings = JSON.parse(j.responseText);
+      //console.log(JSON.parse(j.responseText));
+      document.getElementById("rest_name").value = settings.name;
+      document.getElementById("open_time").value = settings.open_time;
+      document.getElementById("close_time").value = settings.close_time;
+      document.getElementById("rest_location").value = settings.location;
+      
+      var days_element = document.getElementsByName("days");
+
+      for(let i = 0; i<7;i++){
+          for(let j = 0; j<settings.days.length;j++){
+
+              if(days_element[i].value == settings.days[j]){
+                  days_element[i].checked = true;
+              }
+          }
+      }
+
+  }
+  };
+  j.open('POST', '../php_pages/settings.php');
+  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  j.send();
+}
+
+function get_name() {
+  var j = new XMLHttpRequest();
+  j.onreadystatechange = function () {
+  if (j.readyState == 4 && j.status == 200) {
+      var settings = JSON.parse(j.responseText);
+      //console.log(JSON.parse(j.responseText));
+      document.getElementById("rest_name_title").innerText = settings.name;
+
+  }
+  };
+  j.open('POST', '../php_pages/settings.php');
+  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  j.send();
 }
 
 function to_dashboard() {

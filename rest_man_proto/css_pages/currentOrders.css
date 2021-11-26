@@ -85,6 +85,7 @@ table {
   overflow: auto;
   font-size: 20px;
   display: table;
+  cursor: pointer;
 }
 .inputselect, .add{
   width: 50%;

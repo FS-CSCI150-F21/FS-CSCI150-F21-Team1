@@ -6,7 +6,8 @@
     <link rel="stylesheet"  type="text/css" href="../icons/all.css">
     <link href="../css_pages/users.css" rel="stylesheet">  
     
-  
+    <script src="../js_pages/authorizem.js"></script>
+
     <script src="../js_pages/add_user.js"></script>
     <script src="../js_pages/users.js"></script>
     <script src="../tests/randomdata.js"></script>
@@ -15,7 +16,7 @@
 <header>
   
 </header>
-<body>
+<body onload=" get_users(); authorize();">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>

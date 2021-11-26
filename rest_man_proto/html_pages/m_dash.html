@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/authorizem.js"></script>
   <link href="../css_pages/m_dash.css" rel="stylesheet">
   <link rel="stylesheet"  type="text/css" href="../icons/all.css">
 
 </head>
 
 
-<body onload="get_WaitTime()">
+<body onload="get_WaitTime(); authorize();">
     <header>
       <nav class="nav">
         <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -39,7 +40,9 @@
           <button class="feature_button" onclick="window.location='tableEditor.html'">Table Editor</button>
           <button class="feature_button" onclick="window.location='viewLayout.html'">View Layout</button>
           <button class="feature_button" onclick="window.location='settingsEditor.html'">Edit Settings</button>
-          <button class="feature_button" onclick="window.location='reservations.html'">Make Reservation</button>
+          <button class="feature_button" onclick="window.location='viewMessages.html'">View Messages</button>
+
+          <!-- <button class="feature_button" onclick="window.location='reservations.html'">Make Reservation</button> -->
       </div>
 
           <h2>Estimated Waiting Time:</h2>

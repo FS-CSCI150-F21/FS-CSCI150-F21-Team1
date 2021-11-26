@@ -5,10 +5,12 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="../css_pages/index.css">
     <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+    <script src="../js_pages/edit_settings.js"></script>
+
 </head>
 <header>
 </header>
-<body>
+<body onload="get_name()">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -22,6 +24,10 @@
       </div>
     </nav>
   </header>
-    
+  <div class="message">
+    <h2 class="welcome">Welcome to</h2><br>
+    <h3 id="rest_name_title" class="name_title"></h3>
+  </div>
+
 </body>
 </html>

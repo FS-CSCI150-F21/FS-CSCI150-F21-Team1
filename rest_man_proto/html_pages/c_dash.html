@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/authorizec.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/c_dash.css" rel="stylesheet">
   <link rel="stylesheet"  type="text/css" href="../icons/all.css">
@@ -12,7 +14,7 @@
 </head>
 
 
-<body onload="get_WaitTime()">
+<body onload="get_WaitTime(); authorize();">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>

@@ -3,7 +3,7 @@ var length;
 var i;
 
 window.onload = function () {
-    get_users();
+    
 }
 
 function create_user_rows(){
@@ -18,12 +18,13 @@ function create_user_rows(){
         var edit = row.insertCell(-1);
         var element = document.createElement("button");
         element.type = "button";
-        
         element.innerHTML = '<i class="fas fa-trash"></i>';
         element.className ="deleteBtn"
+
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
+        
         f_name.innerHTML = user_array[i]['first_name'];
         l_name.innerHTML = user_array[i]['last_name'];
         username.innerHTML = user_array[i]['username'];

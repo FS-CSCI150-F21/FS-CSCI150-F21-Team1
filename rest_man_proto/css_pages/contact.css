@@ -1,49 +1,74 @@
-body{
-    background-image: url(../images/background.png);
-    margin: 0;
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(to right, #e6faee, #fff4d9, #ffdfe0);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  overflow: hidden;
 }
-.nav
-{
-    background-color: rgba(255, 255, 255, 0);
-    padding: 20px;
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
-.nav a
-{
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 500;
-    color:rgb(159, 159, 159);
-    text-decoration: none;
+.nav {
+  margin-top: 15px;
+  padding: 0px 20px 10px 20px;
+  border-bottom: 3px solid black;
 }
-.nav a:hover{
-    color:rgb(255, 149, 0);
+
+.navicons {
+  cursor: pointer;
+  font-size: 30px;
+  width: 65px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
 }
-.rightnav
-{
+.navicons:hover {
+  transform: scale(1.2, 1.2);
+  color: #ffa274;
+}
+  
+.rightnav {
     float: right;
 }
-button
-{
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    text-decoration: none;
+.accountBtn {
+    cursor: pointer;
+    font-size: 30px;
+    width: 85px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
 }
-button a{
-    text-decoration: none;
-    color: rgb(165, 91, 0);
-    font-weight: 700;
+
+.accountBtn:hover {
+    transform: scale(1.2, 1.2);
+    color: #ffa274;
 }
-button a:hover{
-    color:rgb(209, 115, 0);
-    font-size:15px;
-}
+
 #Welcome
 {
     padding-top: 3%;
 }
-#Body
-{
-    color: rgb(205, 205, 205);
-    text-align: center;
+
+.send_btn {
+  background: white;
+  font-size: 20px;
+  border: 1px solid black;
+  transition: all 0.25s;
+}
+.send_btn:hover {
+  transform: scale(1.2,1.2);
+  cursor: pointer;
+  background: rgb(216, 216, 216);
 }

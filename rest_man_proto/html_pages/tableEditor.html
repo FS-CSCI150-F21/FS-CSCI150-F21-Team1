@@ -7,10 +7,12 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/tableEditor.css" rel="stylesheet">
   <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+  <script src="../js_pages/authorizem.js"></script>
+
 
 </head>
 
-<body onload="set_table();">
+<body onload="set_table(); authorize();">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -25,6 +27,7 @@
   </header>
   <div id="error"></div>
   <div class="buttons">
+    <label for="">Grid Size: </label>
     <input type="number" id="x" min="10" max="25" value="10">
     <input type="number" id="y" min="10" max="25" value="10">
     <button type="button" onclick="set_table_coords()" class="tableBtns">Create New grid</button>

@@ -4,7 +4,11 @@
     <title>contact page</title>
     <link rel="stylesheet" type="text/css" href="../css_pages/contact.css">
     <script src="../js_pages/page_transition.js"></script>
+    <script src="../js_pages/contact.js"></script>
     <link href="../css_pages/page_transition.css" rel="stylesheet">
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
+
 </head>
 <header>
 </header>
@@ -16,17 +20,19 @@
 
 <header>
     <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="menu.html">Menu</a></li>
-        <a href="contact.html">Contact</a></li>
-        <a href="about.html">About</a></li>
-        <div class="rightnav">
-        <a href="account.html">Account</a>
-        </div>
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+  
+      <div class="rightnav">
+        <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
+      </div>
     </nav>
-</header>
+  </header>
     
-    <div id="Body">
+    <div style="text-align: center;">
         <h1 id="Welcome">Contact us!</h1>
         <div id= "contact_form" class = "contactform">
             <label for="name">Name</label><br>
@@ -36,9 +42,9 @@
             <label for="subject">Subject</label><br>
             <input type="text" id="subject" placeholder="Subject" required><br><br>
             <label for="message">Message</label><br>
-            <textarea rows="4" cols="50" type="text" id="message" placeholder="Message"required>
-            </textarea><br><br>
-            <button type="button">Submit</button><br><br>
+            <textarea rows="4" cols="50" type="text" id="message" placeholder="Message"required></textarea>
+            <br><br>
+            <button type="button" onclick="add_message()" class="send_btn">Send</button><br><br>
         </div>
     </div>
 </body>

@@ -14,6 +14,8 @@ function set_table(){
                 table_coords = response.grid;
                 create_grid(table_coords, temprows, tempcols);
                 paintgrid(temprows,tempcols);
+
+
             }
         }
     };
@@ -50,7 +52,9 @@ function paintgrid(rows,cols){
                 deleted_cells(current_coord,i,j,id)
             }
             else if(current_coord ==0){
+
                 if(j==0){
+                    
                     document.getElementById(id).style.borderLeft = "2px solid black";
                 }
                 else if(j == table_coords[0].length - 1)
@@ -115,10 +119,47 @@ function check_delete_right(current_coord,i,j,id){
     }
 }
 function letter_cells(current_coord,i,j,id){
+    document.getElementById(id).className = "letter_box" + current_coord + " " + "ltrbox";
+
+    document.getElementById(id).style.cursor = "pointer";
+
+
+    document.getElementById(id).setAttribute('onmouseenter', 'highlight("'+current_coord+'")')
+
+    document.getElementById(id).setAttribute('onmouseleave', 'remove_back("'+current_coord+'")')
+
+    
     check_above(current_coord,i,j,id);
     check_below(current_coord,i,j,id);
     check_left(current_coord,i,j,id);
     check_right(current_coord,i,j,id);
+    //console.log(current_coord,i,j,id);
+
+}
+
+function highlight(letter) {
+
+    var boxes = document.getElementsByClassName("letter_box" + letter);
+
+    //console.log(boxes.length);
+    for(let i = 0; i<boxes.length; i++){
+        boxes[i].style.backgroundColor = "white";
+        boxes[i].style.transform = "scale(1.25)";
+        
+    }
+}
+
+function remove_back(letter) {
+
+    var boxes = document.getElementsByClassName("letter_box" + letter);
+
+    //console.log(boxes.length);
+    for(let i = 0; i<boxes.length; i++){
+
+        boxes[i].style.backgroundColor = "transparent";
+        boxes[i].style.transform = "scale(1.0)";
+
+    }
 }
 
 function check_above(current_coord, i, j, id){
@@ -127,7 +168,7 @@ function check_above(current_coord, i, j, id){
     }
     else{
         var up = table_coords[i-1][j];
-        console.log(up, current_coord);
+        //console.log(up, current_coord);
         if((up != current_coord)){
             document.getElementById(id).style.borderTop = "2px solid black";
         }
@@ -142,7 +183,7 @@ function check_below(current_coord, i, j, id){
     }
     else{
         var down = table_coords[i+1][j];
-        console.log(down, current_coord);
+        //console.log(down, current_coord);
         if((down != current_coord)){
             document.getElementById(id).style.borderBottom = "2px solid black";
         }
@@ -157,7 +198,7 @@ function check_left(current_coord, i, j, id){
     }
     else{
         var left = table_coords[i][j-1];
-        console.log(current_coord, left);
+        //console.log(current_coord, left);
         if((left != current_coord)){
             document.getElementById(id).style.borderLeft = "2px solid black";
         }
@@ -171,7 +212,7 @@ function check_right(current_coord, i, j, id){
     }
     else{
         var right = table_coords[i][j+1];
-        console.log(current_coord, right);
+        //console.log(current_coord, right);
         if((right != current_coord)){
             document.getElementById(id).style.borderRight = "2px solid black";
         }

@@ -3,7 +3,7 @@ var length;
 var i;
 
 window.onload = function () {
-    get_employees();
+
 }
 
 function create_user_rows(){

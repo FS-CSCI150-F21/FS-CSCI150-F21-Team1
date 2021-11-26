@@ -26,12 +26,14 @@ function check() {
         document.getElementById("login_form").style.display = "none";
         document.getElementById("btn_logout").style.display = "block";
         document.getElementById("accBtn").style.display = "none";
+        to_dashboard();
       }
     }
   };
   j.open('POST', '../php_pages/check.php', true);
   j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   j.send();
+
 }
 
 function signup() {
@@ -209,7 +211,7 @@ function get_WaitTime() {
     if (j.readyState == 4 && j.status == 200) {
       wait_time_array = JSON.parse(j.responseText);
       length = wait_time_array.length;
-      console.log(j.responseText);
+      //console.log(j.responseText);
       document.getElementById("numInside").innerHTML = wait_time_array['num_people_inside'];
       document.getElementById("numInLine").innerHTML = wait_time_array['num_people_in_line'];
       document.getElementById("waittime").innerHTML = wait_time_array['wait_time'];

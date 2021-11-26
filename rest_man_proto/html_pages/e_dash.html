@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
   <script src="../js_pages/employeeCheckInOut.js"></script>
+  <script src="../js_pages/authorizee.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/e_dash.css" rel="stylesheet">
   <link rel="stylesheet"  type="text/css" href="../icons/all.css">
@@ -12,7 +14,7 @@
 </head>
 
 
-<body onload="get_WaitTime()">
+<body onload="get_WaitTime(); authorize();">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -34,7 +36,7 @@
           <button class="feature_button" onclick="CheckOut()" hidden=true>Check Out</button>
 
           <button class="feature_button" onclick="window.location='orderPage.html'">Order food</button>
-          <button class="feature_button" onclick="window.location='menu.html'">Menu Editor</button>
+          <button class="feature_button" onclick="window.location='menuEditor.html'">Menu Editor</button>
           <button class="feature_button" onclick="window.location='currentOrders.html'">Current Orders</button>
           <button class="feature_button" onclick="window.location='inventory.html'">Time sheets</button>
       </div>

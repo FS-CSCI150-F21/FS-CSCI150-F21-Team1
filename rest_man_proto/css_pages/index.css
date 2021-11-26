@@ -56,3 +56,19 @@ body {
     color: #ffa274;
 }
 
+
+.message {
+
+  width: 99%;
+  position: absolute;
+  margin-top: 5%;
+  text-align: center;
+}
+
+.welcome {
+  font-size: 50px;
+}
+
+.name_title {
+  font-size: 85px;
+}
