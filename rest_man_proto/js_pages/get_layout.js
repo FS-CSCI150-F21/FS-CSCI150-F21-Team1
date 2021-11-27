@@ -123,8 +123,9 @@ function letter_cells(current_coord,i,j,id){
 
     document.getElementById(id).style.cursor = "pointer";
 
+    document.getElementById(id).setAttribute('onclick', `get_table_info('${current_coord}')`);
 
-    document.getElementById(id).setAttribute('onmouseenter', 'highlight("'+current_coord+'")')
+    document.getElementById(id).setAttribute('onmouseenter', 'highlight("'+current_coord+'")');
 
     document.getElementById(id).setAttribute('onmouseleave', 'remove_back("'+current_coord+'")')
 

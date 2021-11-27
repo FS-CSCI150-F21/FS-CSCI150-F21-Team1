@@ -25,7 +25,8 @@ $conn->query($sql);
 for($i = 0; $i < $length; $i++){
     $id = $decoded[$i]["id"];
     $capacity = $decoded[$i]["capacity"];
-    $sql = "INSERT INTO table_info (id, capacity) VALUES ('$id', '$capacity');";
+    $reservations = serialize($decoded[$i]["reservations"]);
+    $sql = "INSERT INTO table_info (id, capacity,reservations) VALUES ('$id', '$capacity', '$reservations');";
     $conn->query($sql);
 }
 

@@ -6,7 +6,6 @@ $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
 $table_id = $_POST['tableid'];
-$just_one = $_POST['test'];
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
@@ -14,12 +13,9 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-if($just_one == 1){
-  $sql = "SELECT id,capacity,reservations FROM table_info WHERE id='$table_id'";
-}
-else{
-  $sql = "SELECT id,capacity,reservations FROM table_info";
-}
+
+$sql = "SELECT id,capacity,reservations FROM table_info WHERE id='$table_id'";
+
 
 
 $results = $conn->query($sql);
@@ -27,8 +23,7 @@ $results = $conn->query($sql);
 $rows = array();
 
 while($r = mysqli_fetch_assoc($results)) {
-  $r["reservations"] = unserialize($r["reservations"]);
-  $rows[] = $r;
+    $rows[] = $r;
 }
 echo json_encode($rows);
 

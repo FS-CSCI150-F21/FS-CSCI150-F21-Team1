@@ -2,7 +2,7 @@ var table_coords;
 var global_table_id;
 var newtables = 0;
 var table_objects = [];
-
+var hours_g;
 function set_table_coords(){
 
     newtables = 0;
@@ -45,6 +45,7 @@ function set_table(){
                 table_coords = response.grid;
                 create_grid(table_coords, temprows, tempcols);
                 paintgrid(temprows,tempcols);
+                //console.log("number of from j response =", response.numberof);
                 createtablebuttons(response.numberof);
                 get_all_tables();
 
@@ -61,17 +62,19 @@ function set_table(){
 }
 
 function createtablebuttons(numberof){
+    //console.log(numberof);
     for(var i = 0; i<(numberof); i++){
         const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
         var parent = document.getElementById("table_buttons");
         var element = document.createElement("button");
         element.type = "button";
-        element.innerText = "Table " + (alphabet[0 + i]);
-        element.id = "table" + alphabet[0 + i];
-        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[0 + newtables])))
+        element.innerText = "Table " + (alphabet[1 + i]);
+        element.id = "table" + alphabet[1 + i];
+        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[1 + newtables])))
         parent.appendChild(element);
         newtables++;
     }
+    //console.log(newtables);
     
 }
 
@@ -82,7 +85,7 @@ function deletetablebuttons(){
     const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     var parent = document.getElementById("table_buttons");
     var children = parent.children;
-    if(children.length > 0){
+    if(children.length > 1){
         parent.removeChild(children[children.length - 1]);
         newtables--;
     }
@@ -153,7 +156,7 @@ function create_grid(table_coords,numrows, numcols){
         var table = document.getElementById("grid");
         table.innerHTML = "";
         var table_buttons = document.getElementById("table_buttons");
-        table_buttons.innerHTML = "";
+        // table_buttons.innerHTML = "";
 
         var newi, newj;
         for(var i = 0; i < numrows; i++){
@@ -248,22 +251,22 @@ function make_default(id){
     var j = parseInt(test.substring(2,4));
     document.getElementById(id).style.border = "1px solid black";
 
-    document.getElementById(test).style.background = "transparent";
+    document.getElementById(test).style.background = "white";
     document.getElementById(test).innerText = 0;  
     table_coords[i][j] = 0;  
 }
 
 function new_table_button(){
-    if(newtables < 26){
+    if(newtables < 25){
         const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
     
         var parent = document.getElementById("table_buttons");
         var element = document.createElement("button");
         element.type = "button";
         element.className = "tableBtns";
-        element.innerText = "Table " + (alphabet[0 + newtables]);
-        element.id = "table" + alphabet[0 + newtables];
-        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[0 + newtables])));
+        element.innerText = "Table " + (alphabet[1 + newtables]);
+        element.id = "table" + alphabet[1 + newtables];
+        element.addEventListener("click", make_interactive.bind(null,"table", "table" + (alphabet[1 + newtables])));
         
         
         parent.appendChild(element);
@@ -271,41 +274,74 @@ function new_table_button(){
     
         var selectParent = document.getElementById("tables");
         var option = document.createElement("option");
-        option.value = newtables+1;
-        option.innerHTML = "table" + (alphabet[0 + newtables]);
+        option.value = newtables;
+        option.innerHTML = "table" + (alphabet[1 + newtables]);
 
         
 
         selectParent.appendChild(option);
         
-        
-    
+        var test = [];        
+
+        for(let i = 0; i<hours_g; i++){
+            const hourly_reservation = {
+                time: (hours_g + i),
+                reserved: false
+            }
+            test.push(hourly_reservation);
+        }
+
         var emptyTable = {
             id: (alphabet[1 + newtables]),
-            capacity: Math.floor(Math.random() * 10)
+            capacity: Math.floor(Math.random() * 10),
+            reservations: test
         }
-    
-        newtables++;
+        
+        var constantTable = {
+            id: "A",
+            capacity: Math.floor(Math.random() * 10),
+            reservations: test
+        }
+
         //console.log(emptyTable);
         selectParent.selectedIndex = newtables;
         
         table_objects.push(emptyTable);
-        set_capacity(newtables);
-        //console.log(table_objects);
+        table_objects[0] = constantTable;
+
+        set_capacity(newtables+1);
+        newtables++;
+        console.log("THIS THING", table_objects);
     }
 
 
 }
 
+function get_info(table_letter) {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+    if (j.readyState == 4 && j.status == 200) {
+        var settings = JSON.parse(j.responseText);
+        var open_hour = parseInt(settings.open_time.substring(0, 2));
+        var close_hour = parseInt(settings.close_time.substring(0, 2));
+        hours_g = close_hour - open_hour;
+
+    }
+    };
+    j.open('POST', '../php_pages/settings.php');
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send();
+}
+
 function save_table(){
     update_current_capacity();
     //console.log(newtables);
-    console.log(table_coords);
+    //console.log(table_coords);
     var jarray = JSON.stringify(table_coords);
     var j = new XMLHttpRequest();
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                console.log(JSON.parse(j.responseText));
+                //console.log(JSON.parse(j.responseText));
                 
             }
     };
@@ -334,7 +370,7 @@ function update_current_capacity(){
 
 
 function set_capacity(idx){
-    //console.log(idx);
+    //console.log("Index in table array =",idx);
     document.getElementById("table_capacity").value = table_objects[idx].capacity;
 
 }
@@ -349,11 +385,12 @@ function get_all_tables(){
             table_objects = table;
             for(var i =0;i<table_objects.length;i++){
                 table_objects[i].capacity = parseInt(table_objects[i].capacity); 
-            }
-            //console.log(table_objects);
-            set_capacity(0);
-            add_tables_to_dropdown();
 
+                
+            }
+            set_capacity(0);
+            //console.log(table_objects);
+            add_tables_to_dropdown();
             style_btns();
         }
     };
@@ -371,14 +408,14 @@ function style_btns() {
 
 function add_tables_to_dropdown(){
     const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-    //console.log(newtables);
+    //console.log("Number of newtables =",newtables);
     var selectParent = document.getElementById("tables");
+    selectParent.removeChild
     for (let index = 0; index < newtables; index++) {
         var option = document.createElement("option");
         option.value = index + 1;
-        option.innerHTML = "table" + (alphabet[0 + index]);
+        option.innerHTML = "table" + (alphabet[1 + index]);
         selectParent.appendChild(option);
-            
     }
 }
 

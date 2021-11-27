@@ -3,7 +3,7 @@ function authorize() {
     j.onreadystatechange = function () {
       if (j.readyState == 4 && j.status == 200) {
   
-        console.log(j.responseText);
+        //console.log(j.responseText);
         
         if(!j.responseText){
             var markup = document.documentElement;

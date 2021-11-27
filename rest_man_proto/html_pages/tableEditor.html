@@ -12,7 +12,7 @@
 
 </head>
 
-<body onload="set_table(); authorize();">
+<body onload="set_table(); authorize(); get_info();">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -49,6 +49,7 @@
 
     <div class="tableBar"> 
       <div id="table_buttons">
+        <button type="button" class="tableBtns" onclick="make_interactive('table', this.id)" id="tableA">Table A</button>
       </div>
     </div>
   </div>
