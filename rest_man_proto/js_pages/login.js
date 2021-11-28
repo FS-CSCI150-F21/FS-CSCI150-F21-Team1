@@ -204,6 +204,12 @@ function get_level() {
   return ele.value;
 }
 
+function update_wt() {
+  setInterval(function(){
+    get_WaitTime();
+  }, 500);
+}
+
 var wait_time_array;
 function get_WaitTime() {
   var j = new XMLHttpRequest();
