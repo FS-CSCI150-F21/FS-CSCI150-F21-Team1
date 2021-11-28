@@ -207,6 +207,7 @@ function get_level() {
 function update_wt() {
   setInterval(function(){
     get_WaitTime();
+    console.log("1");
   }, 500);
 }
 
