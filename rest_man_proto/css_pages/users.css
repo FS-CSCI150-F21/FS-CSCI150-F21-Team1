@@ -207,4 +207,24 @@ table tbody tr:hover {
 }
 .tableTitle{
   font-size: 30px;
+  padding-bottom: 20px;
+}
+.custom-select{
+  text-align: center;
+  position: relative;
+}
+.custom-select select{
+  text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+    
+}
+option{
+    padding-left: 45%;
+}
+.inventory_buttons_bar{
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 5px;
+
 }

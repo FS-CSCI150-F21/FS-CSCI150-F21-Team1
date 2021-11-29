@@ -2,10 +2,6 @@ var inventory_array;
 var length;
 var i;
 
-window.onload = function () {
-    get_inventory();
-}
-
 function create_inventory_rows(){
     var inventory = document.getElementById("inventory_list");
     for(i = 0; i < length; i++){

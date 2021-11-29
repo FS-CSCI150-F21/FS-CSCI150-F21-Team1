@@ -2,6 +2,10 @@ var timesheet_array;
 var user_timesheet_array;
 var username_array;
 
+window.onload= function()
+{
+  get_timesheet();
+}
 function create_timesheet_rows(){
   var timesheet = document.getElementById("timesheet");
   for(i = 0; i < length; i++){
