@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <link href="../css_pages/m_dash.css" rel="stylesheet">
+<link rel="stylesheet"  type="text/css" href="../icons/all.css">
+<script src="../js_pages/authorizem.js"></script>
 
 <html>
 <!-- This will be for the manager's access.  Might implement in menu.html instead.
@@ -16,22 +18,21 @@ that allow changes to be made.-->
     </title>
 </head>
 
-<body onload="load()">
-<header>
-    <nav class="nav">
-      <a href="index.html">Home</a></li>
-      <a href="../html_pages/menu.html">Menu</a></li>
-      <a href="#Contact">Contact</a></li>
-      <a href="#About">About</a></li>
-      <div class="rightnav">
-        <a href="account.html">Account</a>
-        <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-      </div>
-  </nav>
-  </header>
+<body onload="load(); authorize();">
+    <header>
+        <nav class="nav">
+          <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+          <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+          <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+          <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+    
+          <div class="rightnav">
+              <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          </div>
+        </nav>
+      </header>
   <div>
-<!--<label for='img'>Select image:</label><input type="file" id='img' name='img' accept="image/*">->>
-<!--<input type='button' value='Go to items' onclick='mainToSingleCategory(0)'>-->
+
 <label for='editModeButton' id='editModeLabel' class='editSwitch'>Currently in View Mode</label>
 <input type='button' value='Switch to Edit Mode' onclick='editMode()' 
     id='editModeButton' class='editSwitch'>

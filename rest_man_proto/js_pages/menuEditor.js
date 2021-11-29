@@ -533,13 +533,31 @@ function saveCategory(index, categoryId) {
 
     //get values
     let name = document.getElementById('nameInput' + index).value;
-    let img = document.getElementById('imgInput' + index).value;
+    let img = document.getElementById('imgInput' + index).files[0];
     let available = document.getElementById('availableCheckBox' + index).checked;
 
-    let updateObj = { "id": categoryId, "name": name, "img": img, "available": available };
-    console.log(updateObj);
+    //console.log(img);
+
+    //console.log(fileupload.files[0]);
+
+    //upload image
+    if (img) {
+        uploadImg(name, img, categoryId);
+        /*
+        console.log(img);
+        let formDataImg = new FormData();
+        formDataImg.append("file", img);
+        formDataImg.append("name", name);
+        formDataImg.append("id", categoryId);
+        uploadImg(formDataImg);
+        */
+    }
+
+
+    let updateObj = { "id": categoryId, "name": name, "available": available };
+    //console.log(updateObj);
     let updateStr = JSON.stringify(updateObj);
-    console.log(updateStr);
+    //console.log(updateStr);
 
     let httpRequest = new XMLHttpRequest();
     if (!httpRequest) {
@@ -548,7 +566,7 @@ function saveCategory(index, categoryId) {
     }
     httpRequest.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             //redisplay menu.  this acts as a confirmation of the database save
             // because the values will be taken from there again to rebuild the page.
             mainMenu();
@@ -557,6 +575,46 @@ function saveCategory(index, categoryId) {
     httpRequest.open("POST", "../php_pages/menuEditor.php");
     httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     httpRequest.send("categoryUpdate=" + updateStr);
+}
+
+async function uploadImg(name, imgFile, catId){
+    /*
+    console.log(name);
+    console.log(imgFile);
+    console.log(catId);
+    //console.log(formData);
+    */
+    let formData = new FormData();
+    formData.append("file",imgFile);
+    formData.append("name",name);
+    formData.append("id",catId);
+    
+    console.log(formData);
+    console.log(formData.get("name"))
+    console.log(formData.get("file"));
+    console.log(formData.get("id"));
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        console.log('Failed to create instance of XMLHttpRequest');
+        return false;
+    }
+    httpRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+
+        }
+    }
+    httpRequest.open("POST", "../php_pages/menuEditorImgs.php");
+    //httpRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+    httpRequest.send(formData);
+    
+
+    /*
+    await fetch("../php_pages/menuEditorImgs.php",{method:"POST", body: formData})
+        .then(response => response.json());
+    console.log("image uploaded");
+    */
+    
 }
 
 function saveSubcategory(subcategoryID) {
@@ -640,4 +698,28 @@ class item {
         this.newPrice = newPrice;
         this.newAvail = newAvail;
     }
+}
+
+
+function to_dashboard() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            var value = j.responseText;
+            switch (value) {
+                case '0':
+                    location.replace("../html_pages/m_dash.html");
+                    break;
+                case '1':
+                    location.replace("../html_pages/e_dash.html");
+                    break;
+                case '2':
+                    location.replace("../html_pages/c_dash.html");
+                    break;
+            }
+        }
+    };
+    j.open('GET', '../php_pages/get_level.php');
+    j.send();
+
 }

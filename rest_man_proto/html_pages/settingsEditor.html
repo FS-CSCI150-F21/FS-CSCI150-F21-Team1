@@ -6,24 +6,47 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="../js_pages/edit_settings.js"></script>
   <link href="../css_pages/settings.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+  <script src="../js_pages/authorizem.js"></script>
+
 </head>
 
 
-<body onload="get_WaitTime()">
-    <header>
-      <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="../html_pages/menu.html">Menu</a></li>
-        <a href="#Contact">Contact</a></li>
-        <a href="#About">About</a></li>
-        <div class="rightnav">
-          <a href="account.html">Account</a>
-          <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
-          <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-        </div>
+<body onload="get_info_edit(); authorize();">
+  <header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
     </nav>
-    </header>
+  </header>
 
+    <h1>Edit Restaurant Settings</h1>
+    <label for="name_of_rest">Name</label>
+    <input type="text" name="name_of_rest" id="rest_name">
 
+    <label for="location">Location</label>
+    <input type="text" name="location" id="rest_location">
+
+    <label for="open_time">Open Time</label>
+    <input type="time" id="open_time" name="open_time" max="24:00" required>
+    <label for="close_time">Close Time</label>
+    <input type="time" id="close_time" name="close_time" max="24:00" required>
+
+    <legend>Days open</legend>
+    <input type="checkbox" name="days" value="Sunday">Su<br> 
+    <input type="checkbox" name="days" value="Monday">M<br>      
+    <input type="checkbox" name="days" value="Tuesday">T<br>      
+    <input type="checkbox" name="days" value="Wednesday">W<br>
+    <input type="checkbox" name="days" value="Thursday">Th<br> 
+    <input type="checkbox" name="days" value="Friday">F<br> 
+    <input type="checkbox" name="days" value="Saturday">S<br>   
+
+    <button type="button" onclick="send_info()">Save</button>
 </body>
 </html>

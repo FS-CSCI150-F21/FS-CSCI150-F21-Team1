@@ -4,41 +4,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/login.js"></script>
-  <script src="../js_pages/e_CheckInOut.js"></script>
+  <script src="../js_pages/employeeCheckInOut.js"></script>
+  <script src="../js_pages/authorizee.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/e_dash.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
 </head>
 
 
-<body onload="get_WaitTime()">
-    <header>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="contact.html">Contact</a>
-        <a href="#About">About</a>
-        <div class="rightnav">
-            <a href="account.html">Account</a>
-        </div>
-    </nav>
-    </header>
+<body onload="get_WaitTime(); authorize();">
+  <header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+      <div class="rightnav">
 
-    <div id="Body">
-      <h1 id="Welcome">Employee</h1>
-      <div>
-          <button>Order food</button>
-          <button>Menu</button>
-          <button>Current Orders</button>
-          <button onclick="CheckIn()" id="CheckIn">Check In</button>
-          <button onclick="CheckOut()" id="CheckOut" hidden=true>Check Out</button>
-          <button><a href="inventory.html">Inventory</a></button>
-          <button><a href="timesheet_e.html">Timesheet</a></button>
+        <button type="button" onclick="logout()" class="logout_btn"><i class="fas fa-sign-out-alt"></i></button>
+
+    </nav>
+  </header>
+
+    <div style="text-align: center;">
+      <h1>Employee</h1>
+      <div class="button_container">
+
+          <button class="feature_button" onclick="CheckIn()">Check In</button>
+          <button class="feature_button" onclick="CheckOut()" hidden=true>Check Out</button>
+
+          <button class="feature_button" onclick="window.location='orderPage.html'">Order food</button>
+          <button class="feature_button" onclick="window.location='menuEditor.html'">Menu Editor</button>
+          <button class="feature_button" onclick="window.location='currentOrders.html'">Current Orders</button>
+          <button class="feature_button" onclick="window.location='inventory.html'">Time sheets</button>
+      </div>
+
+
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
           <p>Number of people in line: <span id="numInLine"></span></p>
           <p>Wait time: <span id="waittime"></span></p>
           <p>Updated time: <span id="updatedtime"></span></p>
-      </div>
+      
     </div>
 
 </body>

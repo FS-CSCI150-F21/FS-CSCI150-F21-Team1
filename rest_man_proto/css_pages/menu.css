@@ -1,54 +1,60 @@
-/*
-*{
-    margin: 0;
-    padding: 0;
-}
-*/
-.nav
-{
-    background-color: rgba(255, 255, 255, 0);
-    padding: 20px;
-}
-.nav a
-{
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 500;
-    color:rgb(159, 159, 159);
+body{
+    background: linear-gradient(to right, #f9e6fa, #daffd9, #fff9df);
+    font-family: 'Trebuchet MS', sans-serif;
     text-decoration: none;
+    animation: gradient 25s ease infinite;
+    background-size: 400% 400%;
 }
-.nav a:hover{
-    color: rgb(5, 95, 96);
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
-.rightnav
-{
+
+.nav {
+    margin-top: 15px;
+    padding: 0px 20px 10px 20px;
+    border-bottom: 3px solid black;
+}
+
+.navicons {
+    cursor: pointer;
+    font-size: 30px;
+    width: 65px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
+}
+.navicons:hover {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
+}
+
+.rightnav {
     float: right;
 }
-button
-{
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    text-decoration: none;
-}
-button a{
-    text-decoration: none;
-    color: rgb(165, 91, 0);
-    font-weight: 700;
-}
-button a:hover{
-    color:rgb(209, 115, 0);
-    font-size:15px;
+
+.accountBtn, .dash_btn, .logout_btn  {
+    cursor: pointer;
+    font-size: 30px;
+    width: 85px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
 }
 
-html {
-    /*background-color: #000a0b;*/
-    color: #055f60;
-}
-
-body {
-    background-image: url(../images/background.png);
-    margin: 0 0;
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
 }
 
 /*
@@ -83,8 +89,6 @@ h1 {
 }
 
 td.catName {
-    background-image: url(../images/background.png);
-    color: rgb(5, 95, 96);
     text-align:center;
     
 }
@@ -95,8 +99,7 @@ td.catName:hover{
 }
 */
 
-td.odd {
-    background-color: rgb(255, 255, 255);
+td.odd {;
 }
 
 #catTbl td {
@@ -131,20 +134,20 @@ nav {
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
 	user-select: none; /* Standard */
+
 }
 
 nav ul {
     list-style-type: none;
     margin: 0 0 0 0;
     padding: 0;
-    color: white;
     text-align: center;
 }
 
 nav ul li {
     padding: 1vh 1vw;
-    background-color: #055f60;
     display: inline-block;
+    cursor: pointer;
 }
 
 nav ul li:hover {
@@ -153,7 +156,6 @@ nav ul li:hover {
 }
 
 #selectedNavItem {
-    color: black;
 }
 
 #selectedNavItem:hover {
@@ -222,8 +224,7 @@ td.itemPrice {
 }
 
 th#viewOrder{
-    background-color: #055f60;
-    color: white;
+    
 }
 
 

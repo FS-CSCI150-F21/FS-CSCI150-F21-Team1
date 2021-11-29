@@ -5,41 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="../js_pages/login.js"></script>
+  <script src="../js_pages/authorizem.js"></script>
   <link href="../css_pages/m_dash.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
 </head>
 
 
-<body onload="a()">
+<body onload="update_wt(); authorize();">
     <header>
       <nav class="nav">
-        <a href="index.html">Home</a></li>
-        <a href="../html_pages/menu.html">Menu</a></li>
-        <a href="#Contact">Contact</a></li>
-        <a href="#About">About</a></li>
+        <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+        <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+        <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+        <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
         <div class="rightnav">
-          <a href="account.html">Account</a>
-          <a><button type="button" id="logout" onclick="to_dashboard()" >Dashboard</button></a>
-          <a><button type="button" id="logout" onclick="logout()" >Log Out</button></a>
-        </div>
-    </nav>
+  
+          <button type="button" onclick="logout()" class="logout_btn"><i class="fas fa-sign-out-alt"></i></button>
+
+      </nav>
     </header>
 
-    <div id="Body">
-      <h1 id="Welcome">Manager</h1>
-      <div>
-          <button><a href="employeeList.html">Employee Information</a></button>
-          <button><a href="users.html">View Users</a></button>
-          <button><a href="orderPage.html">Order food</a></button>
-          <button><a href="menuEditor.html">Menu Editor</a></button>
-          <button><a href="currentOrders.html">Current Orders</a></button>
-          <button><a href="timesheet_m.html">Timesheet</a></button>
-          <button><a href="completedOrders.html">Completed Orders</a></button>
-          <button><a href="inventory.html">Inventory</a></button>
-          <button><a href="tableEditor.html">Table Editor</a></button>
-          <button><a href="viewLayout.html">View Layout</a></button>
-          <button><a href="settingsEditor.html">Edit Settings</a></button>
+    <div style="text-align: center;">
+      <h1>Manager Dashboard</h1>
+      <div class="button_container">
+          <button class="feature_button" onclick="window.location='employeeList.html'">Employee Information</button>
+          <button class="feature_button" onclick="window.location='users.html'">View Users</button>
+          <button class="feature_button" onclick="window.location='orderPage.html'">Order food</button>
+          <button class="feature_button" onclick="window.location='menuEditor.html'">Menu Editor</button>
+          <button class="feature_button" onclick="window.location='currentOrders.html'">Current Orders</button>
+          <button class="feature_button" onclick="window.location='timesheet.html'">Time sheets</button>
+          <button class="feature_button" onclick="window.location='completedOrders.html'">Completed Orders</button>
+          <button class="feature_button" onclick="window.location='inventory.html'">Inventory</button>
+          <button class="feature_button" onclick="window.location='tableEditor.html'">Table Editor</button>
+          <button class="feature_button" onclick="window.location='viewLayout.html'">View Tables</button>
+          <button class="feature_button" onclick="window.location='settingsEditor.html'">Edit Settings</button>
+          <button class="feature_button" onclick="window.location='viewMessages.html'">View Messages</button>
 
-
+      </div>
 
           <h2>Estimated Waiting Time:</h2>
           <p>Number of people inside: <span id="numInside"></span></p>
@@ -47,8 +50,7 @@
           <p>Wait time: <span id="waittime"></span></p>
           <p>Updated time: <span id="updatedtime"></span></p>
 
-
-      </div>
+      
     </div>
 
 </body>

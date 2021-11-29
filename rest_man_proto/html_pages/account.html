@@ -8,6 +8,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="../css_pages/account.css" rel="stylesheet">
   <link href="../css_pages/page_transition.css" rel="stylesheet">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
   
 </head>
 
@@ -18,39 +19,57 @@
   </script>
 
   <header>
-      <nav>
-        <nav class="nav">
-          <a href="index.html">Home</a>
-          <a href="menu.html">Menu</a>
-          <a href="contact.html">Contact</a>
-          <a href="#About">About</a>
-          <div class="rightnav">
-              <a href="account.html">Account</a>
-          </div>
-      </nav>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+    
+      <div class="rightnav">
+
+        <div id="btn_logout">
+
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          <button type="button" onclick="logout()" class="logout_btn"><i class="fas fa-sign-out-alt"></i></button>
+          <button type="button" class="accountBtn" id="accBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
+
+        </div>
+
+
+
+      </div>
+    </nav>
   </header>
 
-  
 
   <div id="login_form" class="loginform">
-    <h1>Log In</h1>
-    <label for="username">Username</label><br>
-    <input type="text" id="username" placeholder="Username" required><br><br>
-    <label for="passowrd">Password</label><br>
-    <input type="password" id="password" placeholder="Password" required><br><br>
-    <label for="level">Access Level</label><br>
-    <select name="level" id="user_level">
+    <h1> Account </h1>
+
+    <div class="u">
+      <i class="fas fa-user"></i>
+      <input type="text" id="username" placeholder="Username" required><br>
+    </div>
+    
+    <div class="p">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="password" placeholder="Password" required><br>
+    </div>
+
+
+    <select name="level" id="user_level" class="lvl_select">
       <option value="0">Manager</option>
       <option value="1">Employee</option>
       <option value="2">Customer</option>
-    </select>    <br><br>
-    <button type="button" onclick="login()">Log In</button><br><br>
-    <button type="button" onclick="document.getElementById('customer_modal').style.display='block'">New Customer? Click Here to Create Account</button>
+    </select>  <br>
+
+    <button type="button" onclick="login()" class="login_btn" id="log_btn">Log In</button> <br>
+
+    <button type="button" onclick="document.getElementById('customer_modal').style.display='block'" class="cust_btn">New Customer? Click Here to Create Account</button>
+  
   </div>
-  <div id="btn_logout">
-    <button type="button" onclick="to_dashboard()">Dashboard</button>
-    <button type="button" onclick="logout()" >Log Out</button>
-  </div>
+
+
   
   <div id="response"></div>
 
@@ -72,8 +91,6 @@
     </div>
   </div>
 
-  <!-- <p id="user_info">
-  </p> -->
 
 </body>
 </html>

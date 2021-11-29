@@ -3,7 +3,7 @@ var length;
 var i;
 
 window.onload = function () {
-    get_users();
+    
 }
 
 function create_user_rows(){
@@ -13,21 +13,22 @@ function create_user_rows(){
         var f_name = row.insertCell(-1);
         var l_name = row.insertCell(-1);
         var username = row.insertCell(-1);
-        var password = row.insertCell(-1);
+        // var password = row.insertCell(-1);
         var level = row.insertCell(-1);
         var edit = row.insertCell(-1);
         var element = document.createElement("button");
         element.type = "button";
-        
         element.innerHTML = '<i class="fas fa-trash"></i>';
         element.className ="deleteBtn"
+
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
+        
         f_name.innerHTML = user_array[i]['first_name'];
         l_name.innerHTML = user_array[i]['last_name'];
         username.innerHTML = user_array[i]['username'];
-        password.innerHTML = user_array[i]['password'];
+        // password.innerHTML = user_array[i]['password'];
         level.innerHTML = level_to_name(user_array[i]['level']);
         edit.appendChild(element);
     }
@@ -78,3 +79,26 @@ function delete_user(data){
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("u=" + user);
 }
+
+function to_dashboard() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+      if (j.readyState == 4 && j.status == 200) {
+        var value = j.responseText;
+        switch (value) {
+          case '0':
+            location.replace("../html_pages/m_dash.html");
+            break;
+          case '1':
+            location.replace("../html_pages/e_dash.html");
+            break;
+          case '2':
+            location.replace("../html_pages/c_dash.html");
+            break;
+        }
+      }
+    };
+    j.open('GET', '../php_pages/get_level.php');
+    j.send();
+  
+  }

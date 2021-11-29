@@ -1,40 +1,112 @@
 <!DOCTYPE html>
+<meta charset='utf-8'>
 <html>
+
 <head>
     <title>Current Orders</title>
-    <link rel="stylesheet" type="text/css" href="../css_pages/users.css">
+    <link rel="stylesheet" type="text/css" href="../css_pages/currentOrders.css">
     <script src="../js_pages/login.js"></script>
+    <script src="../js_pages/ordersCurrent.js"></script>
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            /*prevent text highlights*/
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+/Edge */
+            user-select: none;
+            /* Standard */
+        }
+
+        ul li {
+            background-color: black;
+            float: right;
+            padding: 1vh 1vw;
+            color: white;
+        }
+
+        .currentViewButton {
+            background-color: green;
+        }
+
+        #ordersTable {
+            text-align: center;
+            /*prevent text highlights*/
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+/Edge */
+            user-select: none;
+            /* Standard */
+        }
+        .nameColumn{
+            width: 60%;
+            text-align: left;
+        }
+    </style>
 </head>
 <header>
 </header>
-<body>
+
+<body onload='load()'>
     <header>
         <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="menu.html">Menu</a>
-            <a href="contact.html">Contact</a>
-            <a href="#About">About</a>
-            <div class="rightnav">
-                <a href="account.html">Account</a>
-            </div>
+          <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+          <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+          <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+          <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+    
+          <div class="rightnav">
+              <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          </div>
         </nav>
       </header>
-    
-    <div id="Body">
-        <h1 id="Welcome">Current Orders</h1>
+
+    <ul>
+        <li onclick='viewTrackerInstance.changeView("server")' id='serverViewButton' class='currentViewButton'>Server
+            View</li>
+        <li onclick='viewTrackerInstance.changeView("kitchen")' id='kitchenViewButton'>Kitchen View</li>
+    </ul>
+
+    <div>
+        <!--
         <table>
             <thead class="tableHead">
                 <tr>
-                    <th>Order number</th>
-                    <th>Togo/Dine-in</th>
+                    <th>Order #</th>
+                    <th>Table</th>
                     <th>Status</th>
-                    <th>Items</th>
-                    <th>Created time</th>
-                    <th>Action</th>
+                    <th>Created</th>
+                    <th>Paid</th>
+                    <th hidden>Action</th>
+                     Two views: kitchen and server.
+                        Kitchen: cooks can change order statuses from Kitchen 
+                        to ready.  Shows break down of orders into component
+                        menu items and provides action button to declared each ready.
+                        When all items of an order are ready, the entire order is
+                        marked as ready.  It is removed from the kitchen view once
+                        status is marked as "served" by a server.
+                        Servers: can click order to get more details and abilities
+                        in the 'orderPage' (a single order view) where the status 
+                        can be changed from "ready" to "served", and "served" to "closed" (after paid).  
+                        Defaults to server view since they will be most likely to 
+                        bounce around app to other parts often whereas cooks will 
+                        only need the one page.
                 </tr>
             </thead>
-            </tbody>
+            </tbody id='tBody'>
         </table>
+    -->
     </div>
 </body>
+
 </html>

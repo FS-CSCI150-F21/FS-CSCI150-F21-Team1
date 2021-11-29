@@ -51,6 +51,7 @@ function checkUserAndCurOrder() {
                 // and populate this.order object with database
                 // information, or create new order
                 let openOrder = httpRequest.responseText;
+                console.log(openOrder);
                 //console.log(order);
                 //console.log(JSON.parse(order));
                 if (openOrder) {
@@ -396,3 +397,26 @@ function updateOrderDisplay() {
 
 }
 */
+
+function to_dashboard() {
+    var j = new XMLHttpRequest();
+    j.onreadystatechange = function () {
+      if (j.readyState == 4 && j.status == 200) {
+        var value = j.responseText;
+        switch (value) {
+          case '0':
+            location.replace("../html_pages/m_dash.html");
+            break;
+          case '1':
+            location.replace("../html_pages/e_dash.html");
+            break;
+          case '2':
+            location.replace("../html_pages/c_dash.html");
+            break;
+        }
+      }
+    };
+    j.open('GET', '../php_pages/get_level.php');
+    j.send();
+  
+  }

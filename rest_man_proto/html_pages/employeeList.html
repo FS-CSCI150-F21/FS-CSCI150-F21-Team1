@@ -5,24 +5,25 @@
     <link rel="stylesheet" type="text/css" href="../css_pages/employees.css"> 
     <link rel="stylesheet"  type="text/css" href="../icons/all.css">
     <script src="../js_pages/employees.js"></script>
+    <script src="../js_pages/authorizee.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <header>
 </header>
-<body onload="get_employees()">
-<!-- <a class ="navigate" href="login.html"><br>Login/Sign Up</a></li> -->
-
-    <!--Nav bar-->
+<body onload="get_employees(); authorize();">
+  <header>
     <nav class="nav">
-        <a href="index.html" class="test"><i class="fas fa-home"></i></a></li>
-        <a href="menu.html" class="test"><i class="fas fa-utensils"></i></a></li>
-        <a href="contact.html" class="test"><i class="fas fa-envelope"></i></a></li>
-        <a href="about.html" class="test"><i class="fas fa-info"></i></a></li>
-    
-        <div class="rightnav">
-          <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
-        </div>
-      </nav>
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+  </header>
     
     <div>
         <table>

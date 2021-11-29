@@ -4,22 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="../js_pages/get_layout.js"></script>
+  <script src="../js_pages/reservations.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link rel="stylesheet" href="../css_pages/viewLayout.css">
+  <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
 </head>
 
-<body onload="set_table()">
+<body onload="set_table(); get_tables();">
   <header>
-      <nav>
-        <nav class="nav">
-          <a href="index.html">Home</a>
-          <a href="#Menu">Menu</a>
-          <a href="#Contact">Contact</a>
-          <a href="#About">About</a>
-          <div class="rightnav">
-              <a href="account.html">Account</a>
-          </div>
-      </nav>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
   </header>
    
   <div class="gridcontainer">
@@ -30,6 +34,21 @@
       </table>
   </div>
 
+  <div id="add_modal" class="modal">
+    <div class="modal-content" id="reservation_buttons">
+      <table>
+        <thead id="tabletitle" style="font-size: 35px;">
+        </thead>
+        <tbody id="reservation_list"></tbody>
+      </table>
+      <div id="reservation_text"></div>
+      <div class="container">
+        <button type="button" onclick="save_reservations()" class="resBtn">Save Reservation</button>
+        <button type="button" onclick="hide_modal()" class="closeBtn"><i class="fas fa-window-close"></i></button>
+        <div id="test" style="color: white;"></div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

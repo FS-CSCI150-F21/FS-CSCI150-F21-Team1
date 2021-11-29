@@ -1,0 +1,74 @@
+body{
+  background-image: linear-gradient(to right, #e6faee, #fff4d9, #ffdfe0);
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.nav {
+  margin-top: 15px;
+  padding: 0px 20px 10px 20px;
+  border-bottom: 3px solid black;
+}
+
+.navicons {
+  cursor: pointer;
+  font-size: 30px;
+  width: 65px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
+}
+.navicons:hover {
+  transform: scale(1.5, 1.5);
+  color: #ffa274;
+}
+ 
+.rightnav {
+    float: right;
+}
+.accountBtn, .dash_btn, .logout_btn  {
+  cursor: pointer;
+  font-size: 30px;
+  width: 85px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  transition: transform .25s ease-in-out;
+}
+
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+  transform: scale(1.5, 1.5);
+  color: #ffa274;
+}
+
+.content {
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+input[type=checkbox]{
+  transform: scale(2);
+  padding: 10px;
+
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+
+}
+
+
+.days_table{
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 30px;
+}
+
+.days_container{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+

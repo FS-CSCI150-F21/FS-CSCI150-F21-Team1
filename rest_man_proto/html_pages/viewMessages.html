@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+    <link href="../css_pages/messages.css" rel="stylesheet">  
+    <script src="../js_pages/authorizem.js"></script>
+    <script src="../js_pages/get_messages.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  </head>
+<header>
+  
+</header>
+<body onload="authorize(); get_messages();">
+  <header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+  </header>
+
+
+
+  <table>
+    <caption class="tableTitle">MESSAGES</caption>
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Subject</th>
+          <th>Time</th>
+          <th>Message</th>
+        </tr>
+    </thead>
+    <tbody id="message_list">
+    </tbody>
+  </table>
+
+  <div id="add_modal" class="modal">
+    <div class="container">
+      <button type="button" onclick="hide_modal()" class="closeBtn"><i class="fas fa-window-close"></i></button>
+      <div id="test" style="color: white;"></div>
+    </div>
+    <div class="modal-content">
+
+      <p id="current_message"></p>
+
+    </div>
+  </div>
+<script>
+
+</script>
+</body>
+</html>

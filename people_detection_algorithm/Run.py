@@ -33,13 +33,14 @@ def run():
     args = vars(ap.parse_args())
 
     # DB setup
-    
-    HOST = "0.tcp.ngrok.io"
-    PORT = "16677"
+    #HOST = "localhost"
+    HOST = "3.tcp.ngrok.io"
+    PORT = "26206"
     DATABASE = "rest_info"
     USER = "rest_manager"
     PASSWORD = "iF2ONNbmcCTcdjrd"
     db_connection = mysql.connect(host=HOST, port=PORT, database=DATABASE, user=USER, password=PASSWORD)
+    #db_connection = mysql.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD)
     print("Connected to:" , db_connection.get_server_info())
     cursor = db_connection.cursor()
 

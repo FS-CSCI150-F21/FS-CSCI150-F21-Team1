@@ -15,10 +15,10 @@ if ($conn->connect_error) {
 }
 
 if($just_one == 1){
-  $sql = "SELECT id,capacity FROM table_info WHERE id='$table_id'";
+  $sql = "SELECT id,capacity,reservations FROM table_info WHERE id='$table_id'";
 }
 else{
-  $sql = "SELECT id,capacity FROM table_info";
+  $sql = "SELECT id,capacity,reservations FROM table_info";
 }
 
 
@@ -27,7 +27,8 @@ $results = $conn->query($sql);
 $rows = array();
 
 while($r = mysqli_fetch_assoc($results)) {
-    $rows[] = $r;
+  $r["reservations"] = unserialize($r["reservations"]);
+  $rows[] = $r;
 }
 echo json_encode($rows);
 

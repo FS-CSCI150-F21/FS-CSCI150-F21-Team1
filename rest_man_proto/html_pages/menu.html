@@ -5,22 +5,25 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../css_pages/menu.css">
     <script src="../js_pages/menu.js"></script>
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+
     <title id='title'>
         Menu: Categories
     </title>
 
 </head>
+<header>
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
 
-<!--Nav bar-->
-<nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="menu.html">Menu</a>
-    <a href="contact.html">Contact</a>
-    <a href="#About">About</a>
-    <div class="rightnav">
-        <a href="account.html">Account</a>
-    </div>
-</nav>
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+  </header>
 
 <body onload='load()' >
     <h1 id='h1Title'>Menu</h1>

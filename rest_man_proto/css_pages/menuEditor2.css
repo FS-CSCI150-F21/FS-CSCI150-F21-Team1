@@ -1,35 +1,61 @@
-/*
-*{
-    margin: 0;
-    padding: 0;
-}
-*/
-
-html {
-    /*background-color: #000a0b;*/
-    color: #055f60;
-    text-align: center;
+body{
+    background: linear-gradient(to right, #f9e6fa, #daffd9, #fff9df);
+    font-family: 'Trebuchet MS', sans-serif;
+    text-decoration: none;
+    animation: gradient 25s ease infinite;
+    background-size: 400% 400%;
 }
 
-body {
-    margin: 0 0;
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-/*
-h1,
-h2 {
-    text-align: left;
-}
-*/
-#h1Title {
-    display: none;
+.nav {
+    margin-top: 15px;
+    padding: 0px 20px 10px 20px;
+    border-bottom: 3px solid black;
 }
 
-h1 {
-    margin: 1vh 0 1vh 5vw;
+.navicons {
+    cursor: pointer;
+    font-size: 30px;
+    width: 65px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
+}
+.navicons:hover {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
 }
 
+.rightnav {
+    float: right;
+}
 
+.accountBtn, .dash_btn, .logout_btn  {
+    cursor: pointer;
+    font-size: 30px;
+    width: 85px;
+    border: none;
+    color: black;
+    background-color: transparent;
+    transition: transform .25s ease-in-out;
+}
+
+.accountBtn:hover, .dash_btn:hover, .logout_btn:hover  {
+    transform: scale(1.5, 1.5);
+    color: #ffa274;
+}
 
 
 #catTbl caption,
@@ -50,7 +76,7 @@ h1 {
 }
 
 td.catName {
-    background-color: white;
+    background-color: rgba(0,0,0,0);
     text-align: center;
 }
 

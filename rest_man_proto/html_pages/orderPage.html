@@ -6,37 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css_pages/orderPage.css">
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+    <script src="../js_pages/authorizec.js"></script>
+
     <title>Order</title>
     <script src="../js_pages/orders.js"></script>
 </head>
 
-<body onload="load()">
+<body onload="load(); authorize();">
     <header>
         <nav class="nav">
-            <a href="index.html">Home</a></li>
-            <a href="menu.html">Menu</a></li>
-            <div class="rightnav">
-                <a href="account.html">Account</a>
-            </div>
+          <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+          <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+          <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+          <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+    
+          <div class="rightnav">
+              <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+          </div>
         </nav>
-    </header>
+      </header>
 
-    <table id='employeeFunctions' class='employeePrivilege'>
+    <ul id='employeeFunctions' class='employeePrivilege'>
+        <li id='newOrder' onclick='newOrder()'>New Order</li>
+        <li id='kitchen' onclick='kitchen()'>Send to Kitchen</li>
+        <li id='served' onclick='served()'>Mark as Served</li>
+        <li id='openOrders' onclick='openOrders()'>Open Orders</li>
+    </ul>
+    <table>
         <tr>
-            <td id='newOrder' onclick='newOrder()'>New Order</td>
-            <td id='kitchen' onclick='kitchen()'>Send to Kitchen</td>
+
         </tr>
     </table>
 
-    <h1 id="Welcome">Order</h1>
     <table id='statsTable'>
+        <caption class="tableTitle">ORDER</caption>
         <thead class="tableHead">
             <tr>
                 <th>Order #</th>
-                <th>Table</th>
-                <!--Togo vs Dine-in-->
+                <th class='employeePrivilege'>Table</th>
+                <th class='employeePrivilege'>Party Size</th>
                 <th>Status</th>
-                <!--Submitted to kitchen, Ready, Delivered to Customer, Closed-->
                 <th>Created</th>
                 <th>Last Modified</th>
 
@@ -46,6 +56,7 @@
             <tr id='statsRow'>
                 <td id='orderNumber'></td>
                 <td id='table'></td>
+                <td id='partySize'></td>
                 <td id='orderStatus'></td>
                 <td id='creationTime'></td>
                 <td id='lastModified'></td>
@@ -66,24 +77,22 @@
         </tbody>
         <tfoot id='itemsTableFooter'></tfoot>
     </table>
-                <!-- Move "Action" to beneath items table.
+    <!-- Move "Action" to beneath items table.
                      Submit to kitchen, pay bill-->
 
     <table id='paymentTable'>
         <caption>Payment</caption>
         <thead>
-            <th id = 'paymentOptionCC' onclick='paymentInstance.cC()'>
+            <th id='paymentOptionCC' onclick='paymentInstance.cC()'>
                 Credit Card
             </th>
-            <th id ='paymentOptionCash' class='employeePrivilege' 
-                onclick='paymentInstance.cash()'>Cash</th>
+            <th id='paymentOptionCash' class='employeePrivilege' onclick='paymentInstance.cash()'>Cash</th>
         </thead>
         <tbody id='paymentTableBody'>
         </tbody>
         <tfoot>
             <tr>
-                <td id='completeTransaction' colspan=3 hidden 
-                    onclick='paymentInstance.completeTransaction()'>
+                <td id='completeTransaction' colspan=3 hidden onclick='paymentInstance.completeTransaction()'>
                     Complete Transaction
                 </td>
             </tr>
