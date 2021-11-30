@@ -282,8 +282,9 @@ def run():
                         sql_prep_time = "SELECT SUM(prep_time) FROM open_order_info"
                         cursor.execute(sql_prep_time)
                         prep_time = cursor.fetchone()[0]
-
-                        #performs calcuations
+                        if prep_time is None:
+                            prep_time = 0
+                        #performs calculations
                         people_in_line = x - dine_in_sum;
                         valz = [x, people_in_line, prep_time, noww]
                         sql_insert = """INSERT INTO people_count (num_people_inside, num_people_in_line, wait_time, date_time) VALUES (%s,%s,%s,%s)"""
