@@ -72,6 +72,9 @@ function add_inventory() {
       currentQuantity: currentQuantity,
       requiredQuantity: requiredQuantity,
     };
+    document.getElementById("modal_name").innerHTML="";
+    document.getElementById("modal_currentQuantity").innerHTML="";
+    document.getElementById("modal_requiredQuantity").innerHTML="";
 
     var j_iteminfo = JSON.stringify(created_inventory);
     if (name) {
@@ -178,5 +181,4 @@ function add_samples_inventory() {
           j.send("inventory=" + j_iteminfo);
     }
     get_inventory();
-
 }

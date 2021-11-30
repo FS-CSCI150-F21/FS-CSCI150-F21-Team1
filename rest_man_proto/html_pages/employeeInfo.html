@@ -14,22 +14,25 @@
 
     <!--Nav bar-->
     <nav class="nav">
-        <a href="index.html" class="test"><i class="fas fa-home"></i></a></li>
-        <a href="menu.html" class="test"><i class="fas fa-utensils"></i></a></li>
-        <a href="contact.html" class="test"><i class="fas fa-envelope"></i></a></li>
-        <a href="about.html" class="test"><i class="fas fa-info"></i></a></li>
-    
-        <div class="rightnav">
-          <button type="button" class="accountBtn" onclick="window.location='account.html'"><i class="fas fa-user-circle"></i></button>
-        </div>
-      </nav>
-    
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+    <button onclick="window.location='employeeList.html'" type="button" class="back"><i class="fas fa-long-arrow-alt-left"></i></i></button>
     <h1 style="text-align:center">EMPLOYEE INFORMATION</h1>
-    <div id="f_name"></div>
-    <div id="l_name"></div>
-    <div id="email"></div>
-    <div id="phone"></div>
-    <div id="position"></div>
-    <div id="wage"></div>
+    <img src="../images/avatar.jpg" width=300px id="avatar"></img>
+    <div class="info_box">
+      <div class="info_content" id="f_name"></div>
+      <div class="info_content" id="l_name"></div>
+      <div class="info_content" id="email"></div>
+      <div class="info_content" id="phone"></div>
+      <div class="info_content" id="position"></div>
+      <div class="info_content" id="wage"></div>
+    </div>
 </body>
 </html>

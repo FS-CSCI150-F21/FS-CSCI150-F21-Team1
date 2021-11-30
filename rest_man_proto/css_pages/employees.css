@@ -199,3 +199,34 @@ table tbody tr:hover {
 .tableTitle{
   font-size: 30px;
 }
+.info_box{
+  margin-top:10%;
+  margin-left: 55%;
+}
+.info_content
+{
+  padding-bottom:25px;
+}
+#avatar{
+  display: flex;
+  float: left;
+  margin-left: 20%;
+  border-radius: 50%;
+  opacity: 0.8;
+  border:2px solid rgb(54, 54, 54);
+  margin-top:5%;
+}
+.back
+{
+  background-color: black;
+  color:white;
+  font-size: 40px;
+  border-radius: 30%;
+  width: 6.5%;
+  padding: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+h1{
+  margin-top: 0;
+}

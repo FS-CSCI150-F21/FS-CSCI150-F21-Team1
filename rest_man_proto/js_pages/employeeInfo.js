@@ -11,6 +11,7 @@ function update(){
                 document.getElementById("l_name").innerHTML = "Last name: " + employee['last_name'];
                 document.getElementById("email").innerHTML = "Email: " + employee['email'];
                 document.getElementById("phone").innerHTML = "Phone number: " + employee['phone'];
+                document.getElementById("position").innerHTML = "Position: " + employee['position'];
                 document.getElementById("wage").innerHTML = "Wage: " + employee['wage'];
             }
     };
