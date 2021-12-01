@@ -1,8 +1,7 @@
+var employee;
 function update(){
     var a = window.location.hash;
     var username=a.substring(1,a.length); //eliminate # 
-
-
     var j = new XMLHttpRequest();
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
@@ -18,6 +17,56 @@ function update(){
     j.open('POST', '../php_pages/getAnEmployee.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("username="+ username);
+}
+function edit_employee(){
+        document.getElementById("f_name").innerHTML="First name: "+ employee['first_name']+ "<input id=\"Inf_name\"></input>";
+        document.getElementById("l_name").innerHTML="Last name: " + employee['last_name']+ "<input id=\"Inl_name\"></input>";
+        document.getElementById("email").innerHTML="Email: " + employee['email']+ "<input id=\"Inemail\"></input>";
+        document.getElementById("phone").innerHTML="Phone number: " + employee['phone']+ "<input id=\"Inphone\"></input>";
+        document.getElementById("position").innerHTML="Position:"  + employee['position']+ "<input id=\"Inposition\"></input>";
+        document.getElementById("wage").innerHTML="Wage: " + employee['wage']+ "<input id=\"Inwage\"></input> <button onclick=\"edit()\">EDIT</button>";
+    }
+function edit(){
+    f_name = document.getElementById("Inf_name").value;
+    l_name = document.getElementById("Inl_name").value;
+    email = document.getElementById("Inemail").value;
+    phone = document.getElementById("Inphone").value;
+    position = document.getElementById("Inposition").value;
+    wage = document.getElementById("Inwage").value;
+    if(f_name == "")
+    {
+        f_name=employee['first_name'];
+    }
+    if (l_name == "")
+    {
+        l_name=employee['last_name'];
+    }
+    if (email == "")
+    {
+        email=employee['email'];
+    }
+    if (phone == "")
+    {
+        phone=employee['phone'];
+    }
+    if (position == "")
+    {
+        position=employee['position'];
+    }
+    if (wage == "")
+    {
+        wage=employee['wage'];
+    }
+    var j = new XMLHttpRequest();
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                alert(j.responseText);
+                update();
+            }
+    };
+    j.open('POST', '../php_pages/update_employee.php');
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send("fname=" + f_name + "&lname=" + l_name + "&email=" + email+ "&phone=" + phone+ "&position=" + position+ "&wage=" + wage);
 }
 // var user_array;
 // var length;

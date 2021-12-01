@@ -45,9 +45,6 @@ function create_user_rows(){
     });
 }
 
-function update(){
-    console.log("hi");
-}
 function get_employees(){
     document.getElementById("employee_list").innerHTML = "";
     var j = new XMLHttpRequest();
