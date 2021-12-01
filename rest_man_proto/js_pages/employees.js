@@ -9,10 +9,8 @@ function create_user_rows(){
         var row = users.insertRow(-1);
         var f_name = row.insertCell(-1);
         var l_name = row.insertCell(-1);
-        var email = row.insertCell(-1);
         var phone = row.insertCell(-1);
         var position = row.insertCell(-1);
-        var wage = row.insertCell(-1);
 
         var edit = row.insertCell(-1);
         //Delete button
@@ -34,10 +32,8 @@ function create_user_rows(){
 
         f_name.innerHTML = user_array[i]['first_name'];
         l_name.innerHTML = user_array[i]['last_name'];
-        email.innerHTML = user_array[i]['email'];
         phone.innerHTML = user_array[i]['phone'];
         position.innerHTML = user_array[i]['position'];
-        wage.innerHTML = user_array[i]['wage'];
 
         edit.appendChild(element);
         edit.appendChild(editBtn);
