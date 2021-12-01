@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "SELECT first_name,last_name,phone,email,position,wage, username FROM user_info WHERE level = 1";
+$sql = "SELECT first_name,last_name,phone,position, username FROM user_info WHERE level = 1";
 
 $results = $conn->query($sql);
 
