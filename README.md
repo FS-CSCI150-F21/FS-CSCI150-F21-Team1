@@ -1,6 +1,13 @@
-# FS-CSCI150-F21-Team1
-Team1
+# ResTips - Interactive Restaurant Webapp for Managers, Employees, and Customers
 
+# Team Members
+- Long Nguyen: Project Leader and Hardware Developer
+- Michael Nugent: Fullstack Developer
+- Arandeep Hayer: Fullstack Developer
+- Vi Nguyen: Front End Developer
+- Daniel Martinez: Front End Developer 
+
+# Installation Notes
 MySQLi
 In order to work on any pages related to the mySQL database, it is necessary to have the MySQLi PHP extension installed.  It enables PHP to communicate with the MySQL database.  The scripts to create the database, tables, records, and user should be found under the sql directory.
 
