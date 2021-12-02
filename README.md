@@ -4,8 +4,8 @@
 - Long Nguyen: Project Leader and Hardware Developer
 - Michael Nugent: Fullstack Developer
 - Arandeep Hayer: Fullstack Developer
-- Vi Nguyen: Front End Developer
-- Daniel Martinez: Front End Developer 
+- Vi Nguyen: Front-End Developer
+- Daniel Martinez: Front-End Developer 
 
 # Installation Notes
 MySQLi
