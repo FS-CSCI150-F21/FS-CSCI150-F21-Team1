@@ -7,7 +7,7 @@
 - Vi Nguyen: Fullstack Developer
 - Daniel Martinez: Front-End Developer 
 
-# Developement Process - Agile Incremental Approach
+# Developement Process - Agile Iterative Approach
 ![Incremental Agile](https://github.com/FS-CSCI150-F21/FS-CSCI150-F21-Team1/blob/main/wiki_resources/Iterative_Process_Diagram.svg.png)
 # Installation Notes
 MySQLi
