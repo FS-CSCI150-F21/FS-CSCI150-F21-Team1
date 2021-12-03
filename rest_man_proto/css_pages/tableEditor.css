@@ -65,6 +65,8 @@ table{
     border-collapse: collapse;
     table-layout: fixed;
     border: 2px solid black;
+
+    
     
 }
 
@@ -79,16 +81,17 @@ table{
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    width: 15%;
+    width: 35vh;
     padding: 10px;
     text-align: center;
+
+
 }
 
 .tableBtns {
     background: white;
     color: black;
     padding: 5px;
-    border: 1px solid black;
     margin-right: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -96,7 +99,10 @@ table{
     width: auto;
     transition: all 0.25s;
     font-size: 15px;
+    border: 1px solid black;
+    border-radius: 12px;
 }
+
 
 .table_select{
     font-size: 20px;
@@ -104,11 +110,44 @@ table{
 
 .tableBtns:hover{
     cursor: pointer;
-    background: rgb(245, 255, 240);
     transform: scale(1.2,1.2);
 }
 
 
 #table_settings {
+    margin-top: 15vh;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    width: 35vh;
+    text-align: center;
+    padding: 10px;
+}
+
+.saveBtn {
+    background: white;
+    color: black;
+    padding: 5px;
+    border: 1px solid black;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-top: auto;
+    margin-left: auto;
+    height: 50px;
+    width: 200px;
+    transition: all 0.25s;
+    font-size: 30px;
+    position: absolute;
+    z-index: 1;
+}
+
+.saveBtn:hover{
+    background: rgb(181, 255, 159);
+    cursor: pointer;
+    transform: scale(1.2,1.2);
+}
+
+.current_action {
+    font-size: 20px;
     margin-bottom: 10px;
 }
+

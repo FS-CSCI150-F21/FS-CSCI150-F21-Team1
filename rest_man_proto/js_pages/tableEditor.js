@@ -3,9 +3,8 @@ var global_table_id;
 var newtables = 0;
 var table_objects = [];
 var hours_g;
+var open_g;
 function set_table_coords(){
-
-    newtables = 0;
 
     var numrows = document.getElementById("x").value;
     var numcols = document.getElementById("y").value;
@@ -14,7 +13,6 @@ function set_table_coords(){
     for(var i = 0;i<numrows;i++){
         table_coords[i] = new Array(numcols);
     }
-
     
     for(var i = 0;i<numrows;i++){
         for(var j = 0;j<numcols;j++){
@@ -48,7 +46,6 @@ function set_table(){
                 //console.log("number of from j response =", response.numberof);
                 createtablebuttons(response.numberof);
                 get_all_tables();
-
 
                 
 
@@ -128,6 +125,7 @@ function paintgrid(rows,cols){
             }
             var id = newi + newj; 
             if(isCharacterALetter(current_coord)){
+                
                 document.getElementById(id).style.backgroundColor = "rgb(145, 255, 163)";
             }
             else if(current_coord==0){
@@ -192,15 +190,18 @@ function create_grid(table_coords,numrows, numcols){
 function make_interactive(type, tableid){
     //console.log(tableid);
     var boxes = document.getElementsByClassName("box");
-    
+    var action = document.getElementById("is_drawing");
     if(type === 'delete'){
+        action.innerText = "Deleting Cells";
         for (let i = 0; i < boxes.length; i++) {
             boxes[i].setAttribute("onclick","erase(this.id)");
             boxes[i].style.cursor = "pointer";
         }
     }
     else if(type === 'table'){
+        
         global_table_id = tableid[5];
+        action.innerText = "Drawing Table " + global_table_id;
         //console.log(global_table_id);
         for (let i = 0; i < boxes.length; i++) {
             boxes[i].setAttribute("onclick","draw_table(this.id)");
@@ -208,6 +209,7 @@ function make_interactive(type, tableid){
         }
     }
     else if(type === 'default'){
+        action.innerText = "Drawing Default Cell";
         for (let i = 0; i < boxes.length; i++) {
             boxes[i].setAttribute("onclick","make_default(this.id)");
             boxes[i].style.cursor = "pointer";
@@ -218,6 +220,8 @@ function make_interactive(type, tableid){
 
 function remove_clickable()//removes functionality to prevent accidental clicks
 {
+    var action = document.getElementById("is_drawing");
+    action.innerText = "Click on button to start drawing";
     var boxes = document.getElementsByClassName("box");
     for(var i = 0 ; i<boxes.length ;i++)
     {
@@ -282,8 +286,8 @@ function new_table_button(){
         selectParent.appendChild(option);
         
         var test = [];        
-
-        for(let i = 0; i<hours_g; i++){
+        console.log(open_g);
+        for(let i = 0; i<open_g; i++){
             const hourly_reservation = {
                 time: (hours_g + i),
                 reserved: false
@@ -293,13 +297,13 @@ function new_table_button(){
 
         var emptyTable = {
             id: (alphabet[1 + newtables]),
-            capacity: Math.floor(Math.random() * 10),
+            capacity: Math.floor(Math.random() * (10 - 4) + 4),
             reservations: test
         }
         
         var constantTable = {
             id: "A",
-            capacity: Math.floor(Math.random() * 10),
+            capacity: Math.floor(Math.random() * (10 - 4) + 4),
             reservations: test
         }
 
@@ -325,7 +329,7 @@ function get_info(table_letter) {
         var open_hour = parseInt(settings.open_time.substring(0, 2));
         var close_hour = parseInt(settings.close_time.substring(0, 2));
         hours_g = close_hour - open_hour;
-
+        open_g = open_hour;
     }
     };
     j.open('POST', '../php_pages/settings.php');

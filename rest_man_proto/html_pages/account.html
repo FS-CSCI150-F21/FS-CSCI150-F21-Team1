@@ -47,13 +47,13 @@
     <h1> Account </h1>
 
     <div class="u">
-      <i class="fas fa-user"></i>
-      <input type="text" id="username" placeholder="Username" required><br>
+      <i class="fas fa-user" ></i>
+      <input type="text" id="username" placeholder="Username" class="usr" required><br>
     </div>
     
     <div class="p">
       <i class="fas fa-lock"></i>
-      <input type="password" id="password" placeholder="Password" required><br>
+      <input type="password" id="password" placeholder="Password" class="usr" required><br>
     </div>
 
 
@@ -78,14 +78,14 @@
   <div id="customer_modal" class="modal">
     <div class="modal-content animate">
       <div class="container">
-        <input type="text" placeholder="First Name" id="c_fname" required>
-        <input type="text" placeholder="Last Name" id="c_lname" required>
-        <input type="text" placeholder="Username" id="c_username" required>
-        <input type="password" placeholder="Password" id="c_password" required>
-        <button type="button" onclick="add_customer()">Add</button>
+        <input type="text" placeholder="First Name" id="c_fname" class="cst" required>
+        <input type="text" placeholder="Last Name" id="c_lname" class="cst" required>
+        <input type="text" placeholder="Username" id="c_username" class="cst" required>
+        <input type="password" placeholder="Password" id="c_password" class="cst" required>
+        <button type="button" onclick="add_customer()" class="cst_add">Add</button>
       </div>
       <div class="container">
-        <button type="button" onclick="hide()">Close</button>
+        <button type="button" onclick="hide()" class="cst_close"><i class="fas fa-window-close"></i></button>
         <div id="test" style="color: white;"></div>
       </div>
     </div>

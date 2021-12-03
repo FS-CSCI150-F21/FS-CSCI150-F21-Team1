@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "SELECT name,email,subject,mes,time FROM messages";
+$sql = "SELECT name,email,subject,mes,time,username FROM messages";
 
 $results = $conn->query($sql);
 

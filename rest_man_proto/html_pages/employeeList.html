@@ -24,9 +24,12 @@
       </div>
     </nav>
   </header>
-    
+  <div class="srchdiv">
+    <i class="fas fa-search" style="font-size: x-large;"></i>
+    <input type="text" id="myInput" onkeyup="myFunction()" class="srch" placeholder="Search for names">
+  </div>
     <div>
-        <table>
+        <table id="myTable">
             <caption class="tableTitle">EMPLOYEES</caption>
             <thead>
                 <tr>
@@ -34,7 +37,7 @@
                     <th>Last name</th>
                     <th>Phone number</th>
                     <th>Position</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="employee_list">

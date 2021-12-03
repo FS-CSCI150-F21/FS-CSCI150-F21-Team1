@@ -93,8 +93,7 @@ function login() {
     j.send("u=" + user + "&" + "p=" + pass + "&" + "l=" + level);
   }
   else {
-    document.getElementById("response").innerHTML = "ERROR: EMPTY FIELDS";
-    alert(j.responseText);
+    alert("EMPTY FIELDS CANNOT LOG IN");
   }
 }
 
@@ -208,7 +207,7 @@ function get_level() {
 function update_wt() {
   setInterval(function(){
     get_WaitTime();
-    console.log("1");
+    //console.log("1");
   }, 500);
 }
 

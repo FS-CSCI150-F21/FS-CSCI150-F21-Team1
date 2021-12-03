@@ -80,7 +80,7 @@ function valPassStrength(pass) {
 var modal = document.getElementById('add_modal');
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.visibility = "hidden";
+        modal.style.visibility = "visible";
     }
 }
 

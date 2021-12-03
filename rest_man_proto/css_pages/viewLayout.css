@@ -48,7 +48,7 @@ td {
 }
 
 .gridcontainer {
-    margin-top: 10vh;
+    margin-top: 5vh;
     margin-left: auto;
     margin-right: auto;
     width: 100vh;
@@ -91,20 +91,16 @@ table{
     padding-top: 60px; 
     text-align: center;
     align-items: center;
-
+}
     
-  }
-    
-  .modal-content {
+.modal-content {
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     width: 35vh; /* Could be more or less, depending on screen size */
     height: 60vh;
     align-items: center;
     color: white;
-  
 
-
-  } 
+} 
 
 .reserveBtn {
     width: 100%;
@@ -143,4 +139,19 @@ table{
 
 table {
     margin-bottom: 25px;
+}
+
+.animate {
+-webkit-animation: animatezoom 0.5s;
+animation: animatezoom 0.5s
+}
+
+@-webkit-keyframes animatezoom {
+from {-webkit-transform: scale(0)} 
+to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+from {transform: scale(0)} 
+to {transform: scale(1)}
 }

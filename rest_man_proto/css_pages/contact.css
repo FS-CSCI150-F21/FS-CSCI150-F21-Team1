@@ -72,3 +72,7 @@ body {
   cursor: pointer;
   background: rgb(216, 216, 216);
 }
+.response {
+  color: black;
+  font-size: 15px;
+}

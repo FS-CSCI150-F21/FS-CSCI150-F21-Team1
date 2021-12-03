@@ -25,7 +25,7 @@
       </div>
     </nav>
   </header>
-
+  <div class="content">
     <h1>Edit Restaurant Settings</h1>
     <label for="name_of_rest">Name</label>
     <input type="text" name="name_of_rest" id="rest_name">
@@ -38,15 +38,19 @@
     <label for="close_time">Close Time</label>
     <input type="time" id="close_time" name="close_time" max="24:00" required>
 
-    <legend>Days open</legend>
-    <input type="checkbox" name="days" value="Sunday">Su<br> 
-    <input type="checkbox" name="days" value="Monday">M<br>      
-    <input type="checkbox" name="days" value="Tuesday">T<br>      
-    <input type="checkbox" name="days" value="Wednesday">W<br>
-    <input type="checkbox" name="days" value="Thursday">Th<br> 
-    <input type="checkbox" name="days" value="Friday">F<br> 
-    <input type="checkbox" name="days" value="Saturday">S<br>   
+    <legend style="font-size: xx-large;">Days open</legend>
+
+    <input type="checkbox" name="days" value="Sunday">Su
+    <input type="checkbox" name="days" value="Monday">M     
+    <input type="checkbox" name="days" value="Tuesday">T   
+    <input type="checkbox" name="days" value="Wednesday">W
+    <input type="checkbox" name="days" value="Thursday">Th
+    <input type="checkbox" name="days" value="Friday">F
+    <input type="checkbox" name="days" value="Saturday">S  
 
     <button type="button" onclick="send_info()">Save</button>
+
+  </div>
+
 </body>
 </html>

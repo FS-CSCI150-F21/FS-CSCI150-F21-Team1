@@ -27,8 +27,11 @@
   </header>
 
 
-
-  <table>
+  <div class="srchdiv">
+    <i class="fas fa-search" style="font-size: x-large;"></i>
+    <input type="text" id="myInput" onkeyup="myFunction()" class="srch" placeholder="Search for names">
+  </div>
+  <table id="myTable">
     <caption class="tableTitle">MESSAGES</caption>
     <thead>
         <tr>
@@ -45,11 +48,12 @@
 
   <div id="add_modal" class="modal">
     <div class="container">
-      <button type="button" onclick="hide_modal()" class="closeBtn"><i class="fas fa-window-close"></i></button>
       <div id="test" style="color: white;"></div>
     </div>
     <div class="modal-content">
+      <button type="button" onclick="hide_modal()" class="closeBtn"><i class="fas fa-window-close"></i></button>
 
+      <h1 id="message_title" class="title"></h1>
       <p id="current_message"></p>
 
     </div>

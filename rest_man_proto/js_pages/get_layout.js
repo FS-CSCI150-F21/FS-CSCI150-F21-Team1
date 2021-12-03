@@ -25,6 +25,8 @@ function set_table(){
 
 }
 
+var current_letter = 0;
+var existing_letters = [];
 function paintgrid(rows,cols){
     var newi, newj;
     for(var i = 0; i < rows; i++){
@@ -46,6 +48,11 @@ function paintgrid(rows,cols){
             
             
             if(isCharacterALetter(current_coord)){
+                
+                if(current_letter !== current_coord && (!existing_letters.includes(current_coord))){
+                    existing_letters.push(current_coord);
+                    current_letter = current_coord;
+                }
                 letter_cells(current_coord,i,j, id);
             }
             else if(current_coord==-1){
@@ -72,6 +79,7 @@ function paintgrid(rows,cols){
         }
 
     }
+    random_color();
 }
 function deleted_cells(current_coord,i,j,id){
     check_delete_above(current_coord,i,j,id);
@@ -129,19 +137,38 @@ function letter_cells(current_coord,i,j,id){
 
     document.getElementById(id).setAttribute('onmouseleave', 'remove_back("'+current_coord+'")')
 
-    
     check_above(current_coord,i,j,id);
     check_below(current_coord,i,j,id);
     check_left(current_coord,i,j,id);
     check_right(current_coord,i,j,id);
+
     //console.log(current_coord,i,j,id);
 
+}
+var colors = [];
+function random_color() {
+
+    console.log(existing_letters);
+    for (let i = 0; i < existing_letters.length; i++) {
+        const rgb1 = Math.floor(Math.random() * (255 - 185) + 185);
+        const rgb2 = Math.floor(Math.random() * (255 - 185) + 185);
+        const rgb3 = Math.floor(Math.random() * (255 - 185) + 185);
+        var boxes = document.getElementsByClassName("letter_box" + existing_letters[i]);
+        for(let i = 0; i<boxes.length;i++){
+            boxes[i].style.backgroundColor = "rgb(" + rgb1 + "," + rgb2 + "," +rgb3 + ")";
+        }
+        const color_obj = {
+            letter: existing_letters[i],
+            color: "rgb(" + rgb1 + "," + rgb2 + "," +rgb3 + ")"
+        }
+        colors.push(color_obj)
+        
+    }
 }
 
 function highlight(letter) {
 
     var boxes = document.getElementsByClassName("letter_box" + letter);
-
     //console.log(boxes.length);
     for(let i = 0; i<boxes.length; i++){
         boxes[i].style.backgroundColor = "white";
@@ -150,14 +177,17 @@ function highlight(letter) {
     }
 }
 
-function remove_back(letter) {
 
+function remove_back(letter) {
+    
+    idx = colors.findIndex(x => x.letter === letter);
     var boxes = document.getElementsByClassName("letter_box" + letter);
 
     //console.log(boxes.length);
     for(let i = 0; i<boxes.length; i++){
 
-        boxes[i].style.backgroundColor = "transparent";
+        // boxes[i].style.backgroundColor = "rgb(" + rgb1 + "," + rgb2 + "," +rgb3 + ")";
+        boxes[i].style.backgroundColor = colors[idx].color;
         boxes[i].style.transform = "scale(1.0)";
 
     }

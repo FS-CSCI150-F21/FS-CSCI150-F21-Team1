@@ -18,9 +18,6 @@ if ($conn->connect_error) {
 }
 
 
-
-
-
 $sql = "UPDATE table_info SET reservations='$serialized' WHERE id = '$tableid';";
 echo $jsoncoords;
 

@@ -6,6 +6,7 @@ body{
   background-size: 400% 400%;
 }
 
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -88,7 +89,8 @@ body{
   border: 1px solid #888;
   display: flex;
   flex-direction: column;
-  width: 100vh;
+  width: 45vh;
+  text-align: center;
 }
 
 .animate {
@@ -110,7 +112,7 @@ body{
   font-size: 25px;
 }
 
-input[type = text]{
+.usr {
   background: transparent;
   border: none;
   border-bottom: 2px solid black;
@@ -120,24 +122,59 @@ input[type = text]{
   width: 25%;
 }
 
-input[type = text]:focus{
+.usr:focus {
   width: 35%;
   
 }
 
-input[type = password]{
+.cst {
   background: transparent;
   border: none;
   border-bottom: 2px solid black;
   margin-bottom: 15px;
   font-size: 25px;
-  width: 25%;
   transition: all 0.25s;
+  width: 100%;
+  color: white;
 }
 
-input[type = password]:focus {
-  width: 35%;
+.cst_add {
+  cursor: pointer;
+  width: 50%;
+  height: 35px;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background: whitesmoke;
+  transition: transform .25s ease-in-out;
+  font-size: 25px;
 }
+.cst_add:hover {
+  transform: scale(1.1, 1.1);
+  background: rgb(132, 252, 152);
+  color: #ffffff;
+}
+
+
+.cst_close {
+  cursor: pointer;
+  height: 35px;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background: none;
+  transition: transform .25s;
+  font-size: 35px;
+  color: rgb(255, 118, 118);
+  float: right;
+}
+
+.cst_close:hover {
+  transform: scale(1.25, 1.25);
+}
+
 
 .lvl_select{
   background: transparent;

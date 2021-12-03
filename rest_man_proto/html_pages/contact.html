@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../css_pages/contact.css">
     <script src="../js_pages/page_transition.js"></script>
     <script src="../js_pages/contact.js"></script>
+    <script src="../js_pages/authorizec.js"></script>
     <link href="../css_pages/page_transition.css" rel="stylesheet">
     <link rel="stylesheet"  type="text/css" href="../icons/all.css">
 
@@ -12,7 +13,7 @@
 </head>
 <header>
 </header>
-<body>
+<body onload="authorize(); get_user_info();">
     <svg id="fader"></svg>
     <script>
         fadeInPage();
@@ -36,14 +37,15 @@
         <h1 id="Welcome">Contact us!</h1>
         <div id= "contact_form" class = "contactform">
             <label for="name">Name</label><br>
-            <input type="text" id="name" placeholder="Name" required><br><br>
+            <input type="text" id="name" placeholder="Name" required disabled><br><br>
             <label for="email">Email</label><br>
-            <input type="email" id="email" placeholder="Email" required><br><br>
+            <input type="email" id="email" placeholder="Email" required disabled><br><br>
             <label for="subject">Subject</label><br>
             <input type="text" id="subject" placeholder="Subject" required><br><br>
             <label for="message">Message</label><br>
             <textarea rows="4" cols="50" type="text" id="message" placeholder="Message"required></textarea>
             <br><br>
+            <div id="test" class="response"></div>
             <button type="button" onclick="add_message()" class="send_btn">Send</button><br><br>
         </div>
     </div>
