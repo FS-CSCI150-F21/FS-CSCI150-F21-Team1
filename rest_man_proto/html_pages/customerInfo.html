@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Information</title>
+    <link rel="stylesheet" type="text/css" href="../css_pages/employees.css"> 
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+    <script src="../js_pages/customerInfo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<header>
+</header>
+<body onload="update()">
+<!-- <a class ="navigate" href="login.html"><br>Login/Sign Up</a></li> -->
+
+    <!--Nav bar-->
+    <nav class="nav">
+      <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
+      <button onclick="window.location='menu.html'" type="button" class="navicons"><i class="fas fa-utensils"></i></button>
+      <button onclick="window.location='contact.html'" type="button" class="navicons"><i class="fas fa-envelope"></i></button>
+      <button onclick="window.location='about.html'" type="button" class="navicons"><i class="fas fa-info"></i></button>
+
+      <div class="rightnav">
+          <button type="button" onclick="to_dashboard()" class="dash_btn"><i class="fas fa-tachometer-alt"></i></button>
+      </div>
+    </nav>
+    <button onclick="window.location='customerList.html'" type="button" class="back"><i class="fas fa-long-arrow-alt-left"></i></button>
+    <button onclick="edit_customer()" type="button" class="back"><i class="far fa-edit"></i></button>
+    <h1 style="text-align:center">CUSTOMER INFORMATION</h1>
+    <img src="../images/avatar.jpg" width=300px id="avatar"></img>
+    <div class="info_box">
+      <div class="info_content" id="f_name"></div>
+      <div class="info_content" id="l_name"></div>
+      <div class="info_content" id="email"></div>
+      <div class="info_content" id="phone"></div>
+      <p>Times visited: </p>
+      <p>Last Visit Date: </p>
+      <p>Favorite menu item: </p>
+      <p>Previous orders: </p>
+    </div>
+</body>
+</html>

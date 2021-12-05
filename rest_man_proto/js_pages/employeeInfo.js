@@ -66,7 +66,7 @@ function edit(){
     };
     j.open('POST', '../php_pages/update_employee.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("fname=" + f_name + "&lname=" + l_name + "&email=" + email+ "&phone=" + phone+ "&position=" + position+ "&wage=" + wage);
+    j.send("fname=" +employee['first_name']+"&fname1=" + f_name + "&lname=" + l_name + "&email=" + email+ "&phone=" + phone+ "&position=" + position+ "&wage=" + wage);
 }
 // var user_array;
 // var length;
