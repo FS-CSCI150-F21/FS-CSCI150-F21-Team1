@@ -12,7 +12,7 @@
 
 </head>
 
-<body onload="set_table(); get_all_table_reservations();">
+<body onload="set_table(); get_all_table_reservations(); check_previous_reservation(); ">
   <header>
     <nav class="nav">
       <button onclick="window.location='index.html'" type="button" class="navicons"><i class="fas fa-home"></i></button>
@@ -28,7 +28,9 @@
    
   <div class="gridcontainer">
     <table>
+
       <caption style="font-size: 35px;">Tables</caption>
+      <caption>Click on a table to make a reservation</caption>
         <tbody id="grid">
     
         </tbody>
@@ -38,7 +40,6 @@
   <div id="add_modal" class="modal ">
     <div class="modal-content animate" id="reservation_buttons">
       <table>
-        
         <thead id="tabletitle" style="font-size: 35px;">
         </thead>
         <tbody id="reservation_list"></tbody>

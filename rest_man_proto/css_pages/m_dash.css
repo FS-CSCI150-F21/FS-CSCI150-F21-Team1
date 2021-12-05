@@ -70,3 +70,12 @@ body{
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+.mgr {
+    background: rgb(217, 255, 199);
+}
+
+.emp {
+    background: rgb(205, 199, 255);
+}
+
