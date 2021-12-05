@@ -183,11 +183,11 @@ table tbody tr:hover {
   
 }
 
-.deleteBtn{
+.deleteBtn, .editBtn{
   border-radius: 5px;
   background-color: rgb(39, 36, 36);
   color: white;
-  width: 75%;
+  width: 50%;
   height: 100%;
   padding: 5px;
   transition: all 0.3s;
@@ -199,6 +199,13 @@ table tbody tr:hover {
   border: 1p solid black;
   color:#000000;
   background-color: rgb(255, 109, 109);
+}
+
+.editBtn:hover{
+  cursor: pointer;
+  border: 1p solid black;
+  color:white;
+  background-color: rgb(109, 184, 255);
 }
 
 .refreshBtn{

@@ -17,7 +17,7 @@ function create_user_rows(){
         var element = document.createElement("button");
         element.type = "button";
         element.innerHTML = '<i class="fas fa-trash"></i>';
-        element.className ="deleteBtn"
+        element.className ="deleteBtn";
         element.onclick = function() {
             delete_user(user_array[this.parentNode.parentNode.rowIndex-1]);
         }
@@ -26,7 +26,7 @@ function create_user_rows(){
         var editBtn = document.createElement("button");
         editBtn.type = "button";
         editBtn.innerHTML = '<i class="far fa-eye"></i>'
-        editBtn.className ="editBtn"
+        editBtn.className ="editBtn";
         editBtn.onclick = function() {
             window.location="./employeeInfo.html#"+user_array[this.parentNode.parentNode.rowIndex-1]['username'];
         }

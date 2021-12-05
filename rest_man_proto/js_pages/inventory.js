@@ -16,6 +16,8 @@ function create_inventory_rows(){
         var editBtn = document.createElement("button");
         editBtn.type = "button";
         editBtn.innerText = "Edit"
+        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+        editBtn.className ="editBtn";
         editBtn.onclick = function() {
             inventory.rows[this.parentNode.parentNode.rowIndex-1].innerHTML = 
             "<tr><td>"+ inventory_array[this.parentNode.parentNode.rowIndex-1]['name']+"</td>"+
@@ -28,7 +30,9 @@ function create_inventory_rows(){
         //Delete button
         var deleteBtn = document.createElement("button");
         deleteBtn.type = "button";
-        deleteBtn.innerText = "Delete"
+        deleteBtn.innerText = "Delete";
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        deleteBtn.className ="deleteBtn";
         deleteBtn.onclick = function() {
             delete_inventory(inventory_array[this.parentNode.parentNode.rowIndex-1]);
         }
