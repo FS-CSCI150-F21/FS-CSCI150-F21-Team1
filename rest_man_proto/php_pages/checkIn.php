@@ -28,8 +28,7 @@ if($status == 'in')
 }
 else //status=out
 {
-  $sql ="SELECT `name`, `status`, `time_loggedIn`, `time_loggedOut`, `total_hours_worked` FROM `employee_time` WHERE name='$name' AND status='in' ORDER BY
-  3 DESC LIMIT 1;";
+  $sql ="SELECT `name`, `status`, `time_loggedIn`, `time_loggedOut`, `total_hours_worked` FROM `employee_time` WHERE name='$name' AND status='in' ORDER BY date DESC LIMIT 1;";
   echo $sql;
 
   $results = $conn->query($sql);
