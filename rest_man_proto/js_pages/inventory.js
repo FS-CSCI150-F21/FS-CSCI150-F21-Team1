@@ -104,7 +104,7 @@ function add_inventory() {
 }
 function hide_modal(){
     document.getElementById("test").innerHTML = "";
-    document.getElementById('add_modal').style.display='none';
+    document.getElementById('add_modal').style.visibility='hidden';
     get_inventory();
     }
 

@@ -17,12 +17,35 @@ function create_timesheet_rows(){
       var logout = row.insertCell(-1);
       var totaltime = row.insertCell(-1);
       var edit = row.insertCell(-1);
+
+      var editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.innerText = "Edit";
+      editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+      editBtn.className ="editBtn";
+
+      editBtn.onclick = function() {
+      console.log(timesheet.rows[this.parentNode.parentNode.rowIndex-1].innerHTML);
+
+        if(timesheet_array[this.parentNode.parentNode.rowIndex-1]['status']=='in')
+        {
+          timesheet.rows[this.parentNode.parentNode.rowIndex-1].innerHTML += "<td><input type=\"text\" id=\"newIn\" placeholder=\"Log In\" required></td><td><button onclick=\"update_time_in(timesheet_array[this.parentNode.parentNode.rowIndex-1])\">Change</button><button onclick=\"close_edit_in(this.parentNode.parentNode.rowIndex-1)\">< Back</button></td></tr>";
+        }
+        else
+        {
+          timesheet.rows[this.parentNode.parentNode.rowIndex-1].innerHTML += "<td><input type=\"text\" id=\"newOut\" placeholder=\"Log Out\" required></td><td><button onclick=\"update_time_out(timesheet_array[this.parentNode.parentNode.rowIndex-1])\">Change</button><button onclick=\"close_edit_out(this.parentNode.parentNode.rowIndex-1)\">< Back</button></td></tr>";
+        }
+    }
+
       var element = document.createElement("button");
       element.type = "button";
-      element.innerText = "Delete"
+      element.innerText = "Delete";
+      element.innerHTML = '<i class="fas fa-trash"></i>';
+      element.className ="deleteBtn";
       element.onclick = function() {
           delete_time(timesheet_array[this.parentNode.parentNode.rowIndex-1]);
       }
+
       name.innerHTML = timesheet_array[i]['name'];
       status.innerHTML = timesheet_array[i]['status'];
       date.innerHTML = timesheet_array[i]['date'];
@@ -30,9 +53,21 @@ function create_timesheet_rows(){
       logout.innerHTML = timesheet_array[i]['time_loggedOut'];
       totaltime.innerHTML = timesheet_array[i]['total_hours_worked'];
       edit.appendChild(element);
+      edit.appendChild(editBtn);
   }
 }
 
+function close_edit_in(data){
+  console.log(timesheet.rows[data].innerHTML);
+  var newRow = timesheet.rows[data].innerHTML.replace("<td><input type=\"text\" id=\"newIn\" placeholder=\"Log In\" required=\"\"></td><td><button onclick=\"update_time_in(timesheet_array[this.parentNode.parentNode.rowIndex-1])\">Change</button><button onclick=\"close_edit_in(this.parentNode.parentNode.rowIndex-1)\">&lt; Back</button></td>","");
+  timesheet.rows[data].innerHTML=newRow;
+  console.log(timesheet.rows[data].innerHTML);
+
+}
+function close_edit_out(data){
+  var newRow = timesheet.rows[data].innerHTML.replace("<td><input type=\"text\" id=\"newOut\" placeholder=\"Log Out\" required=\"\"></td><td><button onclick=\"update_time_out(timesheet_array[this.parentNode.parentNode.rowIndex-1])\">Change</button><button onclick=\"close_edit_out(this.parentNode.parentNode.rowIndex-1)\">&lt; Back</button></td>","");
+  timesheet.rows[data].innerHTML=newRow;
+}
 function get_name()
 {
   var selection = document.getElementById("options");
@@ -48,7 +83,7 @@ function get_name()
         }
       }
     };
-  j.open('POST', '../php_pages/m_getAllUserName.php');
+  j.open('GET', '../php_pages/m_getAllUserName.php');
   j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   j.send();
 }
@@ -65,10 +100,11 @@ function get_timesheet() {
                 create_timesheet_rows();
             }
     };
-    j.open('POST', '../php_pages/m_getALLtimesheet.php');
+    j.open('GET', '../php_pages/m_getALLtimesheet.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send();
 }
+
 function get_user_timesheet() {
   var selected =document.getElementById("options").value;
   if(selected==0)
@@ -114,6 +150,38 @@ function create_user_timesheet_rows(){
       totaltime.innerHTML = user_timesheet_array[i]['total_hours_worked'];
       edit.appendChild(element);
   }
+}
+function update_time_in(data) {
+  var name= data['name'];
+  var date= data['date'];
+  var status= data['status'];
+  var newTime = document.getElementById("newIn").value;
+  var j = new XMLHttpRequest();
+      j.onreadystatechange = function () {
+          if (j.readyState == 4 && j.status == 200) {
+              alert("Updated");
+              get_timesheet();
+          }
+  };
+  j.open('POST', '../php_pages/m_updateTimesheet.php');
+  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  j.send("name=" + name + "&date=" + date + "&status=" + status + "&newTime=" + newTime);
+}
+function update_time_out(data) {
+  var name= data['name'];
+  var date= data['date'];
+  var status= data['status'];
+  var newTime = document.getElementById("newOut").value;
+  var j = new XMLHttpRequest();
+      j.onreadystatechange = function () {
+          if (j.readyState == 4 && j.status == 200) {
+              alert("Updated");
+              get_timesheet();
+          }
+  };
+  j.open('POST', '../php_pages/m_updateTimesheet.php');
+  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  j.send("name=" + name + "&date=" + date + "&status=" + status + "&newTime=" + newTime);
 }
 
 function delete_time(data){

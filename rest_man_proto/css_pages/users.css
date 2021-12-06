@@ -287,3 +287,16 @@ option{
   width: 50%;
 
 }
+
+.editRow {
+  /* visibility: hidden; */
+  /* position: fixed; Stay in place */
+  z-index: 2; /*Sit on top */
+  width: 100%; 
+  height: 100%;
+  /* overflow: auto; Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  text-align: center;
+  /* align-items: center; */
+}
