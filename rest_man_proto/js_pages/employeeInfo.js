@@ -60,7 +60,7 @@ function edit(){
     var j = new XMLHttpRequest();
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                alert(j.responseText);
+                // alert("Edited");
                 update();
             }
     };
