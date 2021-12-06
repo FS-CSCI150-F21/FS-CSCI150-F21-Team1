@@ -9,6 +9,8 @@ $firstname = $_POST['fn'];
 $lastname = $_POST['ln'];
 $playerusername = $_POST['u'];
 $playerpassword = hash("sha256", $_POST['p']);
+$phone = $_POST['n'];
+$email = $_POST['e'];
 $userlevel = 2;
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -31,8 +33,8 @@ if ($exists > 0)
 }
 else
 {
-    $sql = "INSERT INTO user_info (first_name, last_name, username, password, level) 
-    VALUES ('$firstname','$lastname','$playerusername','$playerpassword','$userlevel');";
+    $sql = "INSERT INTO user_info (first_name, last_name, username, password, level, phone, email) 
+    VALUES ('$firstname','$lastname','$playerusername','$playerpassword','$userlevel','$phone','$email');";
     echo "1";
 }
 

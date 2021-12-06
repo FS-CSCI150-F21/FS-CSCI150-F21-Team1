@@ -77,12 +77,12 @@ table{
 
 
 .modal {
-    /* display: none; */
-    visibility: hidden;
+    display: none;
     position: fixed; /*Stay in place*/
     z-index: 1; /*Sit on top */
     left: 0;
     top: 0;
+    margin: 0px;
     width: 100%; 
     height: 100%;
     overflow: auto; /* Enable scroll if needed */
@@ -91,6 +91,7 @@ table{
     padding-top: 60px; 
     text-align: center;
     align-items: center;
+    overflow: auto;
 }
     
 .modal-content {

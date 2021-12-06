@@ -148,7 +148,7 @@ function letter_cells(current_coord,i,j,id){
 var colors = [];
 function random_color() {
 
-    console.log(existing_letters);
+    //console.log(existing_letters);
     for (let i = 0; i < existing_letters.length; i++) {
         const rgb1 = Math.floor(Math.random() * (255 - 185) + 185);
         const rgb2 = Math.floor(Math.random() * (255 - 185) + 185);

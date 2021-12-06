@@ -6,20 +6,11 @@ $dbpassword = "iF2ONNbmcCTcdjrd";
 $dbname = "rest_info";
 
 
-$tableid = $_POST['id'];
 
 if(isset($_SESSION['username'])){
   $temp = $_SESSION['username'];
 }
 
-$j_reservation = $_POST['info'];
-$user_reservation = json_decode($j_reservation);
-$res_serial = serialize($user_reservation);
-
-
-$jsoncoords = $_POST['res'];
-$coords = json_decode($jsoncoords);
-$serialized = serialize($coords);
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
@@ -27,17 +18,24 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+$sql = "SELECT reservation_info FROM user_info WHERE username = '$temp';";
 
-$sql = "UPDATE table_info SET reservations='$serialized' WHERE id = '$tableid';";
+$results = $conn->query($sql);
 
-echo $temp;
+$exists = $results->num_rows;
+
+$rows = $results->fetch_assoc();
+
+$rows["reservation_info"] = unserialize($rows["reservation_info"]);
+
+
+echo json_encode($rows);
 
 if ($conn->query($sql) !== FALSE) {} 
 else {echo "Error: " . $sql . "<br>" . $conn->error;}
 
 
-$sql2 = "UPDATE user_info SET reservation_info = '$res_serial' WHERE username = '$temp';";
-$conn->query($sql2);
+
   
 
 

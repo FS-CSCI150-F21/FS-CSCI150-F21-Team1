@@ -129,18 +129,27 @@ function add_customer() {
   var l_name = document.getElementById("c_lname").value;
   var user = document.getElementById("c_username").value;
   var pass = document.getElementById("c_password").value;
+  var phone = document.getElementById("c_phone").value;
+  var email = document.getElementById("c_email").value;
 
   if (!valPassStrength(pass)) {
     return;
   }
 
-  if (user != "" && pass != "" && f_name != "" && l_name != "") {
+  if (user != "" && pass != "" && f_name != "" && l_name != "" && phone != "" && email != "") {
     var j = new XMLHttpRequest();
     j.onreadystatechange = function () {
       if (j.readyState == 4 && j.status == 200) {
         console.log(j.responseText)
         if (j.responseText == 1) {
           document.getElementById("test").innerHTML = "Successfully Added";
+          console.log(user,pass);
+          document.getElementById("username").value = user;
+          document.getElementById("password").value = pass;
+          document.getElementById('user_level').value = 2;
+          login();
+
+
         }
         else {
           document.getElementById("test").innerHTML = "Username already exists";
@@ -150,7 +159,7 @@ function add_customer() {
     };
     j.open('POST', '../php_pages/add_customer.php');
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("fn=" + f_name + "&" + "ln=" + l_name + "&" + "u=" + user + "&" + "p=" + pass + "&");
+    j.send("fn=" + f_name + "&" + "ln=" + l_name + "&" + "u=" + user + "&" + "p=" + pass + "&" + "n=" + phone + "&" + "e=" + email + "&" );
   }
   else {
     document.getElementById("test").innerHTML = "ERROR: EMPTY FIELDS";
